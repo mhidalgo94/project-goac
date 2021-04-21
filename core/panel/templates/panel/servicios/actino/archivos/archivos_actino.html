@@ -1,0 +1,202 @@
+{% extends 'panel/erp/views.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'lib/datatables-1.10/plugins/bulma/dataTables.bulma.min.css' %}" />
+<script src="{% static 'lib/datatables-1.10/plugins/bulma/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'lib/datatables-1.10/plugins/bulma/dataTables.bulma.min.js' %}"></script>
+<!-- static de modal bulma -->
+<link rel="stylesheet" href="{% static 'css/modal-fx.min.css' %}" />
+<script src="{% static 'js/modal-fx.min.js' %}"></script>
+{% endblock %}
+
+{% block contenido %}
+<!-- Targetas de alertas solo para portada de dashboart -->
+<section class="section is-main-section pb-1 pt-1">
+    <div class="tile is-ancestor">
+        <div class="tile is-parent">
+            <div class="card tile is-child">
+                <div class="card-content">
+                    <div class="level is-mobile">
+                        <div class="level-item">
+                            <div class="is-widget-label">
+                                <h3 class="subtitle is-spaced">Cant. Archivos</h3>
+                                <h1 class="title is-4 has-text-info">
+                                    <!-- Cantidad de archivos En la carpeta -->
+                                    {{ carpeta_detalles.cant_arch}} Archivos
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="level-item has-widget-icon">
+                            <div class="is-widget-icon" style="font-size: 50px;"><span
+                                    class="icon has-text-primary is-large">
+                                    <i class="fas fa-file fa-x4"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tile is-parent">
+            <div class="card tile is-child">
+                <div class="card-content">
+                    <div class="level is-mobile">
+                        <div class="level-item">
+                            <div class="is-widget-label">
+                                <h3 class="subtitle is-spaced">
+                                    Tamaño Carpeta
+                                </h3>
+                                <h1 class="title is-4 has-text-info">
+                                    {{ carpeta_detalles.carpeta_size| filesizeformat }}
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="level-item has-widget-icon">
+                            <div class="is-widget-icon" style="font-size: 54px;"><span
+                                    class="icon has-text-success is-large">
+                                    <i class="fas fa-folder"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tile is-parent">
+            <div class="card tile is-child">
+                <div class="card-content">
+                    <div class="level is-mobile">
+                        <div class="level-item">
+                            <div class="is-widget-label">
+                                <h3 class="subtitle is-spaced has-text-centered"> Ult. Modif </h3>
+                                <h1 class="title is-5 has-text-info">
+                                    {{ carpeta_detalles.modific |date:"d-M"}} - {{ carpeta_detalles.modific|time}}
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="level-item has-widget-icon">
+                            <div class="is-widget-icon" style="font-size: 54px;"><span
+                                    class="icon has-text-warning is-large">
+                                    <i class="fas fa-folder-open"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tile is-parent">
+            <div class="card tile is-child">
+                <div class="card-content">
+                    <div class="level is-mobile">
+                        <div class="level-item">
+                            <div class="is-widget-label">
+                                <button class="button is-link ml-2" id="btn-modal"><i class="fas fa-table mr-2"></i>
+                                    Históricos</button>
+                            </div>
+                        </div>
+                        <div class="level-item has-widget-icon">
+                            <div class="is-widget-icon" style="font-size: 54px;">
+                                <span class="icon has-text-link is-large">
+                                    <i class="fas fa-chart-area"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<hr>
+<div class="container">
+    <table class="table is-hoverable" id="dtable">
+        <thead>
+            <tr>
+                <th width="60%">Nombre Archivo</th>
+                <th width="45%">Tamaño</th>
+                <th width="5%">Obciones</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <hr>
+    <div class="field">
+        <div class="field is-grouped">
+            <div class="control">
+                <button type="button" id="update" class="button is-success is-outlined">
+                    <span><i class="fas fa-redo-alt"></i> Actualizar</span>
+                </button>
+            </div>
+            <div class="control-right">
+
+                <form id="upload-file" action="." method="POST" enctype="multipart/form-data">
+                    <label class="upload control">
+                        <a type="button" id="update" class="button is-info is-outlined">
+                            <span><i class="fas fa-file-upload mr-2"></i>Subir Archivo</span>
+                            <input id="id_input_file" type="file" class="input is-primary" name="file">
+                            <input id="input-file-accion" type="hidden" name="accion" value="subir-archivo">
+                        </a>
+                    </label>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal modal-fx-fadeInScale" id="my-modal">
+    <div class="modal-background"></div>
+    <div class="modal-card" style="width: 70%;height: 80%;">
+
+        <header class="modal-card-head has-background-info">
+            <p class="modal-card-title has-text-white"><i class="fas fa-chart-area mr-1"></i><b>Archivos Históricos</b>
+            </p>
+            <button type="button" id="modal-close" class="delete"></button>
+
+        </header>
+
+        <section class="modal-card-body ">
+            <!-- Content ... -->
+            <table class="table is-hoverable" id="modal-table">
+                <thead>
+                    <tr>
+                        <th width="60%">Nombre Archivo</th>
+                        <th width="45%">Tamaño</th>
+                        <th width="5%">Obciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>nombre</td>
+                        <td>nombre</td>
+                        <td>nombre</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <footer class="modal-card-foot">
+            <form id="upload-file" action="." method="POST" enctype="multipart/form-data">
+                <label class="upload control">
+                    <a type="button" id="update-historicos" class="button is-info is-outlined">
+                        <span><i class="fas fa-file-upload mr-2"></i>Subir Archivo</span>
+                        <input id="input_historico" type="file" class="input is-primary" name="file">
+                        <input id="input-file-accion" type="hidden" name="accion" value="subir-archivo-historico">
+                    </a>
+                </label>
+                <button type="button" id="update-table-historicos" class="button is-success is-outlined ml-2">
+                    <span><i class="fas fa-redo-alt"></i> Actualizar</span>
+                </button>
+
+            </form>
+        </footer>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'panel/js/servicios/actino/func_archivos.js' %}"></script>
+<script src="{% static 'panel/js/servicios/actino/modal_historicos.js' %}"></script>
+
+{% endblock %}

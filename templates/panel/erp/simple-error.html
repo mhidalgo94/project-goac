@@ -1,0 +1,66 @@
+{% load static %}
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Error #1 - Admin One HTML Premium - Bulma Admin Dashboard</title>
+
+ <!-- Bulma is included -->
+ <link rel="stylesheet" href="{% static 'lib/panel/css/main.min.css' %}">
+
+ <!-- Fonts -->
+ <!-- <link rel="dns-prefetch" href="https://fonts.gstatic.com"> -->
+ <!-- <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css"> -->
+ <link href="{% static 'lib/panel/css/fonts.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<section class="section hero is-fullheight is-error-section">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-two-fifths">
+          <div class="has-text-centered">
+            <div class="card has-card-header-background">
+              <header class="card-header">
+                <p class="card-header-title">
+                  <span class="icon"><i class="mdi mdi-alert default"></i></span>
+                  <span>Sample Error</span>
+                </p>
+                <a href="index.html" class="button is-small router-link-active">
+                  <span class="icon"><i class="mdi mdi-desktop-mac default"></i></span>
+                </a>
+              </header>
+              <div class="card-content">
+                <div>
+                  <div class="error-page-icon">
+                    <span class="icon"><i class="mdi mdi-power-plug default"></i></span>
+                  </div>
+                  <div class="error-page-caption">
+                    <h1>Sample error</h1>
+                  </div>
+                  <div class="error-page-action">
+                    <div class="buttons is-centered">
+                      <a href="index.html" class="button is-black">
+                        Go Back
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-foot has-text-centered">
+    <div class="logo"></div>
+  </div>
+</section>
+
+<!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
+<link rel="stylesheet" href="{% static 'css/materialdesignicons.min.css' %}">
+
+
+</body></html>

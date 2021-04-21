@@ -1,0 +1,317 @@
+{% extends 'panel/body.html' %}
+{% load static %}
+
+{% block contenido %}
+
+
+<form action="." method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="edit">
+    <div class="field is-horizontal">
+        <div class="field">
+            <label class="title is-5 has-text-info ml-3">Encabezado de la página</label>
+        </div>
+    </div>
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="subtitle has-text-ghost has-text-justified">Imagen Logo:</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <div class="field file">
+                    <label class="upload control">
+                        <a class="button is-primary">
+                            <span class="icon"><i class="fas fa-upload"></i></span>
+                            {{ form.logo}}Ingrese el Logo
+                        </a>
+                    </label>
+                    <label class="upload control">
+                        {% if object.logo.url %}
+                        <a href="{{ object.logo.url }}" target="_blank"><i class="fas fa-image ml-2 mt-1" style="font-size: 35px;"></i></a>
+                        {% endif %}
+                    </label>
+                </div>
+            </div>
+
+            <div class="field-body">
+                <div class="field-label is-normal">
+                    <label class="subtitle has-text-ghost has-text-justified">Imagen del banner:</label>
+                </div>
+                <div class="field">
+                    <div class="field file">
+                        <label class="upload control">
+                            <a class="button is-primary">
+                                <span class="icon"><i class="fas fa-upload"></i></span>
+                                {{ form.img_banner}}Ingrese la imagen
+
+                            </a>
+                        </label>
+                        <label class="upload control">
+                            {% if object.img_banner.url %}
+                            <a href="{{ object.img_banner.url }}" target="_blank"><i class="fas fa-image ml-2 mt-1" style="font-size: 35px;"></i></a>
+                            {% endif %}
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="subtitle has-text- has-text-center">Título del banner:</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <p class="control is-expanded has-icons-left ">
+                    <!-- <input class="input" placeholder="Name" type="text"> -->
+                    {{ form.titulo_banner}}
+                    <span class="icon is-small is-left"><i class="fas fa-pen-nib"></i></span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="subtitle has-text-ghost has-text-center">Frase del banner:</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <p class="control is-expanded has-icons-left">
+                    <!-- <input class="input" placeholder="Name" type="text"> -->
+                    {{ form.frase}}
+                    <span class="icon is-small is-left"><i class="fas fa-quote-right"></i></span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+    <!-- info de la institucion -->
+    <div class="field is-horizontal">
+        <div class="field">
+            <label class="title is-5 has-text-info ml-3">Información de la institución</label>
+        </div>
+    </div>
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="subtitle has-text-ghost has-text-center"> Nosotros:</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                {{ form.nosotros }}
+
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="subtitle has-text-ghost has-text-center"> Dirección:</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <p class="control is-expanded has-icons-left">
+                    {{ form.direccion }}
+                    <span class="icon is-small is-left"><i class="fas fa-map-marked-alt"></i></span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="subtitle has-text-ghost has-text-center"> Código Postal:</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <p class="control is-expanded has-icons-left">
+                    {{ form.postal }}
+                    <span class="icon is-small is-left"><i class="fas fa-envelope-open"></i></span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="subtitle has-text-ghost has-text-center">Teléfono:</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <p class="control is-expanded has-icons-left">
+                <div class="field has-addons">
+                    <!-- <p class="control">
+                    <a class="button is-static">
+                        <i class="fas fa-phone"></i> +53
+                    </a>
+                </p> -->
+                    <p class="control is-expanded has-icons-left">
+
+                        {{ form.telefono }}
+                        <span class="icon is-small is-left"><i class="fas fa-phone"></i></span>
+                    </p>
+                </div>
+
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="subtitle has-text-ghost has-text-center"> Correo:</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <p class="control is-expanded has-icons-left">
+                    {{ form.correo }}
+                    <span class="icon is-small is-left"><i class="fas fa-at"></i></span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+    <div class="field is-horizontal">
+        <div class="field">
+            <label class="title is-5 has-text-info ml-3"> Redes sociales</label>
+        </div>
+
+    </div>
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="subtitle has-text-ghost has-text-center"> Dirección Facebook:</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <p class="control is-expanded has-icons-left">
+                    {{ form.url_facebook }}
+                    <span class="icon is-small is-left"><i class="fab fa-facebook-f"></i></span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="subtitle has-text-ghost has-text-center"> Dirección Twitter:</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <p class="control is-expanded has-icons-left">
+                    {{ form.url_Twitter }}
+                    <span class="icon is-small is-left"><i class="fab fa-twitter"></i></span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="subtitle has-text-ghost has-text-center"> Dirección Instagram:</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <p class="control is-expanded has-icons-left">
+                    {{ form.url_Instagram }}
+                    <span class="icon is-small is-left"><i class="fab fa-instagram"></i></span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+    <div class="field is-horizontal">
+        <div class="field">
+            <label class="title is-5 has-text-info ml-3"> Pie de la página</label>
+        </div>
+    </div>
+
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="subtitle has-text-ghost has-text-center"> Pie de la Página:</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <p class="control is-expanded has-icons-left">
+                    {{ form.footer_copyright }}
+                    <span class="icon is-small is-left"><i class="fas fa-shoe-prints"></i></span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="field is-horizontal pb-4">
+        <div class="field-label">
+            <!-- Left empty for spacing -->
+        </div>
+        <div class="field-body">
+            <div class="field-right">
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button type="submit" class="button is-primary">
+                            <span><i class="fas fa-edit"></i> Editar</span>
+                        </button>
+                    </div>
+                    <div class="control">
+                        <a href="{%url 'panel' %}" type="button" id="reset" class="button is-danger is-outlined">
+                            <span><i class="fas fa-times"></i> Cancelar</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+
+{% endblock %}
+
+{% block javascript %}
+<script>
+
+    $('form').on('submit', function (e) {
+        e.preventDefault();
+        var parameters = new FormData(this);
+        console.log(parameters);
+        Swal.fire({
+            title: 'Confirmación',
+            text: "Estas seguro de editar esta información",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Seguro!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: window.location.pathname,
+                    type: 'POST',
+                    data: parameters,
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false,
+                }).done(function (data) {
+                    if (!data.hasOwnProperty('error')) {
+                        Swal.fire(
+                            'Verificación!',
+                            'Sus datos han sido enviado correctamente',
+                            'success'
+                        )
+                        return false;
+                    }
+
+                    mensaje_error(data.error);
+                }).fail(function (data) {
+                }).always(function (data) {
+                });
+            }
+        });
+    });
+
+    $('#reset').on('click', function () {
+        $('input').reset();
+    });
+</script>
+{% endblock %}

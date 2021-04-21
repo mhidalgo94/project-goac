@@ -1,0 +1,294 @@
+{% extends 'panel/erp/forms.html' %}
+{% load static %}
+
+{% block head %}
+<!-- Libreria de select2 -->
+<link rel="stylesheet" href="{% static 'lib/select2-4.0/css/select2.min.css' %}" />
+<script src="{% static 'lib/select2-4.0/js/select2.min.js' %}"></script>
+<!-- static de modal bulma -->
+<link rel="stylesheet" href="{% static 'css/modal-fx.min.css' %}" />
+<script src="{% static 'js/modal-fx.min.js' %}"></script>
+
+{% endblock %}
+
+{% block contenido %}
+
+<div class="tile is-ancestor">
+    <div class="tile is-parent">
+        <div class="card tile is-child">
+            <div class="card-content mt-4 pr-4">
+                <form action="." method="POST" enctype="multipart/form-data" id="form-0">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="edit-miembro">
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="subtitle ">Estado:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control is-left is-normal select">
+                                    {{ form.estado }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal"><label class="subtitle">Avatar:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="field file">
+                                    <label class="upload control">
+                                        <a class="button is-primary">
+                                            <span class="icon"><i class="fas fa-upload"></i></span>
+                                            {{ form.imagen}}Imagen Miembro
+                                        </a>
+                                    </label>
+                                    <label class="upload control">
+                                        {% if object.imagen %}
+                                        <a href="{{ object.imagen.url }}" target="_blank"><i
+                                                class="fas fa-image ml-2 mt-1" style="font-size: 35px;"></i></a>
+                                        {% else %}
+                                        <p class="help ml-2 mt-2">No ha ingresado una imagen</p>
+                                        {% endif %}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="subtitle">{{ form.nombre.label }}:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.nombre}}
+                                </div>
+                                <p class="help ml-2">Requiere su nombre</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="subtitle">{{ form.apellidos.label }}:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.apellidos}}
+                                </div>
+                                <p class="help ml-2">Requiere sus apellidos</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="subtitle">{{ form.correo.label }}:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{form.correo}}
+                                </div>
+                                <p class="help ml-2">Requiere su correo</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="subtitle">{{ form.telefono.label }}:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.telefono}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <label class="subtitle has-text-justify ml-2 mr-2 mt-2">{{ form.fech_nacido.label }}:</label>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.fech_nacido}}
+                                </div>
+                            </div>
+                            <label class="subtitle pt-2 pl-4 pr-4">{{ form.sexo.label }}:</label>
+                            <div class="field">
+                                <div class="select">
+                                    {{ form.sexo }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="subtitle">{{ form.t_trabajo.label }}:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.t_trabajo}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="subtitle">{{ form.ocupacion.label }}:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.ocupacion}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="subtitle">{{ form.curriculo.label }}:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.curriculo}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="subtitle">{{ form.biografia.label }}:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.biografia}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="subtitle">{{ form.scientifca.label }}:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="select is-multiple" style="width: 650px;">
+                                    {{ form.scientifca}}
+                                    <button id="add-modal" type="button" class="button is-small is-info mt-2 mb-2">
+                                        <span><i class="fas fa-plus"></i> Sociedad Cientifica</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="field is-horizontal">
+    <div class="field-label">
+        <!-- Creando Espacio -->
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <div class="field is-grouped">
+                <div class="control">
+                    <button type="submit" class="button is-primary">
+                        <span><i class="fas fa-save"></i> Guardar</span>
+                    </button>
+                </div>
+                <div class="control">
+                    <a href="{% url 'list_miembros' %}" class="button is-danger is-outlined">
+                        <span><i class="fas fa-times"></i> Cancelar</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</form>
+
+<!-- Modal para crear Sociedad Cientifica -->
+<div class="modal modal-fx-fadeInScale" id="modal-scientifica">
+    <div class="modal-content is-medium">
+        <form action="." method="POST" id="form-1">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="add-scientifica">
+            <header class="modal-card-head has-background-info">
+                <p class="modal-card-title has-text-black">
+                    <span class="subtitle has-text-white"><i class="fas fa-plus mr-1"></i>Agregar Sociedad
+                        Cientifica</span>
+                </p>
+                <button type="button" id="modal-close" class="modal-close is-large"></button>
+            </header>
+            <section class="modal-card-body has-background-white-ter has-text-black">
+                <!-- Content ... -->
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label class="label">Sociedad Cientifica:</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                {{ modal.nombre}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label class="label">URL:</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                {{ modal.url}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label class="label">Descripcion:</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control texarea">
+                                {{ modal.desc}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <footer class="modal-card-foot has-background-grey-lighter">
+                <div class="level">
+                    <div class="level-right">
+                        <button type="submit" class="button is-primary"><i class="fas fa-save mr-1"></i>
+                            Guardar</button>
+                    </div>
+                </div>
+            </footer>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'panel/js/miembros/edit_miem.js' %}"></script>
+<script>
+    let input = document.getElementsByTagName('input');
+    input.fech_nacido.classList.add('input');
+    input.fech_nacido.placeholder = 'Día/Mes/Año';
+    input.t_trabajo.classList.add('input');
+    input.t_trabajo.placeholder = 'Día/Mes/Año';
+</script>
+{% endblock %}

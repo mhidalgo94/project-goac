@@ -1,0 +1,137 @@
+{% extends 'web/navbar-body.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'lib/datatables-1.10/plugins/bulma/dataTables.bulma.min.css' %}" />
+<script src="{% static 'lib/datatables-1.10/plugins/bulma/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'lib/datatables-1.10/plugins/bulma/dataTables.bulma.min.js' %}"></script>
+
+{% endblock %}
+
+{% block contenido_agregados %}
+<section class="wow animate__animated animate__fadeInUp section has-background-white">
+    <h1 class="title is-1 center mb-4">{{ titulo_page }}</h1>
+    <div class=" wow animate__animated animate__fadeInUp">
+
+        <div class="container">
+            <h1 class="title is-2 center">{{ object.titulo }}</h1>
+            <!-- Pestaña -->
+            <div class="tabs is-centered is-boxed">
+                <ul>
+                    <li class="is-active pr-1" id="detalles">
+                        <a>
+                            <span class="icon is-small"><i class="fas fa-search"></i></span>
+                            <span>Detalles</span>
+                        </a>
+                    </li>
+                    <li class="pr-1" id="participantes">
+                        <a>
+                            <span class="icon is-small"><i class="fas fa-users"></i></span>
+                            <span>Participantes</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Pestaña Detalles -->
+            <div class="container tile is-child" id="div-detalles">
+                <div class="card-content pr-4">
+                    <div class="container">
+                        {% if object.resumen %}
+                        <p class="has-text-justified">{{ object.resumen | safe }}
+                            {% else %}
+                        <h2 class="subtitle">No existen datos</h2>
+                        {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- Pestaña Participantes -->
+            <div class="container tile is-child" id="div-participantes">
+                <div class="table-wrapper has-mobile-cards">
+                    <table class="table is-bordered is-fullwidth is-striped is-hoverable is-fullwidth" id="dtable">
+                        <thead>
+
+                            <tr>
+                                <th width="40%">Nombre</th>
+                                <th width="40%">Centro</th>
+                                <th width="20%">País</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+                            {% for m in object.participantes.all %}
+                            <tr>
+                                <td> {{ m.nombre }}</td>
+                                <td>{{ m.centro }}</td>
+                                <td class="has-text-centered">{{ m.pais }}</td>
+
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+
+    $("#div-detalles").show();
+    $("#div-participantes").hide();
+
+    $('#detalles').on('click', function () {
+        $('li').removeClass('is-active');
+        $(this).addClass('is-active')
+        $("#div-detalles").show();
+        $("#div-participantes").hide();
+    });
+    $('#participantes').on('click', function () {
+        $('li').removeClass('is-active');
+        $(this).addClass('is-active')
+        $("#div-detalles").hide();
+        $("#div-participantes").show();
+    });
+
+    $('#dtable').DataTable({
+        responsive: true,
+        autoWidth: true,
+        destroy: true,
+        deferRender: true,
+        "language": {
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_ registros",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ningún dato disponible en esta tabla",
+            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Buscar:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            },
+            "buttons": {
+                "copy": "Copiar",
+                "colvis": "Visibilidad"
+            }
+        },
+    });
+
+</script>
+
+{% endblock %}

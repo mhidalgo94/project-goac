@@ -1,0 +1,39 @@
+{% extends 'panel/body.html' %}
+{% load static %}
+
+
+{% block contenido %}
+<div class="card-content pl-4 pt-4 pr-4 pb-4">
+    <div class="table-wrapper has-mobile-cards">
+        <table class="table is-fullwidth is-striped is-hoverable is-fullwidth" id="dtable">
+            <thead>
+                
+                {% block columns %}
+
+                {% endblock %}
+
+            </thead>
+
+            <tbody>
+
+            {% block rows %}
+
+            {% endblock %}
+
+            </tbody>
+                
+        </table>
+        <div class="container pt-4 pl-4">
+
+            {% block botones %}
+            {% endblock %}
+        </div>
+       
+    </div>
+
+    {% block modal %}
+
+    {% endblock %}
+
+
+    {% endblock %}

@@ -1,0 +1,363 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>titulo</title>
+    <!-- Bulma Version 0.9.0-->
+    <link rel="stylesheet" href="{% static 'css/bulma.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/hero.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/my_css.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'lib/fontawesome/css/all.min.css' %}">
+    <script src="{% static 'lib/fontawesome/js/all.min.js' %}"></script>
+
+</head>
+
+<body>
+
+    <section id="header">
+        <section>
+            <nav class="navbar is-fixed-top is-spaced" id="bar-nav">
+                <div class="navbar-brand">
+                    <a href="" class="navbar-item">
+                        <img class="ml-6" src="{% static 'img/goac-logo.png' %}" alt="" width="140" height="40"
+                            style="background: none;">
+                    </a>
+                    <div class="navbar-burger" id="btn-burger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="navbar-menu" id="btn-menu">
+                    <div class="navbar-end">
+                        <a href="#" class="navbar-item ">
+                            Inicio
+                        </a>
+
+                        <div class="navbar-item has-dropdown is-hoverable">
+                            <a class="navbar-link ">
+                                Publicaciones
+                            </a>
+                            <div class="navbar-dropdown">
+                                <a class="navbar-item " href="#">
+                                    Reportes
+                                </a>
+                                <a class="navbar-item" href="#">
+                                    Art&iacuteculos con Arbitrajes
+                                </a>
+                                <a class="navbar-item" href="#">
+                                    Informes Científicos Técnicos
+                                </a>
+                                <a class="navbar-item" href="#">
+                                    Presentacion de Eventos
+                                </a>
+                            </div>
+                        </div>
+
+                        <a href="#" class="navbar-item">
+                            Reconocimientos
+                        </a>
+                        <div class="navbar-item has-dropdown is-hoverable">
+                            <a class="navbar-link">
+                                Instrumentos
+                            </a>
+                            <div class="navbar-dropdown">
+                                <a href="#" class="navbar-item">
+                                    Estación Actinométrica
+                                </a>
+                                <a href="#" class="navbar-item">
+                                    Estacion Lidiar
+                                </a>
+                                <a href="#" class="navbar-item">
+                                    Inpacto de Particulas
+                                </a>
+                            </div>
+                        </div>
+                        <div class="navbar-item has-dropdown is-hoverable">
+                            <a class="navbar-link">
+                                Investigaciones
+                            </a>
+                            <div class="navbar-dropdown">
+                                <a href="#" class="navbar-item">
+                                    Temas
+                                </a>
+                                <a href="#" class="navbar-item">
+                                    Proyectos
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            </div>
+            <div id="bg-text" class="is-overlay has-text-centered has-text-black">
+                <h1 class="title is-1 has-text-light pt-3" id="title-page">ATMOSPHRIC OPTIC'S GROUP OF CAMAGUEY</h1>
+                <h2 class="subtitle has-text-light mt-2" id="frase">"GOAC's main goal is The study of radiative transfer
+                    processes in
+                    the atmosphere in the conditions of our country"</h2>
+            </div>
+        </section>
+    </section>
+    
+    <section class="section has-background-white">
+        <h1 class="title is-1 center mt-3">Research Areas</h1>
+        <div class="container">
+            <div class="columns">
+                <div class="column">
+                    <div class="center" id="div-icon">
+                        <span class="center" id="icono"><i class="fa fa-spinner has-text-white  "></i></span>
+                    </div>
+                    <h1 class="title center mt-2">Solar Radiation</h1>
+                    <p class="has-text-justified mt-4 mb-4">The GOAC team Works in fitting the numerical models
+                        simulating the
+                        processes of radiative transfer of the solar radiation in the earth’s atmosphere to the local
+                        conditions existing in Camagüey and Cuba. We also conducted the data rescue of the more than 40
+                        years series of solar radiation measurements of the Estación Actinométrica de Camagüey and we
+                        are engaged in the rescue of the long series of measurements from the other three actinometrical
+                        stations of the country. Resulting from the continuation of the data rescue of the current
+                        observations we have implemented the Servicio de Diagnóstico de la Radiación Solar en Camagüey,
+                        which we also envisage to be extended to rest of the actinometrical station of the country.</p>
+                </div>
+
+                <div class="column">
+                    <div class="center" id="div-icon">
+                        <span class="center" id="icono"><i class="fa fa-cloud has-text-white  "></i></span>
+                    </div>
+                    <h1 class="title center mt-2">Aerosols</h1>
+
+                    <p class="has-text-justified">During the last decade GOAC has been measuring optical properties of
+                        aerosols using a state of the art sun photometer, contributing to RIMA and AERONET. We also use
+                        broadband aerosols optical depth (BAOD), derived from the direct radiation measurements at the
+                        actinometrical stations in the country to characterize long-term trends of aerosols. We
+                        characterized the local aerosols types and conducted case studies. Particular effort will be
+                        dedicated to characterize the Saharan dust reaching Cuba after its transport across the
+                        Atlantic.</p>
+
+                </div>
+                <div class="column">
+                    <div class="center" id="div-icon">
+                        <span class="center" id="icono"><i class="fa fa-sun has-text-white  "></i></span>
+                    </div>
+                    <h1 class="title center mt-2">Clouds</h1>
+                    <p class="has-text-justified">Clouds play the main role among all the atmospheric components in the
+                        regulation of the amount of solar radiation reaching the earth surface. GOAC conducted studies
+                        on cirrus clouds features in our region using measurements from ground based lidar and satellite
+                        instruments. Its radiative impact has been also studied. Future research to quantify the
+                        radiative forcing of other types of clouds is envisaged.</p>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="section has-background-white">
+        <div class="container">
+            <h1 class="title center is-1">ABOUT US</h1>
+            <p class="text has-text-justified" id="about-us">
+                The Atmospheric Optics Group of Camagüey (GOAC from its Spanish name) has its origins in the
+                research group initially formed to study stratospheric aerosols, the Camagüey Lidar Station (CLS),
+                from which took its original name. The natural development of the group is part of the working
+                strategy designed in the early 90’s of last century. That strategy was oriented to the assimilation
+                of knowledge and know-how for conducting research on solar radiative transfer processes in the
+                physical geographical conditions of our country and region. Its execution has enabled the group to
+                continue the research on solar radiation transfer processes while it is beginning to provide
+                scientific and technical services of high added value.
+            </p>
+        </div>
+    </section>
+
+    <section class="section has-background-white">
+        <div class="container mt-5">
+            <h1 class="title is-1 center mb-5">Instruments</h1>
+            <div class="columns">
+                <div class="column" id="img-instrumento">
+                    <figure class="image">
+                        <img id="img-card" src="{% static 'img/SUNPHOTOMETER.jpg' %}" alt="">
+                    </figure>
+                    <h1 class="subtitle center mt-2">Sunphotometer</h1>
+                </div>
+                <div class="column" id="img-instrumento">
+                    <figure class="image" style="margin:0 auto;">
+                        <img src="{% static 'img/gps.jpg' %}" alt="">
+                    </figure>
+                    <h1 class="subtitle center mt-2">GPS Station</h1>
+                </div>
+                <div class="column" id="img-instrumento">
+                    <figure class="image">
+                        <img id="img-card" src="{% static 'img/pyra_par.jpg' %}" alt="">
+                    </figure>
+                    <h1 class="subtitle center mt-2">Pyranometer & PAR</h1>
+                </div>
+                <div class="column" id="img-instrumento">
+                    <figure class="image">
+                        <img id="img-card" src="{% static 'img/actino.jpg' %}" alt="">
+                    </figure>
+                    <h1 class="subtitle center mt-2" id="inst-name">Actinometric Station</h1>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="section has-background-white">
+        <h1 class="title center">NEWS</h1>
+        <div class="container grid">
+            <hr>
+            <article class="media">
+                <figure class="media-left is-96x96">
+                    <img class="" src="{% static 'img/noticias2.jpg' %}" alt="">
+                </figure>
+                <div class="media-content">
+                    <div class="content">
+                        <strong class="has-text-grey">Fecha Publicacion</strong>
+
+                        <a href=""></a>
+                        <h1 class="title mt-0 mb-0">Titulo de la publicacion</h1></a>
+                        <p class="text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima quo ipsa
+                            obcaecati exercitationem tempore omnis in minus temporibus nihil doloribus, sint animi ab
+                            magni impedit illum. Tempora, est beatae. Iste.</p>
+                    </div>
+                </div>
+            </article>
+            <hr>
+            <article class="media" id="content-news">
+                <figure class="media-left">
+                    <img id="img-news" src="{% static 'img/noticias1.jpg' %}" alt="">
+                </figure>
+                <div class="media-content">
+                    <div class="content">
+                        <strong class="has-text-grey">Fecha Publicacion</strong>
+                        <a href="">
+                            <h1 class="title mt-0 mb-0">Titulo de la publicacion</h1>
+                        </a>
+                        <p class="text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima quo ipsa
+                            obcaecati
+                            exercitationem tempore omnis in minus temporibus nihil doloribus, sint animi ab magni
+                            impedit illum.
+                            Tempora, est beatae. Iste.</p>
+                    </div>
+                </div>
+            </article>
+            <hr>
+            <article class="media">
+                <figure class="media-left is-128x128">
+                    <img class="" src="{% static 'img/noticias2.jpg' %}" alt="">
+                </figure>
+                <div class="media-content">
+                    <div class="content">
+                        <strong class="has-text-grey">Fecha Publicacion</strong>
+
+                        <a href="">
+                            <h1 class="title mt-0 mb-0">Titulo de la publicacion</h1>
+                        </a>
+                        <p class="text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima quo ipsa
+                            obcaecati
+                            exercitationem tempore omnis in minus temporibus nihil doloribus, sint animi ab magni
+                            impedit
+                            illum. Tempora, est beatae. Iste.</p>
+                    </div>
+                </div>
+            </article>
+
+
+        </div>
+
+    </section>
+
+    <!-- Contactos -->
+    <div class="content has-background-white" style="margin-top: 10px;">
+        <div class="container" style="align-items: center;">
+            <div class="columns ml-2">
+                <div class="column" id='col-contactos'>
+                    <h2 class="title has-text-centered mt-2">Contactanos</h2>
+                    <form method="POST" action=".">
+                        <div class="column is-mobile has-text-left">
+                            <div class="field-body">
+                                <br>
+                                <div class="field">
+                                    <div class="control  mr-2">
+                                        <label class="label is-center is-normal">Nombre:</label>
+                                        <input type="text" class="input">
+                                    </div>
+                                    <div class="control mr-2">
+                                        <label class="label is-center is-normal">Apellidos:</label>
+                                        <input type="text" class="input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="label is-normal">Correo:</label>
+                                <div class="control">
+                                    <input type="text" class="input">
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label is-normal">Mensaje:</label>
+                                <div class="control">
+                                    <textarea type="text" class="textarea"></textarea>
+                                </div>
+                            </div>
+                            <button type="submit" class="button is-link is-fullwidth is-medium" id="test"><i
+                                    class="fas fa-paper-plane mr-2"></i> Enviar
+                                Mensaje</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="column">
+                    <div class="container">
+                        <div class="content mt-5" id="bg-contacto">
+                            <div class="content has-text-centered mt-6" id="bg-location">
+                                <h2 class="subittle is-2 has-text-white">Meteorologic Center Camaguey</h2>
+                                <div class="block has-text-left">
+                                    <p class="text has-text-white mt-5"><i class="fas fa-map-marked mr-2"></i>Carreteta
+                                        Ntas Km 7 1/2</p>
+                                    <p class="text has-text-white mt-5"><i class="fas fa-map-marker mr-2"></i>Provincia
+                                        Camaguey 70100 Cuba</p>
+                                    <p class="text has-text-white mt-5"><i
+                                            class="fas fa-envelope mr-2"></i>goac@mail.com</p>
+                                    <p class="text has-text-white mt-5"><i class="fas fa-phone mr-2"></i>+5332515
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="block" id="block-tags">
+
+                                <span id="tags" class="tag is-success mt-5"><i
+                                        class="fa fa-check-square mr-1"></i>Alabanzas</span>
+                                <span id="tags" class="tag is-link"><i
+                                        class="fas fa-clipboard mr-1"></i>Sugerencias</span>
+                                <span id="tags" class="tag is-info"><i class="fa fa-exclamation mr-1"></i>
+                                    Detalles</span>
+                                <span id="tags" class="tag is-warning"><i class="fas fa-ban mr-1"></i>
+                                    Advertencias</span>
+                                <span id="tags" class="tag is-danger"><i class="fas fa-exclamation-triangle pr-1"></i>
+                                    Criticas</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <section class="hero has-background-dark">
+
+        <div class="content">
+            <div class="block">
+                <button id="scroll-up" class="has-background-dark"><i class="fas fa-angle-double-up"></i></button>
+            </div>
+            <p class="has-text-centered has-text-white pb-2">Copyright © 1997-2020. INSMET ® Todos los derechos
+                reservados
+            </p>
+        </div>
+    </section>
+
+</body>
+
+</html>

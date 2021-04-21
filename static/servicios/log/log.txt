@@ -1,0 +1,44 @@
+# Archivo para salvar log de peticiones de actino
+# Se incluyen los archivos borrados desde el panel
+21-04-2021 01:43  [Errno 2] No such file or directory: 'D:\\mario nueva\\trabajo\\Django GOAC\\app\\static/servicios/actino\\D20210421.csv'
+21-04-2021 01:43  [Errno 2] No such file or directory: 'D:\\mario nueva\\trabajo\\Django GOAC\\app\\static/servicios/actino\\D20210404.csv'
+21-04-2021 01:43  [Errno 2] No such file or directory: 'D:\\mario nueva\\trabajo\\Django GOAC\\app\\static/servicios/actino\\D20210403.csv'
+21-04-2021 01:43  [Errno 2] No such file or directory: 'D:\\mario nueva\\trabajo\\Django GOAC\\app\\static/servicios/actino\\D20210314.csv'
+21-04-2021 01:43  [Errno 2] No such file or directory: 'D:\\mario nueva\\trabajo\\Django GOAC\\app\\static/servicios/actino\\D20210304.csv'
+21-04-2021 01:45  [Errno 2] No such file or directory: 'D:\\mario nueva\\trabajo\\Django GOAC\\app\\static/servicios/actino_historicos\\Dglobal.csv'
+21-04-2021 01:45  [Errno 2] No such file or directory: 'D:\\mario nueva\\trabajo\\Django GOAC\\app\\static/servicios/actino_historicos\\Dglobal.csv'
+21-04-2021 01:46  ActinoObservadorModel matching query does not exist.
+21-04-2021 01:46  ActinoObservadorModel matching query does not exist.
+21-04-2021 01:46  ActinoObservadorModel matching query does not exist.
+21-04-2021 01:47  [Errno 2] No such file or directory: 'D:\\mario nueva\\trabajo\\Django GOAC\\app\\static/servicios/actino/csv\\D20210414.csv'
+21-04-2021 01:47  ActinoObservadorModel matching query does not exist.
+21-04-2021 02:00  ActinoObservadorModel matching query does not exist.
+21-04-2021 09:01  ActinoObservadorModel matching query does not exist.(Error por falta observador en el sistema)
+21-04-2021 09:11  ActinoObservadorModel matching query does not exist.(Error por falta observador en el sistema)
+21-04-2021 09:11  ActinoObservadorModel matching query does not exist.(Error por falta observador en el sistema)
+21-04-2021 09:12  ActinoObservadorModel matching query does not exist.(Error por falta observador en el sistema)
+21-04-2021 09:16  ActinoObservadorModel matching query does not exist.(Error por falta observador en el sistema)
+21-04-2021 09:17  ActinoObservadorModel matching query does not exist.
+21-04-2021 09:17  ActinoObservadorModel matching query does not exist.
+21-04-2021 09:18 Archivo _3280629 copia.jpg eliminado correctamente por: admin
+21-04-2021 09:34  ActinoObservadorModel matching query does not exist.(Error por falta observador en el sistema)
+21-04-2021 09:36  ActinoObservadorModel matching query does not exist.(Error por falta observador en el sistema)
+21-04-2021 09:42  ActinoObservadorModel matching query does not exist.
+21-04-2021 09:43  ActinoObservadorModel matching query does not exist.
+21-04-2021 09:43  ActinoObservadorModel matching query does not exist.
+21-04-2021 10:03  ActinoObservadorModel matching query does not exist.(Error por falta observador en el sistema)
+21-04-2021 10:04  ActinoObservadorModel matching query does not exist.(Error por falta observador en el sistema)
+21-04-2021 10:06  ActinoObservadorModel matching query does not exist.
+21-04-2021 10:12 Archivo PruebaAODMAT.txt eliminado correctamente por: admin
+21-04-2021 10:15  ActinoObservadorModel matching query does not exist.(Error por falta observador en el sistema)
+21-04-2021 10:15  ActinoObservadorModel matching query does not exist.
+21-04-2021 10:18  ActinoObservadorModel matching query does not exist.(Error por falta observador en el sistema)
+21-04-2021 10:18  ActinoObservadorModel matching query does not exist.(Error por falta observador en el sistema)
+21-04-2021 11:09  ActinoObservadorModel matching query does not exist.(Error por falta observador en el sistema)
+21-04-2021 11:09  ActinoObservadorModel matching query does not exist.(Error por falta observador en el sistema)
+21-04-2021 11:11  ActinoObservadorModel matching query does not exist.(Error por falta observador en el sistema)
+21-04-2021 11:32  ActinoObservadorModel matching query does not exist.(Error por falta observador en el sistema)
+21-04-2021 11:35  ActinoObservadorModel matching query does not exist.(Error por falta observador en el sistema)
+21-04-2021 11:35  ActinoObservadorModel matching query does not exist.(Error por falta observador en el sistema)
+21-04-2021 11:38  ActinoObservadorModel matching query does not exist.(Error por falta observador en el sistema)
+21-04-2021 11:40  ActinoObservadorModel matching query does not exist.(Error por falta observador en el sistema)

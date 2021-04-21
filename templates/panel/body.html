@@ -1,0 +1,69 @@
+{% extends 'panel/home.html' %}
+{% load static %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div id="app">
+
+  <!-- Barra navegacion -->
+  {% include 'panel/nav-bar.html' %}
+
+
+  <!-- Menu lateral -->
+  {% include 'panel/menu-lateral.html' %}
+
+
+  <!-- bloque de targetas solo es para el dashboart portada -->
+  {% block card-info %}
+  {% endblock %}
+
+
+  <section class="section is-main-section">
+    <div class="card has-table has-mobile-sort-spaced">
+      <header class="card-header">
+        <p class="card-header-title">
+          <span class="icon"><i class="{{ info.icono }}"></i></span>
+          <label for="" class="subtitle ml-1">{{ info.head_card}}</label>
+        </p>
+      </header>
+      <div class="card-content pr-2 pt-2 pl-2 pb-2">
+        {% block contenido %}
+
+        {% endblock %}
+      </div>
+    </div>
+  </section>
+  
+</div>
+
+
+<script>
+  {% if form.errors %}
+  var errors = '';
+  {% for field in form %}
+  {% for error in field.errors %}
+  errors += '{{ error }}\n';
+  {% endfor %}
+  {% endfor %}
+  {% for error in form.non_field_errors %}
+  errors += '{{ error }}\n';
+
+  {% endfor %}
+
+  Swal.fire({
+    title: 'Error!',
+    text: errors,
+    icon: 'error'
+  });
+  {% endif %}
+</script>
+
+{% endblock %}
+
+
+{% block javascript %}
+
+{% endblock %}

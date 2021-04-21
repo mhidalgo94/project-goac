@@ -1,0 +1,180 @@
+{% extends 'panel/erp/forms.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'lib/select2-4.0/css/select2.min.css' %}" />
+<script src="{% static 'lib/select2-4.0/js/select2.min.js' %}"></script>
+<!-- static de modal bulma -->
+<link rel="stylesheet" href="{% static 'css/modal-fx.min.css' %}" />
+<script src="{% static 'js/modal-fx.min.js' %}"></script>
+
+{% endblock %}
+
+{% block contenido %}
+
+<div class="tile is-ancestor">
+    <div class="tile is-parent">
+        <div class="card tile is-child">
+            <div class="card-content mt-4 pr-4">
+                <form id="form-0" action="." method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="create-investigacion">
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="subtitle ">Categoría:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control is-left is-normal select">
+                                    {{ form.cat }}
+                                </div>
+                                <button id="add-modal" type="button" class="button is-small is-info mt-2 mb-2 ml-4">
+                                    <span><i class="fas fa-plus"></i> </span>
+                                </button>
+                                <a href="{% url 'list_categorias' %}" target="_blank" class="button is-small is-success mt-2 mb-2">
+                                    <span><i class="fas fa-eye"></i> </span>
+                                </a>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    <hr>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="subtitle">{{ form.titulo.label }}:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.titulo}}
+                                </div>
+                                <p class="help ml-2">Requiere su título</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="subtitle">{{ form.texto.label }}:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.texto}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal"><label class="subtitle">Documento:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.doc}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <hr>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="subtitle">{{ form.miembro.label }}:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="select is-multiple" style="width: 650px;">
+                                    {{ form.miembro}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% if request.user.is_superuser %}
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal ">
+                            <label class="subtitle">Publicar:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field has-addons">
+                                <label class="switch is-rounded pt-2 pb-4">
+                                    {{ form.estado}}
+                                    <span class="check"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="field is-horizontal">
+    <div class="field-label">
+        <!-- Creando Espacio -->
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <div class="field is-grouped">
+                <div class="control">
+                    <button type="submit" class="button is-primary">
+                        <span><i class="fas fa-save"></i> Agregar</span>
+                    </button>
+                </div>
+                <div class="control">
+                    <a href="{% url 'list_investigaciones' %}" class="button is-danger is-outlined">
+                        <span><i class="fas fa-times"></i> Cancelar</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</form>
+
+<!-- Modal para crear Sociedad Cientifica -->
+<div class="modal modal-fx-fadeInScale" id="modal-scientifica">
+    <div class="modal-content is-medium">
+        <form action="." method="POST" id="form-1">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="create-catinvest">
+            <header class="modal-card-head has-background-info">
+                <p class="modal-card-title has-text-black">
+                    <span class="subtitle has-text-white"><i class="fas fa-plus mr-1"></i>Agregar Categoría</span>
+                </p>
+                <button type="button" id="modal-close" class="modal-close is-large"></button>
+            </header>
+            <section class="modal-card-body has-background-white-ter has-text-black">
+                <!-- Content ... -->
+                <div class="field">
+                    <div class="control  mr-2">
+                        <label class="label is-center is-normal">Nueva Categoría:</label>
+                        {{ modal.nombre }}
+                    </div>
+                </div>
+            </section>
+            <footer class="modal-card-foot has-background-grey-lighter">
+                <div class="level">
+                    <div class="level-right">
+                        <button type="submit" class="button is-primary"><i class="fas fa-save mr-1"></i>
+                            Agregar Categoría</button>
+                    </div>
+                </div>
+            </footer>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'panel/js/investigaciones/create_investigacion.js' %}"></script>
+
+<script>
+    let input = document.getElementsByTagName('input');
+</script>
+{% endblock %}

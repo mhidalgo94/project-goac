@@ -1,0 +1,38 @@
+{% load static %}
+
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ titulo }}</title>
+
+  <!-- Bulma is included -->
+  <link rel="stylesheet" href="{% static 'lib/panel/css/main.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/my_css.css' %}">
+  <!-- font awesome -->
+  <link rel="stylesheet" type="text/css" href="{% static 'lib/fontawesome/css/all.min.css' %}">
+  <!-- SweetAlert -->
+
+  <script src="{% static 'lib/sweetalert2-9.10/sweetalert2.all.min.js' %}"></script>
+
+  <!-- Fonts -->
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+  <link href="{% static 'lib/panel/css/fonts.css' %}" rel="stylesheet" type="text/css">
+
+  {% block head %}
+  {% endblock %}
+</head>
+
+<body>
+	{% block contenido %}
+
+	{% endblock %}
+
+  {% block javascript %}
+
+  {% endblock %}
+
+</body>	
+</html>

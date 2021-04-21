@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="has-aside-left has-aside-mobile-transition has-navbar-fixed-top has-aside-expanded" id="html">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ titulo }}</title>
+  <!-- Bulma is included -->
+  <link rel="stylesheet" href="{% static 'lib/panel/css/main.min.css' %}">
+  <!-- <link rel="stylesheet" href="{% static 'lib/panel/css/bulma.min.css' %}"> -->
+  <!-- Jquery -->
+  <script src="{% static 'lib/datatables-1.10/plugins/bulma/jquery-3.5.1.js' %}"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'lib/fontawesome/css/all.min.css' %}">
+  <!-- SweetAlert -->
+  <script src="{% static 'lib/sweetalert2-9.10/sweetalert2.all.min.js' %}"></script>
+
+  <!-- funciones -->
+  <script src="{% static 'js/my_func.js' %}"></script>
+
+  {% block head %}
+
+  {% endblock %}
+
+
+
+</head>
+
+<body>
+
+  {% block body %}
+
+  {% endblock %}
+
+  {% block javascript %}
+
+  {% endblock %}
+
+  <script>
+    {% if messages %}
+        let html = '<label>';
+        {% for message in messages %}
+            html += '{{ message }}<br>';
+        {% endfor %}
+        html += '</label>';
+          Swal.fire({
+            title: 'Error!',
+            html: html,
+            icon: 'error'
+          });
+
+    {% endif %}
+  </script>
+</body>
+
+</html>

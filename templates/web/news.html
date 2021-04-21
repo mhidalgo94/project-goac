@@ -1,0 +1,34 @@
+{% load static %}
+
+{% if noticias %}
+<section class="section has-background-white">
+    <h1 class="wow animate__animated animate__fadeInUp title is-1 center mb-0">NOTICIAS</h1><br>
+    <div class="container grid">
+        <hr>
+        {% for news in noticias  %}
+        <article class="wow animate__animated animate__fadeInLeft media" data-wow-duration="1s">
+            <figure class="media-left is-96x96">
+                {% if news.imagen %}
+                <img class="" src="{{ news.imagen.url }}" alt="" width="200px" height="200px">
+                {% else %}
+                <img class="" src="{% static 'img/empty.png' %}" alt="" width="200px" height="200px">
+                {% endif %}
+            </figure>
+            <div class="media-content">
+                <div class="content">
+                    <a href="{% url 'perfil_miembros' news.autor.id %}" ><label class="has-text-link">{{ news.autor }}</label><br></a>
+                    <label class="has-text-grey">Publicado: {{ news.fecha_creacion }}</label><br>
+                    <a href="{% url 'ver_noticias' news.id %}" class="title has-text-link mt-0 mb-0">{{ news.titulo }}</a>
+                    <p class="text">{{ news.desc }}</p>
+                </div>
+            </div>
+
+        </article>
+        <hr>
+        {% endfor %}
+        <a href="{% url 'noticias' %}"style="width: 25%;margin: 0 auto;" class="button is-info center is-outlined">Ver Mas</a>
+        
+
+    </div>
+</section>
+{% endif %}

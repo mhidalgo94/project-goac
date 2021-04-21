@@ -1,0 +1,70 @@
+{% extends 'web/navbar-body.html' %}
+{% load static %}
+
+
+
+{% block contenido_agregados %}
+<section class="wow animate__animated animate__fadeInUp section has-background-white">
+  <h1 class="title is-1 center mb-4">{{ titulo_page }}</h1>
+  <hr>
+  <form action="." method="POST">
+    {% csrf_token %}
+    <div class="container">
+      <div class="field is-grouped">
+        <p class="control is-expanded mr-0 pr-0">
+          <input type="text" name="buscar" class="input is-primary mr-0" placeholder="Escriba su busqueda">
+        </p>
+        <p class="control pl-0">
+          <button class="button is-primary ml-0"><i class="fas fa-search"></i></button>
+        </p>
+      </div>
+    </div>
+    <p class="text center">
+      {% if busqueda %}
+      Su busqueda fue: <strong>{{ busqueda }} </strong>
+      {% endif %}
+    </p>
+  </form>
+  </div>
+  <div class=" wow animate__animated animate__fadeInUp">
+    <div class="container">
+      {% for m in noticias %}
+      <div class="content is-medium">
+        <h1 class="title mt-0">{{m.titulo}}</h1>
+        <div class="media">
+          <div class="media-left mr-0">
+            <p class="image is-96x96">
+              <img class="image is-rounded" src="{{ m.autor.get_imagen }}">
+            </p>
+          </div>
+          <div class="media-content">
+            <div class="content">
+              <p class="pl-0 pt-2">
+                <a class="pl-0 pb-0 mb-0" href="{% url 'perfil_miembros' m.autor.id %}">{{ m.autor }}</a><br>
+              <b class="pl-0 pb-0 mb-0 mt-0 pt-0">{{ m.autor.ocupacion }}</b><br>
+              Publicado: {{ m.fecha_creacion }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <p class="has-text-justified ml-3">{{ m.desc }}</p>
+      </div>
+      <div class="level">
+        <div class="level">
+        </div>
+        <div class="level-right">
+          {% if m.doc%}
+          <a href="{{ m.doc }}" target="_blank" class="levelitem button is-info is-overed mr-2"><i
+              class="fas fa-file-download"></i></a>
+          {% endif %}
+          <a href="{% url 'ver_noticias' m.id %}" class="levelitem button is-primary">Leer Mas</a>
+        </div>
+      </div>
+      <hr>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

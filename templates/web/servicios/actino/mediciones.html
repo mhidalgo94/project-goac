@@ -1,0 +1,265 @@
+{% load static %}
+
+<!-- Pestaña Mediciones -->
+<div class="content" id="div-mediciones">
+    <div class="columns">
+        <div class="column is-7 pl-0 pr-0 pb-0">
+            <div class="container">
+                <div class="columns mb-0">
+                    <div class="column pr-0 mb-0">
+                        <h6 class="title is-6 center mb-0" style="text-align: center;">Mediciones
+                            Horarias de Radiación
+                            Solar
+                        </h6>
+                    </div>
+                    {% if request.user.is_authenticated %}
+                    <div class="column pr-0 pm-0 center">
+                        <div class="field has-addons center" style="width:240px;">
+                            <div class="control">
+                                <input type="date" class="input is-small mr-0" style="width: 120px;"
+                                    placeholder="Buscar por fecha" id="input-fecha">
+                            </div>
+                            <div class="control ">
+                                <a class="button is-info is-small ml-0" type="text" id="buscar"><i
+                                        class="fas fa-search"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                <b class="text center has-text-danger has-background-link-light" id="alerta"></b>
+            </div>
+            <table class="table is-hoverable is-bordered" id="dtable">
+                <thead clas>
+                    <tr>
+                        <th class="has-text-centered has-background-link-dark has-text-white pt-5" rowspan="2">Hora
+                            Local</th>
+                        <th width="3%" class="has-text-centered has-background-link-dark has-text-white pt-5"
+                            rowspan="2">Disco Solar</th>
+                        <th class="has-text-centered has-background-link-dark has-text-white pt-5" rowspan="2">N</th>
+                        <th class="has-text-centered has-background-link-dark has-text-white pt-5" rowspan="2">HR(%)
+                        </th>
+                        <th class="has-text-centered has-background-link-dark has-text-white pt-5" rowspan="2">V.V m/s
+                        </th>
+                        <th colspan="2" class="has-text-centered has-background-link-dark has-text-white">
+                            Temperatura (°C)
+                        </th>
+                        <th colspan="3" class="has-text-centered has-background-link-dark has-text-white">
+                            Irradiancia (W/m²)
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class="has-text-centered has-background-link-dark has-text-white">Aire</th>
+                        <th class="has-text-centered has-background-link-dark has-text-white">Suelo</th>
+                        <th class="has-text-centered has-background-link-dark has-text-white">Directa
+                        </th>
+                        <th class="has-text-centered has-background-link-dark has-text-white">Difusa
+                        </th>
+                        <th class="has-text-centered has-background-link-dark has-text-white">Global
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- datos de la tabla creado por datatable -->
+                </tbody>
+            </table>
+            <div class="columns pl-5">
+                <div class="column is-7 pl-0 pr-0">
+                    <article class="media">
+                        <figure class="media-left mb-0 mt-0 ml-0 mr-2">
+                            <figure class="image is-128x128 mb-1 pt-1">
+                                <img src="" alt="" id="img-obv">
+                            </figure>
+                            <b>Observador(a)</b>
+                        </figure>
+                        <div class="media-content center">
+                            <div class="content">
+                                <p class="text is-size-6 mb-0 pr-0 pl-0">Nombre: <b id="nombre"></b></p>
+                                <p class="text is-size-7 mb-0">Especialidad: <b id="especialidad"></b>
+                                </p>
+                                <p class="text is-size-7 mb-0">Experiencia: <b id="xp"></b></p>
+                                <p class="text is-size-7 mb-0">Fecha Nacimiento: <b id="fecha_nac"></b>
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div class="column is-5 pl-0 pr-0 pt-0">
+                    <table class="table center pr-5">
+                        <tbody>
+                            <tr>
+                                <td class="pt-1 pb-1">
+                                    <img class="image is-32x32 " src="/static/img/actino/sun.png" alt="image">
+                                </td>
+                                <td class="pt-0 pb-0">
+                                    <b
+                                        style="letter-spacing: inherit; font-size: 11px;text-align: left;justify-content: left;">Medición
+                                        Disco Solar libre de obstáculos</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pt-1 pb-0">
+                                    <img class="image is-32x32 pt-1" src="/static/img/actino/sun-cloud.png" alt="image">
+                                </td>
+                                <td class="pt-0 pb-0">
+                                    <b style="letter-spacing: inherit; font-size: 11px;text-align: left;">Medición
+                                        afectada por nubes, niebla, bruma o humo</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pt-1 pb-0">
+                                    <img class="image is-32x32" src="/static/img/actino/sun-cancel.png" alt="image">
+                                </td>
+                                <td class="pt-0 pb-0">
+                                    <b
+                                        style="letter-spacing: inherit; font-size: 11px;text-align: left;justify-content: left;">Medición
+                                        afectada por algún obstáculo</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pb-0 pt-1">
+                                    <b class="is-size-4">N</b>
+                                </td>
+                                <td class="pt-0 pb-0">
+                                    <b
+                                        style="letter-spacing: inherit; font-size: 11px;text-align: left;justify-content: left;">Nubosidad
+                                        en décimos de cielo cubierto</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pb-0 pt-1">
+                                    <b class="is-size-4">ND</b>
+                                </td>
+                                <td class="pt-1 pb-0">
+                                    <b
+                                        style="letter-spacing: inherit; font-size: 11px;text-align: left;justify-content: left;">
+                                        Información no disponible</b>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- Estado del tiempo -->
+        <div class="column is-5 ml-1 pl-0 pr-0">
+            <div class="container pl-1 pr-1 pb-1 pt-1 has-background-light" style="border-radius: 10px;">
+                <h4 class="title is-4 center">Estado del Tiempo</h4>
+                <h4 class="subtitle center is-size-6 mb-2" id="et-fecha">
+                    <!--Aki fecha y hora  -->
+                </h4>
+                <hr class="mt-0">
+                <div class="content" id="est_fenomeno">
+                    <div class="blog">
+                        <b class="is-size-4 center has-text-centered">Fenómeno</b>
+                        <b class="is-size-6 center has-text-centered has-text-danger" id="text_fenomeno"></b>
+
+                    </div>
+                </div>
+                <div class="content" id="est_tiempo">
+                    <div class="columns">
+                        <div class="column">
+                            <b class="is-size-5 center has-text-centered">Temperatura del Aire</b>
+                            <div class="columns mt-3 is-mobile center">
+                                <div class="column pb-2 pr-0 ml-4 has-text-centered">
+                                    <div style="padding: none;margin: none;text-align: right;">
+                                        <i class="fas fa-temperature-low is-size-2 has-text-info"></i>
+                                    </div>
+                                </div>
+                                <div class="column is-size-4 pb-2 pl-1 pt-0" style="line-height: 25px;">
+                                    <b class="has-text-dark" style="font-size: 25px;" id="et-aire"></b><br>
+                                    <b class="has-text-dark" style="font-size: 25px;margin-left:5px;">°C</b>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <b class="is-size-5 center has-text-centered">Humedad Relativa</b>
+                            <div class="columns mt-1 is-mobile center">
+                                <div class="column pb-1 pr-0 ml-4 has-text-centered">
+                                    <div style="padding: none;margin: none;text-align: right;">
+                                        <i class="fas fa-tint is-size-2  has-text-info mr-3"></i>
+                                    </div>
+                                </div>
+                                <div class="column is-size-5 pb-2 pl-1" style="line-height: 25px;">
+                                    <b class="has-text-dark" style="font-size: 25px;" id="et-hr"></b><br>
+                                    <b class="has-text-dark" style="font-size: 25px;margin-left:5px;">%</b>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column pl-0">
+                            <b class="is-size-5 center has-text-centered">Temperatura del Suelo</b>
+                            <div class="columns mt-4 is-mobile mt-1 center">
+                                <div class="column pb-2 pr-0 pt-0 ml-4 has-text-centered">
+                                    <div style="padding: none;margin: none;text-align: right;">
+                                        <i class="fas fa-thermometer is-size-2 has-text-info mr-3"></i>
+                                    </div>
+                                </div>
+                                <div class="column is-size-5 pb-2 pl-1 pt-0" style="line-height: 25px;">
+                                    <b class="has-text-dark" style="font-size: 25px;" id="et-suelo">44.4</b><br>
+                                    <b class="has-text-dark" style="font-size: 25px;">°C</b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="columns">
+                            <div class="column has-text-centered">
+                                <b class="is-size-5 center">Nubosidad</b>
+                                <div class="columns mt-1 is-mobile">
+                                    <div class="column pb-2 pr-0 center">
+                                        <!-- <i class="fas fa-tint is-size-1  has-text-primary-dark"></i> -->
+                                        <figure class="image is-64x64 ml-0 mr-0 pr-3">
+                                            <img src="/static/img/actino/sun.png" alt="image" id="et-nubosidad">
+                                        </figure>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column pl-0">
+                                <b class="is-size-5 center">Velocidad Viento</b>
+                                <div class="columns mt-2 is-mobile mt-1 center">
+                                    <div class="column pb-2 mr-2 pr-0 pt-0 ml-4 has-text-centered">
+                                        <div style="padding: none;margin: none;text-align: right;">
+                                            <i class="fas fa-wind  has-text-info is-size-2"></i>
+                                        </div>
+                                    </div>
+                                    <div class="column is-size-4 pl-1" style="line-height: 25px;">
+                                        <b class="has-text-dark" style="font-size: 25px;" id="et-velviento">ND</b><br>
+                                        <b class="has-text-dark" style="font-size: 25px;">m/s</b>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="container" id="est_leyenda">
+                    <ul style="list-style: none;" id="ul-leyenda">
+                        <li style="display: flex;height: 40px;" class="">
+                            <figure class="image is-32x32 ml-0 mr-0">
+                                <img src="/static/img/actino/sun.png" alt="image">
+                            </figure>
+                            <b class="ml-3 pt-2 is-size-7">Despejado (0 - 3 décimos)</b>
+                        </li>
+                        <li style="display: flex;height: 40px;">
+                            <figure class="image is-32x32 ml-0 mr-0">
+                                <img src="/static/img/actino/sun-cloud.png" alt="image">
+                            </figure>
+                            <b class="ml-3 pt-2 is-size-7">Pacialmente Nublado ( 4 - 6 décimos)</b>
+                        </li>
+                        <li style="display: flex;height: 40px;">
+                            <figure class="image is-32x32 ml-0 mr-0">
+                                <img src="/static/img/actino/cloud.png" alt="image">
+                            </figure>
+                            <b class="ml-3 pt-2 is-size-7"> Nublado (7 - 10 décimos)</b>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        {% include 'web/servicios/actino/graficos.html' %}
+    </div>
+
+</div>

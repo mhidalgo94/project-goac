@@ -1,0 +1,86 @@
+{% load static %}
+
+<!DOCTYPE html >
+<html lang="es-es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="robots" content="index, follow">
+  <meta name="keywords" content="GOAC, lidar, atmosferica, radiativa, aerosoles, nubes, radiacion solar,">
+  <meta name="description" content="GOAC - Grupo de Óptica Atmosférica de Camagüey. El estudio de los procesos de transferencia radiativa en la atmósfera para las condiciones de Cuba">
+  <title>{{ titulo }}</title>
+  <!-- font -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,700;1,300&display=swap" rel="stylesheet"> 
+
+  <!-- Bulma Version 0.9.0-->
+  <link rel="stylesheet" href="{% static 'css/bulma.min.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/hero.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/my_css.css' %}">
+  <!-- font awesome -->
+  <link rel="stylesheet" type="text/css" href="{% static 'lib/fontawesome/css/all.min.css' %}">
+  <script src="{% static 'lib/fontawesome/js/all.min.js' %}"></script>
+  <!-- Jquery -->
+  <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+  <!-- SweetAlert -->
+  <script src="{% static 'lib/sweetalert2-9.10/sweetalert2.all.min.js' %}"></script>
+  <!-- Animated -->
+  <link rel="stylesheet" href="{% static 'lib/anim/css/anim.min.css' %}">
+  <script src="{% static 'lib/anim/js/efect.min.js' %}"></script>
+  <script type="text/javascript">
+    wow = new WOW(
+      {
+        boxClass: 'wow',      
+        animateClass: 'animated', 
+        offset: 0,          
+        mobile: true,       
+        live: true        
+      }
+    )
+    wow.init();
+  </script>
+  {% block head %}
+
+  {% endblock %}
+
+</head>
+
+<body class="wow animate__animated animate__fadeIn" id="btn-menu">
+  <!-- Cuerpo -->
+  {% block body %}
+
+  {% endblock %}
+
+</body>
+
+  {% block javascript %}
+  
+  {% endblock %}
+
+  <script type="text/javascript">
+    $(".navbar-burger").click(function() {
+
+      $(".navbar-burger").toggleClass("is-active");
+      $(".navbar-menu").toggleClass("is-active");
+
+    });
+
+    {% if messages %}
+        let html = '<label>';
+        {% for message in messages %}
+            html += '{{ message }}<br>';
+        {% endfor %}
+        html += '</label>';
+          Swal.fire({
+            title: 'Error!',
+            html: html,
+            icon: 'error'
+          });
+
+    {% endif %}
+  </script>
+
+</html>

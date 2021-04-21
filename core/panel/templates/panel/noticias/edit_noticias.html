@@ -1,0 +1,173 @@
+{% extends 'panel/erp/forms.html' %}
+{% load static %}
+
+{% block head %}
+
+{{ form.media}}
+
+{% endblock %}
+
+{% block contenido %}
+
+<form action="." method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="subtitle has-text- has-text-center">Título Noticia</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <p class="control is-expanded">
+                    {{ form.titulo}}
+                    <!-- <span class="icon is-small is-left"><i class="fas fa-photo-video"></i></span> -->
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="subtitle has-text-ghost has-text-center"> Descripción</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                {{ form.desc }}
+
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="subtitle">Contenido:</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <div class="control">
+                    {{ form.contenido }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="subtitle has-text-ghost has-text-center"> {{ form.autor.label}}</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <div class="select">
+                    {{ form.autor }}
+                </div>
+
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="subtitle has-text- has-text-center">Imagen</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <div class="field file">
+                    <label class="upload control">
+                        <a class="button is-primary">
+                            <span class="icon"><i class="fas fa-upload"></i></span>
+                            {{ form.imagen}}Selecione la imagen
+                        </a>
+                        
+                    </label>
+                    <label class="upload control">
+                        {% if object.imagen %}
+                        <a href="{{ object.imagen.url }}" target="_blank"><i class="fas fa-image ml-2 mt-1" style="font-size: 35px;"></i></a>
+                        {% endif %}
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="subtitle has-text- has-text-center">Documento</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <div class="control">
+                    {{ form.doc }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if request.user.is_superuser %}
+    <div class="field is-horizontal">
+        <div class="field-label is-normal ">
+            <label class="subtitle">Publicar:</label>
+        </div>
+        <div class="field-body">
+            <div class="field has-addons">
+                <label class="switch is-rounded pt-2">
+                    {{ form.estado}}
+                    <span class="check"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    </div>
+    <hr>
+    <div class="content">
+        <div class="field is-horizontal">
+            <div class="field-label">
+                <!-- Crear margen izquierdo -->
+            </div>
+            <div class="field-body">
+                <div class="field-right">
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <button type="submit" class="button is-primary">
+                                <span><i class="fas fa-save"></i> Guardar Noticia</span>
+                            </button>
+                        </div>
+                        <div class="control">
+                            <a href="{% url 'list_noticias' %}" class="button is-danger is-outlined">
+                                <span><i class="fas fa-times"></i> Cancelar</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+    {% if form.errors %}
+
+    var errors = '';
+    {% for field in form %}
+
+    {% for error in field.errors %}
+
+    errors += '{{ error }}\n';
+
+    {% endfor %}
+    {% endfor %}
+
+    {% for error in form.non_field_errors %}
+    errors += '{{ error }}\n';
+
+    {% endfor %}
+
+    Swal.fire({
+        title: 'Error!',
+        text: errors,
+        icon: 'error'
+    });
+    {% endif %}
+</script>
+{% endblock %}

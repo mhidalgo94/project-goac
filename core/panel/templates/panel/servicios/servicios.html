@@ -1,0 +1,149 @@
+{% extends 'panel/erp/views.html' %}
+{% load static %}
+
+
+{% block contenido %}
+<section class="section pt-4">
+    <!-- Servicio Actino -->
+    <div class="container">
+        <article class="message is-medium is-info">
+            <div class="message-header">
+                <p><i class="fas fa-cog"></i> Servicio Actinométrica</p>
+            </div>
+            <div class="message-body">
+                <div class="tile is-ancestor has-text-centered" id="">
+                    <div class="tile is-parent">
+                        <article class="tile is-child box ">
+                            <p class="title"><i class="fas fa-map-marker-alt has-text-info"></i></p>
+                            <a type="button" href="{% url 'control_estaciones' %}" class="button is-info is-outlined">
+                                <p class="text"><b class="is-size-7">Estaciones</b></p>
+                            </a>
+                        </article>
+                    </div>
+                    <div class="tile is-parent">
+                        <article class="tile is-child box ">
+                            <p class="title"><i class="fas fa-glasses has-text-success"></i></p>
+                            <a type="button" href="{% url 'list_observadores' %}" class="button is-success is-outlined">
+                                <p class="text"><b class="is-size-7">Observadores</b></p>
+                            </a>
+                        </article>
+                    </div>
+                    <div class="tile is-parent">
+                        <article class="tile is-child box">
+                            <p class="title"><i class="fas fa-file-alt has-text-primary"></i></p>
+                            <a type="button" href="{% url 'list_archivos' %}" class="button is-primary is-outlined">
+                                <p class="text"><b class="is-size-7">Archivos</b></p>
+                            </a>
+                        </article>
+                    </div>
+                    <div class="tile is-parent">
+                        <article class="tile is-child box">
+                            <p class="title"><i class="fas fa-exclamation-triangle has-text-danger"></i></p>
+                            <a type="button" href="{% url 'log_error' %}" class="button is-danger is-outlined">
+                                <p class="text"><b class="is-size-7">Errores</b></p>
+                            </a>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+    <!-- Servicio BAOD -->
+    <div class="container pt-4">
+        <article class="message is-medium is-info">
+            <div class="message-header">
+                <p><i class="fas fa-cog"></i> Servicio BAOD</p>
+            </div>
+            <div class="message-body">
+                <div class="tile is-ancestor has-text-centered" id="">
+                    <div class="tile is-parent">
+                        <article class="tile is-child box ">
+                            <p class="title">Icono</p>
+                            <a type="button" href="#" class="button is-primary is-outlined">
+                                <p class="text"><b class="is-size-7">Boton 1</b></p>
+                            </a>
+                        </article>
+                    </div>
+                    <div class="tile is-parent">
+                        <article class="tile is-child box">
+                            <p class="title">Icono</p>
+                            <a type="button" href="#" class="button is-primary is-outlined">
+                                <p class="text"><b class="is-size-7">Boton 2</b></p>
+                            </a>
+                        </article>
+                    </div>
+                    <div class="tile is-parent">
+                        <article class="tile is-child box">
+                            <p class="title">Icono</p>
+                            <a type="button" href="#" class="button is-primary is-outlined">
+                                <p class="text"><b class="is-size-7">Boton 3</b></p>
+                            </a>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <!-- Servicio Pyra y Par -->
+    <div class="container pt-4">
+        <article class="message is-medium is-info">
+            <div class="message-header">
+                <p><i class="fas fa-cog"></i> Servicio Pyra y Par</p>
+            </div>
+            <div class="message-body">
+                <div class="tile is-ancestor has-text-centered" id="">
+                    <div class="tile is-parent">
+                        <article class="tile is-child box ">
+                            <p class="title"><i class="fas fa-table has-text-link"></i></p>
+                            <a type="button" href="{% url 'list_pyra_par' %}" class="button is-link is-outlined">
+                                <p class="text"><b class="is-size-7">Datos</b></p>
+                            </a>
+                        </article>
+                    </div>
+                    <div class="tile is-parent">
+                        <article class="tile is-child box">
+                            <p class="title"><i class="fas fa-key has-text-dark"></i></p>
+                            <a type="button" href="{% url 'editToken' %}" class="button is-warning is-outlined is-inverted">
+                                <p class="text"><b class="is-size-7">API Key</b></p>
+                            </a>
+                        </article>
+                    </div>
+                    <div class="tile is-parent">
+                        <article class="tile is-child box">
+                            <p class="title">Icono</p>
+                            <a type="button" href="#" class="button is-primary is-outlined">
+                                <p class="text"><b class="is-size-7">Boton 3</b></p>
+                            </a>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+    </div>
+
+    <article class="message is-medium is-info">
+        <div class="message-header">
+            <p><i class="fas fa-cog"></i> Servicio Otro</p>
+        </div>
+        <div class="message-body">
+            <div class="board-item">
+                <div class="board-item-content">
+                    <div class="board-item-content">
+                        <a href="" type="button" class="button is-success is-fullwidth is-outline"><b class="ml-1">Boton
+                                1</b></a>
+                    </div>
+                    <div class="board-item-content mt-2">
+                        <a href="" type="button" class="button is-success is-fullwidth"><b class="ml-1">Boton 2</b></a>
+                    </div>
+                    <div class="board-item-content mt-2">
+                        <a href="" type="button" class="button is-success is-fullwidth"><b class="ml-1">Boton 3</b></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </article>
+</section>
+{% endblock %}

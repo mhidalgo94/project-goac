@@ -1,0 +1,353 @@
+#col-mapa{
+    position: relative;
+}
+#map-img{
+    width: 100%;
+}
+#div-mark{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+}
+#div-mark span{
+    position: absolute;
+}
+/* Camaguey 355 */
+#signal_355 {
+	top: 40%;
+    right: 34.5%;
+    transition: 1s ease-in-out;
+}
+/* Tope Collante  342 */
+#signal_342 {
+	position: absolute;
+	top: 33%;
+    left: 45%;
+    transition: 1s ease-in-out;
+}
+/* La Fe 321 */
+#signal_321 {
+	position: absolute;
+	top: 35.5%;
+    left: 23%;
+    transition: 1s ease-in-out;
+}
+/* Jovellanos 330 */
+#signal_330 {
+	position: absolute;
+	top: 19%;
+    left: 36%;
+    transition: 1s ease-in-out;
+}
+/* Casa Blanca 325 */
+#signal_325 {
+	position: absolute;
+	top: 13.5%;
+    left: 26.5%;
+    transition: 1s ease-in-out;
+}
+#div-mark span:hover svg
+{
+    color: #00d1b2ed !important;
+    
+}
+.leyenda-estaciones{
+    position: absolute;
+    transform: translateY(0px);
+    transition: transform 0.5s ease;
+    z-index: 1;
+
+}
+.leyenda-estaciones.show{
+    position: absolute;
+    transform: translateY(360px);
+    transition: transform 0.5s ease;
+    z-index: 1;
+}
+
+
+#det_estacion div#info-estacion{
+    z-index: 2;
+    position: absolute;
+    transform: translateX(2000px);
+    transition: transform 0.8s ease;
+
+}
+#det_estacion div#info-estacion.show{
+    transform: translateX(0);
+    transition: transform 0.8s ease;
+}
+
+
+@media (max-width: 1300px){
+    #signal_355 {
+        top: 40%;
+        right: 34.5%;
+    }
+    #signal_342 {
+        top: 33%;
+        left: 45%;
+    }
+    #signal_321 {
+        top: 35.4%;
+        left: 23%;
+    }
+    #signal_330 {
+        top: 19%;
+        left: 36.3%;
+    }
+    #signal_325 {
+        top: 14%;
+        left: 26.5%;
+    }
+}
+
+@media (max-width: 1215px){
+    #signal_355 {
+        top: 38%;
+        right: 34%;
+    }
+    #signal_342 {
+        top: 30.4%;
+        left: 45%;
+    }
+    #signal_321 {
+        top: 34%;
+        left: 23%;
+    }
+    #signal_330 {
+        top: 17%;
+        left: 36%;
+    }
+    #signal_325 {
+        top: 11.4%;
+        left: 26.2%;
+    }
+}
+@media (max-width:1030px){
+    #signal_355 {
+        top: 38%;
+        right: 34%;
+    }
+    #signal_342 {
+        top: 30%;
+        left: 44.8%;
+    }
+    #signal_330 {
+        top: 17%;
+        left: 35.8%;
+    }
+    #signal_321 {
+        top: 33%;
+        left: 22.8%;
+    }
+    #signal_325 {
+        top: 11%;
+        left: 26%;
+    }
+} 
+
+@media (max-width:930px){
+    #signal_355 {
+        top: 36%;
+        right: 33.8%;
+    }
+    #signal_342 {
+        top: 29%;
+        left: 44.7%;
+    }
+    #signal_330 {
+        top: 15.4%;
+        left: 35.4%;
+    }
+    #signal_321 {
+        top: 31.5%;
+        left: 22.4%;
+    }
+    #signal_325 {
+        top: 10%;
+        left: 26%;
+    }
+} 
+@media (max-width:850px){
+    #signal_355 {
+        top: 35%;
+        right: 33.4%;
+    }
+    #signal_342 {
+        top: 27.3%;
+        left: 44.5%;
+    }
+    #signal_330 {
+        top: 14%;
+        left: 35.5%;
+    }
+    #signal_321 {
+        top: 30%;
+        left: 22%;
+    }
+    #signal_325 {
+        top: 8%;
+        left: 25.7%;
+    }
+} 
+@media (max-width:768px){
+    #signal_355 {
+        top: 43%;
+        right: 34.8%;
+    }
+    #signal_342 {
+        top: 34.4%;
+        left: 45.6%;
+    }
+    #signal_330 {
+        top: 21%;
+        left: 36.5%;
+    }
+    #signal_321 {
+        top: 37.4%;
+        left: 23.5%;
+    }
+    #signal_325 {
+        top: 15.4%;
+        left: 27%;
+    }
+} 
+
+@media (max-width: 688px){
+    #signal_355 {
+        top: 41%;
+        right: 34.6%;
+    }
+    #signal_342 {
+        top: 34%;
+        left: 45.2%;
+    }
+    #signal_330 {
+        top: 20%;
+        left: 36.4%;
+    }
+    #signal_321 {
+        top: 36.4%;
+        left: 23.2%;
+    }
+    #signal_325 {
+        top: 14.5%;
+        left: 26.8%;
+    }
+    
+}
+@media (max-width: 588px){
+    #signal_355 {
+        top: 39%;
+        right: 34%;
+    }
+    #signal_342 {
+        top: 31%;
+        left: 45%;
+    }
+    #signal_330 {
+        top: 17.8%;
+        left: 35.9%;
+    }
+    #signal_321 {
+        top: 34%;
+        left: 23%;
+    }
+    #signal_325 {
+        top: 12.2%;
+        left: 26.2%;
+    }
+}
+@media (max-width: 490px){
+    #signal_355 {
+        top: 37%;
+        right: 34%;
+    }
+    #signal_342 {
+        top: 29.5%;
+        left: 44.8%;
+    }
+    #signal_330 {
+        top: 16.6%;
+        left: 35.7%;
+    }
+    #signal_321 {
+        top: 32.7%;
+        left: 22.8%;
+    }
+    #signal_325 {
+        top: 10.4%;
+        left: 26%;
+    }
+}
+@media (max-width: 400px){
+    #signal_355 {
+        top: 34.3%;
+        right: 33%;
+    }
+    #signal_342 {
+        top: 26.6%;
+        left: 43.8%;
+    }
+    #signal_330 {
+        top: 13%;
+        left: 35%;
+    }
+    #signal_321 {
+        top: 29%;
+        left: 22%;
+    }
+    #signal_325 {
+        top: 8%;
+        left: 25.5%;
+    }
+}
+@media (max-width: 380px){
+    #signal_355 {
+        top: 33.3%;
+        right: 33%;
+    }
+    #signal_342 {
+        top: 25.5%;
+        left: 44%;
+    }
+    #signal_330 {
+        top: 12.2%;
+        left: 34.9%;
+    }
+    #signal_321 {
+        top: 28%;
+        left: 22%;
+    }
+    #signal_325 {
+        top: 6.4%;
+        left: 25.5%;
+    }
+}
+@media (max-width: 312px){
+    #signal_355 {
+        top: 28.3%;
+        right: 32%;
+    }
+    #signal_342 {
+        top: 21.5%;
+        left: 43%;
+    }
+    #signal_330 {
+        top: 8.2%;
+        left: 33.9%;
+    }
+    #signal_321 {
+        top: 24%;
+        left: 21%;
+    }
+    #signal_325 {
+        top: 2.4%;
+        left: 24.5%;
+    }
+}

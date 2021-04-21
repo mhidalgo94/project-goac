@@ -1,0 +1,62 @@
+{% load static %}
+
+<div class="transparent navbar-menu" style="background: transparent">
+    
+    <div class="navbar-end">
+        <a href="{% url 'noticias' %}" class="navbar-item">
+            Noticias
+        </a>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link ">
+                 Publicaciones
+            </a>
+            <div class="navbar-dropdown">
+                <a class="navbar-item " href="{% url 'reportes' %}">
+                    Reportes
+                </a>
+                <a class="navbar-item" href="{% url 'art_arbitrajes' %}">
+                    Articulos
+                </a>
+                <a class="navbar-item" href="{% url 'eventos' %}">
+                    Eventos
+                </a>
+            </div>
+        </div>
+        
+        {% if nav_inv %}
+        <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+                Investigaciones
+            </a>
+            <div class="navbar-dropdown">
+                {% for i in nav_inv %}
+                <a href="{% url 'det_investigaciones' i.nombre %}" class="navbar-item">
+                    {{ i.nombre }}
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        <a href="{% url 'todos_talleres' %}" class="navbar-item">
+            Talleres
+        </a>
+        <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link ">
+                 Servicios
+            </a>
+            <div class="navbar-dropdown">
+                <a class="navbar-item " href="{% url 'servicio_actino' %}">
+                    Actinométrica
+                </a>
+            </div>
+        </div>
+        
+        <a href="{% url 'miembros' %}" class="navbar-item">
+            Miembros
+        </a>
+        <a href="{% url 'login' %}" class="navbar-item">
+            Entrar
+        </a>
+    </div>
+</div>

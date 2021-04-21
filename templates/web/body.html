@@ -1,0 +1,39 @@
+{% extends 'web/home.html' %}
+{% load static %}
+
+{% block head %}
+
+{% endblock %}
+
+<!-- Cuerpo sitio -->
+{% block body %}
+
+
+    <!-- Header del sitio web dentro esta incluido el navbar -->
+    {% include 'web/header.html' %}
+
+    <!-- Este es el Quienes somos -->
+    {% include 'web/about.html' %}
+
+    <!-- Estas son las tres targetras de informacion -->
+    {% include 'web/card.html' %}
+
+    
+    <!-- Datos sobre los instrumentos -->
+    {% include 'web/instruments.html' %}
+
+    <!-- Noticias -->
+    {% include 'web/news.html' %}
+
+
+    <!-- Contactos -->
+    {% include 'web/contact.html' %}
+
+
+    <!-- Pie de pagina -->
+    {% include 'web/footer.html' %}
+
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}

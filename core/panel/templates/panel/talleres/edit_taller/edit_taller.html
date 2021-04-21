@@ -1,0 +1,278 @@
+{% extends 'panel/erp/views.html' %}
+{% load static %}
+
+{% block head %}
+{{ form.media }}
+<link rel="stylesheet" href="{% static 'lib/select2-4.0/css/select2.min.css' %}" />
+<script src="{% static 'lib/select2-4.0/js/select2.min.js' %}"></script>
+{% endblock %}
+
+
+{% block contenido %}
+<div class="container pl-4 pt-4 pb-2 mb-2">
+    <h1 class="subtitle">{{ object.titulo }}</h1>
+</div>
+
+<!-- Pestanas -->
+<div class="tabs is-boxed">
+    <ul>
+        <li class="is-active pr-1" id="taller">
+            <a>
+                <span class="icon is-small"><i class="fas fa-wrench"></i></span>
+                <span>Taller</span>
+            </a>
+        </li>
+        <li class="pr-1" id="programas">
+            <a>
+                <span class="icon is-small"><i class="fas fa-calendar-alt"></i></span>
+                <span>Programas</span>
+            </a>
+        </li>
+        <li class="pr-1" id="resumenes">
+            <a>
+                <span class="icon is-small"><i class="fas fa-clipboard-check"></i></span>
+                <span>Resumenes</span>
+            </a>
+        </li>
+        <li class="pr-1" id="participantes">
+            <a>
+                <span class="icon is-small"><i class="fas fa-user-friends"></i></span>
+                <span>Participantes</span>
+            </a>
+        </li>
+        <li class="pr-1" id="participantes">
+            <a id="delete-taller" rel="{{object.pk}}">
+                <span class="icon is-small"><i class="fas fa-trash has-text-danger"></i></span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<!-- Formularios    -->
+<div class="container tile is-child" id="div-taller">
+    <div class="card-content mt-4 pr-4">
+        <form id="form-1" action="." method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="taller">
+            <input type="hidden" name="pk" value="{{object.pk}}">
+            <div class="field is-horizontal">
+                <div class="field-body">
+                    <div class="field ml-2">
+                        <label class="label">Titulo:</label>
+                        <div class="control">
+                            {{ form.titulo }}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-body">
+                    <div class="field ml-2">
+                        <label class="label">Fecha Inicio:</label>
+                        <div class="control">
+                            {{ form.fecha_inicio }}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-body">
+                    <div class="field ml-2">
+                        <label class="label">Fecha Culminación:</label>
+                        <div class="control">
+                            {{ form.fecha_culmina}}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-body">
+                    <div class="field ml-2">
+                        <label class="label">Descripción:</label>
+                        <div class="control">
+                            {{ form.descripcion}}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-body">
+                    <div class="field ml-2">
+                        <label class="label">Génesis:</label>
+                        <div class="control ml-2">
+                            {{ form.genesis}}
+
+                        </div>
+                        <div class="field is-horizontal pb-4 pl-4 ml-5 pt-4">
+                            <div class="field-body">
+                                <div class="field-right">
+                                    <div class="field is-grouped">
+                                        <div class="control">
+                                            <button type="submit" class="button is-primary">
+                                                <span><i class="fas fa-edit"></i> Guardar Cambios</span>
+                                            </button>
+                                        </div>
+                                        <div class="control">
+                                            <a href="{% url 'list_talleres' %}" type="button" id="reset"
+                                                class="button is-danger is-outlined">
+                                                <span><i class="fas fa-times"></i> Cancelar</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container tile is-child" id="div-prog">
+    <div class="card-content mt-4 pr-4 ml-5">
+        <form id="form-2" action="." method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="programas">
+            <input type="hidden" name="pk" value="{{object.pk}}">
+            {{ form.programa }}
+            <div class="field is-horizontal pb-4 pl-4 ml-5 pt-4">
+                <div class="field-body">
+                    <div class="field-right">
+                        <div class="field is-grouped">
+                            <div class="control">
+                                <button type="submit" class="button is-primary">
+                                    <span><i class="fas fa-save"></i> Guardar Cambios</span>
+                                </button>
+                            </div>
+                            <div class="control">
+                                <a href="{% url 'list_talleres' %}" type="button" id="reset"
+                                    class="button is-danger is-outlined">
+                                    <span><i class="fas fa-times"></i> Cancelar</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="container tile is-child" id="div-resumenes">
+    <div class="card-content mt-4 pr-4 ml-5">
+        <form id="form-3" action="." method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="resumenes">
+            <input type="hidden" name="pk" value="{{object.pk}}">
+
+            <div class="content pt-4 pl-4">
+                <p class="has-text-justified center">
+                    {% if resumenes.count %}
+                {% for i in resumenes.all %}
+                <div class="block mt-4">
+                    <h1 class="title">{{ i.titulo }}</h1>
+                    {{ i.resumen | safe |truncatechars:650}}
+
+                </div>
+                <div class="level">
+                    <div class="level-left">
+                    </div>
+                    <div class="level-right">
+                        <a href="{% url 'edit_resumenes' i.id %}" target="_blank" class="button is-normal is-info is-outlined">Editar</a>
+                    </div>
+                </div>
+                <hr>
+                {% endfor %}
+                {% else %}
+                <div class="level mb-2 mr-2">
+                    <h1 class="title">No hay resumenes vinculados</h1>
+                    <div class="level-left">
+                        <!-- dando espacio iquierdo -->
+                        <p class="control">
+                            <a href="{% url 'create_resumenes' %}" target="_blank" class="button is-success has-text-white is-small ml-1"><i class="fas fa-plus mr-1"></i>Crear Nuevo Resumen</a>
+                        </p>
+                    </div>
+                </div>
+                {% endif %}
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container tile is-child" id="div-participantes">
+    <div class="card-content mt-4 pr-4">
+        <form id="form-4" action="." method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="participantes">
+            <input type="hidden" name="pk" value="{{object.pk}}">
+            <div class="select is-multiple is-fullwidth">
+                {{ form.participantes }}
+            </div>
+            <div class="field is-horizontal pb-4 pl-4 ml-5 pt-4">
+                <div class="field-body">
+                    <div class="field-right">
+                        <div class="field is-grouped">
+                            <div class="control">
+                                <button type="submit" class="button is-primary">
+                                    <span><i class="fas fa-save"></i> Guardar Cambios</span>
+                                </button>
+                            </div>
+                            <div class="control">
+                                <a href="{% url 'list_talleres' %}" type="button" id="reset"
+                                    class="button is-danger is-outlined">
+                                    <span><i class="fas fa-times"></i> Cancelar</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+{% block javascript %}
+
+
+<script src="{% static 'panel/js/talleres/talleres_fun.js' %}"></script>
+
+<script type="text/javascript">
+    {% if form.errors %}
+    var errors = '';
+
+    {% for field in form %}
+
+    {% for error in field.errors %}
+
+    errors += '{{ error }}\n';
+
+    {% endfor %}
+
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+    errors += '{{ error }}\n';
+
+    {% endfor %}
+
+    Swal.fire({
+        title: 'Error!',
+        text: errors,
+        icon: 'error'
+    });
+    {% endif %}
+
+</script>
+
+
+{% endblock %}

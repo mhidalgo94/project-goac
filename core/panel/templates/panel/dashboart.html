@@ -1,0 +1,110 @@
+{% extends 'panel/body.html' %}
+{% load static %}
+
+
+{% block card-info %}
+
+<!-- Targetas de alertas solo para portada de dashboart -->
+<section class="section is-main-section pb-1">
+    <div class="tile is-ancestor">
+        <div class="tile is-parent">
+            <div class="card tile is-child">
+                <div class="card-content">
+                    <div class="level is-mobile">
+                        <div class="level-item">
+                            <div class="is-widget-label">
+                                <a href="{% url 'list_noticias' %}"><h3 class="subtitle is-spaced">
+                                    Noticias
+                                </h3></a>
+                                <h1 class="title">
+                                    {{ noticias }}
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="level-item has-widget-icon">
+                            <div class="is-widget-icon" style="font-size: 54px;"><span class="icon has-text-info is-large">
+                                <i class="fas fa-newspaper fa-x4"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Publicaciones -->
+        <div class="tile is-parent">
+            <div class="card tile is-child">
+                <div class="card-content">
+                    <div class="level is-mobile">
+                        <div class="level-item">
+                            <div class="is-widget-label">
+                                <h3 class="subtitle is-spaced">
+                                    Publicaciones
+                                </h3>
+                                <h1 class="title">
+                                    {{publicaciones}}
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="level-item has-widget-icon">
+                            <div class="is-widget-icon" style="font-size: 54px;"><span class="icon has-text-success is-large">
+                                <i class="fas fa-globe"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Contactos -->
+        <div class="tile is-parent">
+            <div class="card tile is-child">
+                <div class="card-content">
+                    <div class="level is-mobile">
+                        <div class="level-item">
+                            <div class="is-widget-label">
+                                <a href="{% url 'list_contacto' %}"><h3 class="subtitle is-spaced">
+                                    Contactos
+                                </h3></a>
+                                <h1 class="title">
+                                   {{contactos}}
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="level-item has-widget-icon">
+                            <div class="is-widget-icon" style="font-size: 54px;"><span class="icon has-text-primary is-large">
+                                <i class="fas fa-chalkboard-teacher"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Alertas -->
+        <div class="tile is-parent">
+            <div class="card tile is-child">
+                <div class="card-content">
+                    <div class="level is-mobile">
+                        <div class="level-item">
+                            <div class="is-widget-label">
+                                <h3 class="subtitle is-spaced">
+                                    Alertas
+                                </h3>
+                                <h1 class="title">
+                                    10
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="level-item has-widget-icon">
+                            <div class="is-widget-icon" style="font-size: 54px;"><span class="icon has-text-danger is-large">
+                                <i class="fas fa-exclamation-triangle"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'panel/erp/tables.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet"
+	href="{% static 'lib/datatables-1.10/plugins/bulma/dataTables.bulma.min.css' %}" />
+<script src="{% static 'lib/datatables-1.10/plugins/bulma/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'lib/datatables-1.10/plugins/bulma/dataTables.bulma.min.js' %}"></script>
+
+{% endblock %}
+
+{% block columns %}
+	<tr>
+		<th width="5%">id</th>
+		<th width="65%">Texto</th>
+		<th width="25%">Autores</th>
+		<th width="10%">Documento</th>
+		<th width="5%">Opciones</th>
+	</tr>
+{% endblock %}
+
+{% block rows %}
+	<tr>
+		{% for rows in object %}
+		<td> {{ rows.id }}</td>
+		<td>{{ rows.nombre }}</td>
+		<td>{{ rows.correo }}</td>
+		<td>{{ rows.imagen }}</td>
+		<td>{{ rows.sexo }}</td>
+		<td>{{ rows.ocupacion }}</td>
+		<td class="is-actions-cell">
+			<div class="buttons is-right">
+				<button class="button is-small is-warning" type="button">
+					<span class="icon"><i class="fas fa-edit"></i></span>
+				</button>
+				<button class="button is-small is-danger center" type="button">
+					<span class="icon"><i class="fas fa-trash"></i></span>
+				</button>
+			</div>
+		</td>
+	</tr>
+	{% endfor %}
+{% endblock %}
+
+{% block botones %}
+<div class="field">
+	<div class="field is-grouped">
+	  <div class="control">
+		<a href="{% url 'create_eventos' %}" type="submit" class="button is-primary">
+		  <span><i class="fas fa-plus"></i> Crear Nuevo</span>
+		</a>
+	  </div>
+	  <div class="control">
+		<button type="button" id="update" class="button is-success is-outlined">
+		  <span><i class="fas fa-redo-alt"></i> Actualizar</span>
+		</button>
+	  </div>
+	</div>
+  </div>
+{% endblock %}
+
+{% block javascript %}
+
+<!-- Funciones Eventos -->
+<script src="{% static 'panel/js/publicaciones/eventos/eventos_fun.js' %}"></script>
+
+{% endblock %}

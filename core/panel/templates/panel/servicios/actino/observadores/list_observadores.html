@@ -1,0 +1,125 @@
+{% extends 'panel/erp/views.html' %}
+{% load static %}
+
+{% block head %}
+<!-- static de modal bulma -->
+<link rel="stylesheet" href="{% static 'css/modal-fx.min.css' %}" />
+<script src="{% static 'js/modal-fx.min.js' %}"></script>
+{% endblock %}
+
+{% block contenido %}
+<div class="level">
+    <div class="level-left"></div>
+    <div class="level-right">
+        <a type="button" class="button is-success" id="btn-agregar"><i class="fas fa-plus mr-2"></i> Crear
+            Observador</a>
+    </div>
+</div>
+<div class="columns is-multiline">
+    {% for m in obv %}
+    <div class="column is-one-third">
+        <article class="message is-medium is-info">
+            <div class="message-header" style="height: 40px;">
+                <p><i class="fas fa-flag"></i> {{m.estacion}}</p>
+            </div>
+            <div class="message-body">
+                <div class="container ">
+                    <div class="level">
+                        <div class="level-item">
+                            <figure class="image is-128x128 ">
+                                <img src="{{ m.get_imagen }}" class="" alt="">
+                            </figure>
+                        </div>
+                    </div>
+                    <p class="text has-text-centered is-size-6 mb-2 pr-0 pl-0">{{m.nombre}}</p>
+                    <p class="text has-text-centered"><b>{{ m.id }}</b></p>
+                </div>
+            </div>
+            <div class="message-footer has-background-grey-light pb-1">
+                <div class="level mt-0">
+                    <div class="level-item pt-1">
+                        <button rel="edit" value="{{m.id}}" obv="{{m.nombre}}" est="{{m.estacion}}"
+                            class="button is-small is-warning mr-1 pl-4"><i class="fas fa-edit mr-1"></i>
+                            Editar</button>
+                        <form action="." method="POST">
+                            <input type="hidden" name="id" value="{{m.id}}">
+                            <input type="hidden" name="action" value="delete">
+                            <button style="color: rgba(0,0,0,0.7);" class="button is-small is-danger pl-4"><i
+                                    class="fas fa-trash mr-1"></i> Eliminar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block javascript %}
+
+<!-- Modal para crear Sociedad Cientifica -->
+<div class="modal modal-fx-fadeInScale" id="modal-observador" style="overflow: hidden;">
+    <div class="modal-background"></div>
+    <div class="modal-content is-medium">
+        <form action="." method="POST" enctype="multipart/form-data" id="modal-form">
+            <input type="hidden" id="action" name="action" value="add-observador">
+            <header class="modal-card-head has-background-info">
+                <h2 class="modal-card-title has-text-white">
+                    <i class="fas fa-plus mr-1"></i><b class="titulo">Agregar Miembro</b>
+                </h2>
+                <button type="button" id="modal-close" class="modal-close"></button>
+            </header>
+            <section class="modal-card-body has-background-white-ter has-text-black">
+                <p class="label is-size-7 has-text-grey">Para que tenga coincidencia la imagen debes poner el código que le corresponde con el archivo csv del actino</p>
+                <!-- Nombre ... -->
+                <p class="subtitle has-text-grey mb-5 mr-1">Código: {{ form.id }}</i></p>
+                <!-- Estacion -->
+                <p class="subtitle has-text-grey mb-2 mr-1">Nombre: {{ form.nombre }}</span><span
+                        class="subtitle is-5 mb-2" id="correo"></p>
+                <!-- Titulo -->
+                <p class="subtitle has-text-grey mt-3">Imagen: {{ form.imagen }}</span>
+                    <!-- Especialidad -->
+                <p class="subtitle has-text-grey mb-2 mr-1">Estación: {{ form.estacion }}</span><span
+                        class="subtitle is-5 mb-2" id="correo"></p>
+            </section>
+            <footer class="modal-card-foot has-background-grey-lighter">
+                <div class="level">
+                    <div class="level-right">
+                        <button class="button is-info" type="submit" id="modal-cancel">
+                            <i class="fas fa-save mr-1"></i>Guardar
+                        </button>
+                        <button class="button is-warning" type="reset">
+                            <i class="fas fa-redo-alt mr-1"></i>Reset
+                        </button>
+                    </div>
+                </div>
+            </footer>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $('#modal-cancel').on('click', function () {
+        $('#modal-observador').removeClass('is-active');
+    });
+    $('#modal-close').on('click', function () {
+        $('#modal-observador').removeClass('is-active');
+        $('#modal-form').reset();
+    });
+    $('#btn-agregar').on('click', function () {
+        $('#modal-observador').addClass('is-active');
+    });
+    $('button[rel="edit"]').on('click', function () {
+        let val = $(this).val();
+        let obv = $(this).attr('obv');
+        let est = $(this).attr('est');
+        $('#id_id').val(val);
+        $('#id_nombre').val(obv);
+        $('#id_estacion').val(est);
+        $('input[name="action"]').val('edit');
+        $('#modal-observador').addClass('is-active');
+    });
+</script>
+{% endblock %}

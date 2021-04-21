@@ -1,0 +1,56 @@
+{% extends 'web/navbar-body.html' %}
+{% load static %}
+
+
+
+{% block contenido_agregados %}
+
+<section class="wow animate__animated animate__fadeInUp section has-background-white">
+    <h1 class="title is-1 center mb-4">{{ titulo_page }}</h1>
+    <hr>
+    <form action="." method="POST">
+        {% csrf_token %}
+        <div class="container">
+            <div class="field is-grouped">
+                <p class="control is-expanded mr-0 pr-0">
+                    <input type="text" name="buscar" class="input is-primary mr-0" placeholder="Escriba su busqueda">
+                </p>
+                <p class="control pl-0">
+                    <button class="button is-primary ml-0"><i class="fas fa-search"></i></button>
+                </p>
+            </div>
+        </div>
+        <p class="text center">
+            {% if busqueda %}
+                Su busqueda fue: <strong>{{ busqueda }} </strong>
+            {% endif %}
+        </p>
+    </form>
+
+    <div class="wow animate__animated animate__fadeInUp">
+
+        {% for i in info %}
+        <div class="container">
+            <a href="{% url 'detalles_talleres' i.id %}" class="is-shady" style="min-width: 100%;">
+                {% if i.verificar_tiempo %}
+                <article class="message is-info">
+                    {% else %}
+                    <article class="message is-dark-passive">
+                        {% endif %}
+                        <div class="message-header">
+                            <p>{{ i.titulo }}</p>
+                        </div>
+                        <div class="message-body">
+                                <label class="has-text-grey">Desde: {{ i.fecha_inicio }} hasta {{ i.fecha_culmina }}</label><br>
+                            <p class="has-text-justified">
+                                {{ i.descripcion }}
+                            </p>
+                        </div>
+                    </article>
+            </a>
+        </div>
+            {% endfor %}
+        </div>
+</section>
+
+{% endblock %}

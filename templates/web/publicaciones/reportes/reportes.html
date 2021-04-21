@@ -1,0 +1,93 @@
+{% extends 'web/navbar-body.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'lib/datatables-1.10/plugins/bulma/dataTables.bulma.min.css' %}" />
+<script src="{% static 'lib/datatables-1.10/plugins/bulma/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'lib/datatables-1.10/plugins/bulma/dataTables.bulma.min.js' %}"></script>
+{% endblock %}
+{% block contenido_agregados %}
+<section class="wow animate__animated animate__fadeIn content has-background-white mt-6">
+    <h1 class="wow animate__animated animate__fadeInDown title is-1 center mb-4">{{ titulo_page }}</h1>
+    <hr>
+        <div class="card-content pl-4 pt-4 pr-4 pb-4">
+            <div class="table-wrapper has-mobile-cards">
+                <table class="table is-bordered is-fullwidth is-striped is-hoverable is-fullwidth" id="dtable">
+                    <thead>
+                        
+                        <tr>
+                            <th width="5%">id</th>
+                            <th width="90%">Reportes</th>
+                            <th width="5%">Archivo</th>
+                        </tr>
+        
+                    </thead>
+        
+                    <tbody>
+                        {% for m in reportes %}
+                        <tr>
+                            
+                            <td>{{m.id}}</td>
+                            <td> {{ m.texto }}</td>
+                            {% if m.doc %}
+                            <td><a href="{{ m.doc }}" target="_blank" class="center"><span class="icon is-medium fas fa-file-download"></span></a></td>
+                            {% else %}
+                            <td><a href="#" target="_blank" class="center"><span class="icon is-medium fas fa-question-circle"></span></a></td>
+                            {% endif %}
+                            
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                        
+                </table>
+               
+            </div>
+        </div>
+    </div>
+        
+
+</section>
+
+{% block javascript %}
+<script type="text/javascript">
+
+$(function (){
+    $('#dtable').DataTable({
+    responsive: true,
+    autoWidth: false,
+    destroy: true,
+    deferRender: true,
+    "language": {
+            "sProcessing":     "Procesando...",
+                        "sLengthMenu":     "Mostrar _MENU_ registros",
+                        "sZeroRecords":    "No se encontraron resultados",
+                        "sEmptyTable":     "Ningún dato disponible en esta tabla =(",
+                        "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix":    "",
+                        "sSearch":         "Buscar:",
+                        "sUrl":            "",
+                        "sInfoThousands":  ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst":    "Primero",
+                            "sLast":     "Último",
+                            "sNext":     "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        },
+                        "buttons": {
+                            "copy": "Copiar",
+                            "colvis": "Visibilidad"
+                        }
+        },
+    });
+
+});
+
+</script>
+{% endblock %}
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends 'panel/body.html' %}
+{% load static %}
+
+{% block contenido %}
+
+<form action="." method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="edit">
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="subtitle has-text- has-text-center">{{ form.nombre.label}}</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <p class="control is-expanded has-icons-left">
+                    {{ form.nombre}}
+                    <span class="icon is-small is-left"><i class="fas fa-photo-video"></i></span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="subtitle has-text- has-text-center"></label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                <div class="field file">
+                    <label class="upload control">
+                        <a class="button is-primary">
+                            <span class="icon"><i class="fas fa-upload"></i></span>
+                            {{ form.imagen}}Selecione la imagen
+                        </a>
+                    </label>
+                    <label class="upload control">
+                        {% if object.imagen.url %}
+                        <a href="{{ object.imagen.url }}" target="_blank"><i class="fas fa-image ml-2 mt-1" style="font-size: 35px;"></i></a>
+                        {% endif %}
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="subtitle has-text-ghost has-text-center"> {{ form.desc.label}}</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                {{ form.desc }}
+
+                </p>
+            </div>
+        </div>
+    </div>
+
+    </div>
+    <hr>
+    <div class="field is-horizontal pb-4">
+        <div class="field-label">
+            <!-- Left empty for spacing -->
+        </div>
+        <div class="field-body">
+            <div class="field-right">
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button type="submit" class="button is-primary">
+                            <span><i class="fas fa-save"></i> Guardar</span>
+                        </button>
+                    </div>
+                    <div class="control">
+                        <a href="{% url 'list_instrumento' %}" class="button is-danger is-outlined">
+                            <span><i class="fas fa-times"></i> Cancelar</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</form>
+
+
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}

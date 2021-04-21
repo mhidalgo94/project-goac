@@ -1,0 +1,80 @@
+<!-- Pestaña Contacto -->
+<div class="container tile is-child" id="div-contacto">
+    <div class="hero">
+        <div class="hero-body">
+            <form id="form-contact" action="." method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="contacto">
+                <div class="field">
+                    <label class="label">Nombre Completo</label>
+                    <div class="control">
+                        <input class="input is-medium" name="nombre" type="text" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Correo</label>
+                    <div class="control">
+                        <input class="input is-medium" name="correo" type="text" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Título</label>
+                    <div class="control">
+                        <input class="input is-medium" name="subject" type="text" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Mensaje</label>
+                    <div class="control">
+                        <textarea class="textarea is-medium" name="mensaje" required></textarea>
+                    </div>
+                </div>
+                <div class="control">
+                    <button type="submit" class="button is-link is-fullwidth has-text-weight-medium is-medium">
+                        <i class="fas fa-paper-plane mr-2"></i> Enviar Mensaje
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#form-contact').on('submit', function (e) {
+        e.preventDefault();
+        var parameters = $(this).serializeArray();
+        Swal.fire({
+            title: 'Confirmación',
+            text: "Estas seguro de enviar esta información",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Seguro!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: window.location.pathname,
+                    type: 'POST',
+                    data: parameters,
+                    dataType: 'json'
+                }).done(function (data) {
+                    if (!data.hasOwnProperty('error')) {
+                        Swal.fire(
+                            'Verificación!',
+                            'Sus datos han sido enviado correctamente',
+                            'success'
+                        )
+                        $('form')[0].reset();
+                        return false;
+                    }
+
+                    mensaje_error(data.error);
+                }).fail(function (data) {
+                }).always(function (data) {
+                });
+            }
+        });
+    });
+</script>

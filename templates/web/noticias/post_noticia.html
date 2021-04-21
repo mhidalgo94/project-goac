@@ -1,0 +1,81 @@
+{% extends 'web/navbar-body.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'lib/datatables-1.10/plugins/bulma/dataTables.bulma.min.css' %}" />
+<script src="{% static 'lib/datatables-1.10/plugins/bulma/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'lib/datatables-1.10/plugins/bulma/dataTables.bulma.min.js' %}"></script>
+{% endblock %}
+
+{% block contenido_agregados %}
+    <div class=" wow animate__animated animate__fadeInUp">
+        <div class="container mt-6">
+            <div class="card article">
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-center">
+                            <img src="{{ object.autor.get_imagen }}"
+                                class="author-image" alt="Placeholder image">
+                        </div>
+                        <div class="media-content has-text-centered">
+                            <p class="title article-title">{{ object.titulo }}</p>
+                            <p class="subtitle is-6 article-subtitle">
+                                <a href="{% url 'perfil_miembros' object.autor.id %}">{{ object.autor.full_name | capfirst}}</a> el {{ object.fecha_creacion }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="content article-body">
+                        <p>
+                           {{ object.contenido | safe }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+
+  $(function (){
+      $('#dtable').DataTable({
+      responsive: true,
+      autoWidth: false,
+      destroy: true,
+      deferRender: true,
+      "language": {
+              "sProcessing":     "Procesando...",
+                          "sLengthMenu":     "Mostrar _MENU_ registros",
+                          "sZeroRecords":    "No se encontraron resultados",
+                          "sEmptyTable":     "Ningún dato disponible en esta tabla =(",
+                          "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                          "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                          "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                          "sInfoPostFix":    "",
+                          "sSearch":         "Buscar:",
+                          "sUrl":            "",
+                          "sInfoThousands":  ",",
+                          "sLoadingRecords": "Cargando...",
+                          "oPaginate": {
+                              "sFirst":    "Primero",
+                              "sLast":     "Último",
+                              "sNext":     "Siguiente",
+                              "sPrevious": "Anterior"
+                          },
+                          "oAria": {
+                              "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                              "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                          },
+                          "buttons": {
+                              "copy": "Copiar",
+                              "colvis": "Visibilidad"
+                          }
+          },
+      });
+  
+  });
+  
+  </script>
+
+{% endblock %}

@@ -1,0 +1,176 @@
+{% load static %}
+
+<!-- Contactos -->
+<section class="section has-background-white">
+    <h1 class="wow animate__animated animate__fadeInUp title is-1 center mb-5">CONTACTANOS</h1>
+    <div class=" wow animate__animated animate__fadeInUp container" data-wow-duration="2s">
+        <div class="content has-background-white" style="margin-top: 10px;">
+            <div class="container" style="align-items: center;">
+                <div class="columns ml-2">
+                    <div class="column" id="col-contactos">
+                        <h2 class="title has-text-centered mt-2">Requiere todos los campos</h2>
+                        <form method="POST" action=".">
+                            {% csrf_token %}
+                            <div class="column is-mobile has-text-left">
+                                <div class="field-body">
+                                    <br>
+                                    <div class="field">
+                                        <div class="control  mr-2">
+                                            <label class="label is-center is-normal">Nombre Completo:</label>
+                                            {{ form.nombre }}
+                                        </div>
+                                        <div class="control mr-2">
+                                            <label class="label is-center is-normal">Correo:</label>
+                                            {{ form.correo }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label is-normal">Titulo:</label>
+                                    <div class="control">
+                                        {{ form.subject }}
+                                    </div>
+                                </div>
+
+                                <div class="field">
+                                    <label class="label is-normal">Mensaje:</label>
+                                    <div class="control">
+                                        {{ form.mensaje }}
+                                    </div>
+                                </div>
+                                <button type="submit" class="button is-link is-fullwidth is-medium mb-3" id="test"><i
+                                        class="fas fa-paper-plane mr-2"></i> Enviar
+                                    Mensaje</button>
+                                <div class="block" id="block-tags">
+                                    <span id="tags" class="tag is-success mt-5"><i
+                                            class="fa fa-check-square mr-1"></i>Alabanzas</span>
+                                    <span id="tags" class="tag is-link"><i
+                                            class="fas fa-clipboard mr-1"></i>Sugerencias</span>
+                                    <span id="tags" class="tag is-info"><i class="fa fa-exclamation mr-1"></i>
+                                        Detalles</span>
+                                    <span id="tags" class="tag is-warning"><i
+                                            class="fas fa-exclamation-triangle pr-1"></i>
+                                        Criticas</span>
+                                    <span id="tags" class="tag is-danger"><i class="fas fa-ban mr-1"></i>
+                                        Advertencias</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="column">
+                        <div class="container">
+                            <div class="content" id="bg-contacto">
+                                <div class="content has-text-centered " id="bg-location">
+                                    <div class="block">
+                                        <h3 class="subittle is-2 has-text-light has-text-left ml-2">Las funciones de GOAC son:</h3>
+                                        <ul>
+                                            <li class="has-text-justified has-text-light">Realizar investigaciones científicas conducentes al cumplimiento de objetivos.
+                                            </li>
+                                            <li class="has-text-justified has-text-light">Implementar los resultados de las investigaciones científicas como servicios técnicos de alto valor agregado para usuarios internos y externos.
+                                            </li>
+                                            <li class="has-text-justified has-text-light">Desarrollo de capacidades con alto nivel de especialización teórica y / o experimental.</li>
+                                            <li class="has-text-justified has-text-light">Gestionar, en conjunto con los órganos correspondientes de la Delegación local y el Órgano de Cooperación Internacional del Ministerio de Ciencias la colaboración internacional para la transferencia de tecnología y conocimiento hacia y desde nuestro país.
+                                            </li>
+                                            <li class="has-text-justified has-text-light">
+
+                                                Explore nuestro sitio y conozca como el GOAC cumple sus objetivos y realiza sus funciones.</li>
+                                        </ul>
+                                    </div>
+                                    <h2 class="subittle is-2 has-text-white">Centro Meteorológico Camagüey</h2>
+                                    <div class="content pl-5">
+                                        <div class="field is-horizontal">
+                                            <div class="field-label is-normal">
+                                                <label class="label has-text-light has-text-left"><i
+                                                        class="fas fa-map-marked mr-2"></i>{{ modelo.direccion}}</label>
+                                            </div>
+                                        </div>
+                                        <div class="field is-horizontal">
+                                            <div class="field-label is-normal">
+                                                <label class="label has-text-light has-text-left"><i
+                                                        class="fas fa-map-marker mr-2"></i>{{ modelo.postal }}</label>
+                                            </div>
+                                        </div>
+                                        <div class="field is-horizontal">
+                                            <div class="field-label is-normal">
+                                                <label class="label has-text-light has-text-left"><i
+                                                        class="fas fa-envelope mr-2"></i>{{ modelo.correo }}</label>
+                                            </div>
+                                        </div>
+                                        <div class="field is-horizontal">
+                                            <div class="field-label is-normal">
+                                                <label class="label has-text-light has-text-left"><i
+                                                        class="fas fa-phone mr-2"></i>+{{ modelo.telefono }}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<script type="text/javascript">
+    function mensaje_error(obj) {
+        var html = '';
+        if (typeof (obj) === 'object') {
+            html = '<ul style="text-align= left; list-decorator= none;">';
+            $.each(obj, function (key, value) {
+                html += '<li>' + key + ':' + value + '</li>';
+            });
+            html += '</ul>';
+        }
+        else {
+            html += '<p>' + obj + '</p>';
+        }
+        Swal.fire({
+            title: 'Error',
+            html: html,
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+
+    }
+
+    $('form').on('submit', function (e) {
+        e.preventDefault();
+        var parameters = $(this).serializeArray();
+        Swal.fire({
+            title: 'Confirmación',
+            text: "Estas seguro de enviar esta información",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Seguro!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: window.location.pathname,
+                    type: 'POST',
+                    data: parameters,
+                    dataType: 'json'
+                }).done(function (data) {
+                    if (!data.hasOwnProperty('error')) {
+                        Swal.fire(
+                            'Verificación!',
+                            'Sus datos han sido enviado correctamente',
+                            'success'
+                        )
+                        return false;
+                    }
+
+                    mensaje_error(data.error);
+                }).fail(function (data) {
+                }).always(function (data) {
+                    $('form')[0].reset();
+                });
+            }
+        });
+    });
+</script>

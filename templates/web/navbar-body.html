@@ -1,0 +1,35 @@
+{% extends 'web/home.html' %}
+{% load static %}
+
+
+<!-- Cuerpo sitio -->
+{% block body %}
+
+
+<section class="">
+    <nav class="wow animate__animated animate__fadeInDown navbar is-fixed-top is-spaced" id="bar-nav">
+        <div class="navbar-brand">
+            <a href="{% url 'portada' %}" class="navbar-item">
+                <img class="ml-6" src="{{ modelo.logo.url }}" alt="" width="140" height="40" style="background: none;">
+            </a>
+            <div class="navbar-burger has-text-white" id="btn-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+            {% include 'web/nav-bar.html' %}
+
+        </div>
+</section>
+
+<section class="section has-background-white mt-6" style="min-height: 515px;">
+    {% block contenido_agregados %}
+
+    {% endblock %}
+
+</section>
+
+<!-- Pie de pagina -->
+{% include 'web/footer.html' %}
+{% endblock %}

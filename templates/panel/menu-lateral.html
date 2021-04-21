@@ -1,0 +1,160 @@
+{% load static %}
+
+<aside class="aside is-placed-left is-expanded" style="overflow-y: auto;">
+  <div class="aside-tools has-background-dark">
+    <a href="{% url 'portada' %}" class="aside-tools-label mt-2">
+      <img class="ml-6" src="{% static 'img/goac-logo.png' %}" alt="" style="background: none;" width="140" height="40">
+    </a>
+  </div>
+  <div class="menu is-menu-main">
+    <p class="menu-label">Inicio</p>
+    <ul class="menu-list">
+      <li>
+        <a href="{% url 'panel' %}" class="is-active router-link-active has-icon">
+          <span class="icon"><i class="fas fa-laptop"></i></span>
+          <span class="menu-item-label">Panel Control</span>
+        </a>
+      </li>
+    </ul>
+    <p class="menu-label">General</p>
+    <ul class="menu-list">
+      <li>
+        <a class="has-icon has-dropdown-icon">
+          <span class="icon"><i class="fas fa-globe"></i></span>
+          <span class="menu-item-label">Web</span>
+          <div class="dropdown-icon">
+            <span class="icon"><i class="fas fa-plus" id="ch-icon"></i></span>
+          </div>
+        </a>
+        <ul>
+          <li>
+            <a href="{% url 'edit_portada' %}">
+              <span class="ml-3"> Datos Portada</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'list_instrumento' %}">
+              <span class="ml-3">Instrumentos</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="{% url 'list_noticias' %}" class="has-icon">
+          <span class="icon"><i class="fas fa-newspaper"></i></span>
+          <span class="menu-item-label">Noticias</span>
+        </a>
+      </li>
+      <li>
+        <a class="has-icon has-dropdown-icon">
+          <span class="icon"><i class="fas fa-bookmark"></i></span>
+          <span class="menu-item-label">Publicaciones</span>
+          <div class="dropdown-icon">
+            <span class="icon"><i class="fas fa-plus" id="ch-icon"></i></span>
+          </div>
+        </a>
+        <ul>
+          <li>
+            <a href="{% url 'list_reportes' %}">
+              <span class="ml-3"> Reportes</span>
+            </a>
+          </li>
+          <li>
+          <li>
+            <a href="{% url 'list_arbitraje' %}">
+              <span class="ml-3">Articulos Arbitrajes</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'list_eventos' %}">
+              <span class="ml-3">Eventos</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="{% url 'list_investigaciones' %}" class="has-icon">
+          <span class="icon"><i class="fas fa-university"></i></span>
+          <span class="menu-item-label">Investigaciones</span>
+        </a>
+      </li>
+      <li>
+      <li>
+        <a class="has-icon has-dropdown-icon">
+          <span class="icon"><i class="fas fa-wrench"></i></span>
+          <span class="menu-item-label">Talleres</span>
+          <div class="dropdown-icon">
+            <span class="icon"><i class="fas fa-plus" id="ch-icon"></i></span>
+          </div>
+        </a>
+        <ul>
+          <li>
+            <a href="{% url 'list_talleres' %}">
+              <span class="ml-3">Todos los Talleres</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'list_resumenes' %}">
+              <span class="ml-3">Resumenes</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'list_participantes' %}">
+              <span class="ml-3">Participantes</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      </li>
+      <li>
+        <a href="{% url 'todos_servicios' %}" class="has-icon">
+          <span class="icon has-update-mark"><i class="fas fa-cogs"></i></span>
+          <span class="menu-item-label">Servicios</span>
+        </a>
+      </li>
+    </ul>
+    <p class="menu-label">Administrar</p>
+    <ul class="menu-list">
+      <li>
+        <a href="{% url 'list_contacto' %}" class="has-icon">
+          <span class="icon"><i class="fas fa-address-book"></i></span>
+          <span class="menu-item-label">Contactos</span>
+        </a>
+      </li>
+      <li>
+        <a class="has-icon has-dropdown-icon">
+          <span class="icon"><i class="fas fa-users"></i></span>
+          <span class="menu-item-label">Miembros</span>
+          <div class="dropdown-icon">
+            <span class="icon"><i class="fas fa-plus"></i></span>
+          </div>
+        </a>
+        <ul>
+          <li>
+            <a href="{% url 'list_miembros' %}">
+              <span class="ml-3"> Todos Miembros</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'list_scientifica' %}">
+              <span class="ml-3">Sociedades Científicas</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="{% url 'list_usuarios' %}" class="has-icon">
+          <span class="icon"><i class="fas fa-users-cog"></i></span>
+          <span class="menu-item-label">Usuarios</span>
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'logout' %}" class="has-icon">
+          <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+          <span class="menu-item-label">Logout</span>
+        </a>
+      </li>
+
+    </ul>
+  </div>
+</aside>

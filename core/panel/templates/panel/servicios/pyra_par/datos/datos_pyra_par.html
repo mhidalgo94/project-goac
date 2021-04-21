@@ -1,0 +1,49 @@
+{% extends 'panel/erp/views.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'lib/datatables-1.10/plugins/bulma/dataTables.bulma.min.css' %}" />
+<script src="{% static 'lib/datatables-1.10/plugins/bulma/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'lib/datatables-1.10/plugins/bulma/dataTables.bulma.min.js' %}"></script>
+<!-- static de modal bulma -->
+<link rel="stylesheet" href="{% static 'css/modal-fx.min.css' %}" />
+<script src="{% static 'js/modal-fx.min.js' %}"></script>
+{% endblock %}
+
+{% block contenido %}
+
+<div class="container">
+    <table class="table is-hoverable" id="dtable">
+        <thead>
+            <tr>
+                <th width="5%">id</th>
+                <th width="15%">Fecha</th>
+                <th width="15%">Tiempo</th>
+                <th width="15%">Pyra</th>
+                <th width="15%">Par</th>
+                <th width="5%">Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <hr>
+    <div class="field">
+        <div class="field is-grouped">
+            <div class="control">
+                <button type="button" id="update" class="button is-success is-outlined">
+                    <span><i class="fas fa-redo-alt"></i> Actualizar</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'panel/js/servicios/pyra_par/datos_pyra_par.js' %}"></script>
+
+{% endblock %}

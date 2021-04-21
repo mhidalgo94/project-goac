@@ -1,0 +1,128 @@
+{% extends 'web/navbar-body.html' %}
+{% load static %}
+{% block head %}
+<!-- DataTable -->
+<link rel="stylesheet" href="{% static 'lib/datatables-1.10/plugins/bulma/dataTables.bulma.min.css' %}" />
+<script src="{% static 'lib/datatables-1.10/plugins/bulma/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'lib/datatables-1.10/plugins/bulma/dataTables.bulma.min.js' %}"></script>
+<script src="{% static 'lib/datatables-1.10/plugins/bulma/dataTables.rowGroup.min.js' %}"></script>
+<!-- Funciones -->
+<script src="{% static 'js/my_func.js' %}"></script>
+<!-- Bulma Calendar -->
+<link rel="stylesheet" href="{% static 'lib/bulma-calendar/css/bulma-calendar.min.css' %}" />
+<script src="{% static 'lib/bulma-calendar/js/bulma-calendar.min.js' %}"></script>
+<!-- Mapa style -->
+<link rel="stylesheet" href="{% static 'css/servicios/mapa/mapa.css' %}" />
+<!-- HigthChart 8.1 -->
+<script src="{% static 'lib/highcharts-8.1/highcharts.js' %}"></script>
+<script src="{% static 'lib/highcharts-8.1/modules/exporting.js' %}"></script>
+<script src="{% static 'lib/highcharts-8.1/modules/export-data.js' %}"></script>
+<script src="{% static 'lib/highcharts-8.1/modules/accessibility.js' %}"></script>
+
+{% endblock %}
+
+{% block contenido_agregados %}
+<section class="wow animate__animated animate__fadeInUp section has-background-white">
+    <h1 class="title is-1 center mb-4">{{ titulo_page }}</h1>
+    <div class=" wow animate__animated animate__fadeInUp">
+        <div class="container">
+
+            <div class="content article-body">
+                <h3 class="title is-3 center">{{ object.titulo }}</h3>
+                <h3 class="subtitle has-text-dark-light center">Servicio de Diagnóstico Radiación Solar</h3>
+                </h3>
+                <div class="container center">
+                    <div class="select" style="display: flex;" id="select-est">
+                        <label class="label mr-2 pt-2">Seleccione estación:</label>
+                        <select name="" id="estacion" class="select is-centered">
+                            <option value="D">Camagüey</option>
+                            <option value="J">Jovellanos</option>
+                            <option value="F">Santa Fe</option>
+                            <option value="T">Topes de Collantes</option>
+                        </select>
+                    </div>
+                    {% if verano.horario_verano %}
+                    <input type="hidden" name="horario_verano" id="horario_verano" value="1">
+                    {% else %}
+                    <input type="hidden" name="horario_verano" id="horario_verano" value="0">
+                    {% endif %}
+                </div>
+                <!-- Select Pestaña -->
+                <div class="tabs is-centered is-boxed">
+                    <ul>
+                        <li class="pr-1" id="servicios">
+                            <a>
+                                <span class="icon is-small"><i class="fas fa-flag"></i></span>
+                                <span><b>Estaciones</b></span>
+                            </a>
+                        </li>
+                        <li class="pr-1" id="historicos">
+                            <a>
+                                <span class="icon is-small"><i class="fas fa-history"></i></span>
+                                <span><b>Históricos</b></span>
+                            </a>
+                        </li>
+                        <li class="pr-1" id="mediciones">
+                            <a>
+                                <span class="icon is-small"><i class="fas fa-balance-scale-right"></i></span>
+                                <span><b>Mediciones</b></span>
+                            </a>
+                        </li>
+                        <li class="pr-1" id="info">
+                            <a>
+                                <span class="icon is-small"><i class="fas fa-info"></i></span>
+                                <span><b>Información</b></span>
+                            </a>
+                        </li>
+                        <li class="pr-1" id="contacto">
+                            <a>
+                                <span class="icon is-small"><i class="fas fa-people-arrows"></i></span>
+                                <span><b>Contacto</b></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Pestaña Mapa Estaciones -->
+                {% include 'web/servicios/actino/mapa_estaciones.html' %}
+
+                <!-- Pestaña de Historicos -->
+                {% include 'web/servicios/actino/historicos.html' %}
+
+                <!-- Pestaña Mediciones -->
+                {% include 'web/servicios/actino/mediciones.html' %}
+
+                <!-- Pestaña Informacion -->
+                {% include 'web/servicios/actino/informacion.html' %}
+
+
+                <!-- Pestaña Contacto -->
+                {% include 'web/servicios/actino/contactos.html' %}
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/servicios/actino/func_actino.js' %}"></script>
+
+<script>
+    {% if messages %}
+    let html = '<label>';
+    {% for message in messages %}
+    html += '{{ message }}<br>';
+    {% endfor %}
+    html += '</label>';
+    Swal.fire({
+        title: 'Error!',
+        html: html,
+        icon: 'error'
+    });
+
+    {% endif %}
+</script>
+{% endblock %}

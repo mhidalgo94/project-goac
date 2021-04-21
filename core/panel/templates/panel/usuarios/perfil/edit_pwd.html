@@ -1,0 +1,190 @@
+{% extends 'panel/erp/forms.html' %}
+{% load static %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block contenido %}
+
+<div class="tile is-ancestor">
+    <div class="tile is-parent">
+        <div class="card tile is-child">
+            <div class="card-content mt-4 pr-4">
+                <form id="form-0" action="." method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal ">
+                            <label class="subtitle">Contraseña vieja:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field has-addons">
+                                <p class="control is-expanded ">
+                                    {{ form.old_password}}
+                                </p>
+                                <p id="btn-eye1" class="control">
+                                    <a class="button is-static"><i id="passw-old" class="fas fa-eye"></i>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal ">
+                            <label class="subtitle">{{ form.new_password1.label }}:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field has-addons">
+                                <p class="control is-expanded">
+                                    {{ form.new_password1}}
+                                </p>
+                                <p id="btn-eye2" class="control">
+                                    <a class="button is-static"><i id="passw-text1" class="fas fa-eye"></i>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal mb-2">
+                        <div class="field-label is-normal ">
+                            <label class="subtitle">Confirmar:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field has-addons">
+                                <p class="control is-expanded">
+                                    {{ form.new_password2}}
+                                </p>
+                                <p id="btn-eye3" class="control">
+                                    <a class="button is-static"><i id="passw-text2" class="fas fa-eye"></i>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="field is-horizontal">
+    <div class="field-label">
+        <!-- Creando Espacio -->
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <div class="field is-grouped">
+                <div class="control">
+                    <button type="submit" class="button is-primary">
+                        <span><i class="fas fa-save"></i> Guardar</span>
+                    </button>
+                </div>
+                <div class="control">
+                    <a href="{% url 'list_usuarios' %}" class="button is-danger is-outlined">
+                        <span><i class="fas fa-times"></i> Cancelar</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</form>
+
+
+
+{% endblock %}
+
+{% block javascript %}
+
+<script type="text/javascript">
+    var input = document.getElementsByTagName('input');
+    input.old_password.classList.add('input');
+    input.new_password1.classList.add('input');
+    input.new_password2.classList.add('input');
+
+    $('#btn-eye1').on('click', function () {
+        let get = $('#passw-old').hasClass('fa-eye');
+        if (get) {
+            $('#passw-old').removeClass('fa-eye');
+            $('#passw-old').addClass('fa-eye-slash');
+            $(input.old_password).get(0).type = 'text';
+        } else {
+            $('#passw-old').removeClass('fa-eye-slash');
+            $('#passw-old').addClass('fa-eye');
+            $(input.old_password).get(0).type = 'password';
+
+        }
+    });
+    
+    $('#btn-eye2').on('click', function () {
+        let get = $('#passw-text1').hasClass('fa-eye');
+        if (get) {
+            $('#passw-text1').removeClass('fa-eye');
+            $('#passw-text1').addClass('fa-eye-slash');
+            $(input.new_password1).get(0).type = 'text';
+        } else {
+            $('#passw-text1').removeClass('fa-eye-slash');
+            $('#passw-text1').addClass('fa-eye');
+            $(input.new_password1).get(0).type = 'password';
+
+        }
+    });
+    
+    $('#btn-eye3').on('click', function () {
+        let get = $('#passw-text2').hasClass('fa-eye');
+        if (get) {
+            $('#passw-text2').removeClass('fa-eye');
+            $('#passw-text2').addClass('fa-eye-slash');
+            $(input.new_password2).get(0).type = 'text';
+        } else {
+            $('#passw-text2').removeClass('fa-eye-slash');
+            $('#passw-text2').addClass('fa-eye');
+            $(input.new_password2).get(0).type = 'password';
+        }
+    });
+
+    $('form').on('submit', function (e) {
+        e.preventDefault();
+        var parameters = new FormData(this);
+        console.log(parameters);
+        Swal.fire({
+            title: 'Confirmacion',
+            text: "Estas seguro de cambiar la contraseña",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Seguro!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: window.location.pathname,
+                    type: 'POST',
+                    data: parameters,
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false,
+                }).done(function (data) {
+                    if (!data.hasOwnProperty('error')) {
+                        Swal.fire({
+                            title: 'Notificación!',
+                            text: 'Cambios realizados correctamente',
+                            icon: 'success',
+                            timer: 3000,
+                            onClose: () => {
+                               location.href= '{{ url_panel }}';
+                            }
+                        });
+                        return false;
+                    }
+
+                    mensaje_error(data.error);
+                }).fail(function (data) {
+                }).always(function (data) {
+                });
+            }
+        });
+    });
+
+</script>
+{% endblock %}

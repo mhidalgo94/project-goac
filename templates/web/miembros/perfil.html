@@ -1,0 +1,315 @@
+{% extends 'web/navbar-body.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'lib/datatables-1.10/plugins/bulma/dataTables.bulma.min.css' %}" />
+<script src="{% static 'lib/datatables-1.10/plugins/bulma/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'lib/datatables-1.10/plugins/bulma/dataTables.bulma.min.js' %}"></script>
+{% endblock %}
+
+
+{% block contenido_agregados %}
+<section class="wow animate__animated animate__fadeInUp section has-background-white">
+    <h1 class="title is-1 center mb-4">{{ titulo_page }}</h1>
+    <hr>
+    <div class="columns is-variable is-10">
+        <div class="column is-3 mb-2 pl-0">
+            <div class="content">
+                <img class="image is-rounded" src="{{ object.get_imagen }}" alt="imagen-pefil" style="border-radius:50%;" >
+
+            </div>
+            {% if object.curriculo %}
+                <div class="container is-fullwidth center">
+                    <a href="{{ object.curriculo }}" target="_blank" class="button is-primary mt-2"><i class="fas fa-download mr-1"></i> Descargar Currículo</a>
+                </div>
+                {% else %}
+                {% endif %}
+        </div>
+        <div class="column is-10">
+            <div class="content is-medium">
+                <h1 class="title has-text-black is-3">{{ object.full_name }}</h1>
+                {% if object.estado %}
+                <label class="tag is-info is-medium has-text-white mb-0 mt-0 mr-2 mb-1"><span class="icon mr-1"><i
+                            class="fas fa-briefcase mr-2 has-text-white"></i></span> {{ object.estado }}</label>
+                {% endif %}
+                {% if object.ocupacion %}
+                <label class="tag is-info is-medium has-text-white mb-0 mt-0 mr-2 mb-1"><span class="icon mr-1"><i class="fas fa-user-graduate mr-2 has-text-white"></i></span> {{ object.ocupacion }}</label>
+                {% endif %}
+                <label class="tag is-info is-medium has-text-white mt-0 mb-0 mr-2 mb-1"><span class="icon mr-1"><i
+                            class="fas fa-envelope mr-2 has-text-white"></i></span> {{ object.correo }}</label>
+                {% if object.telefono %}
+                <label class="tag is-info is-medium has-text-white mb-0 mt-0 mr-2 mb-1"><span class="icon mr-1"><i class="fas fa-phone mr-2 has-text-white"></i></span> {{ object.telefono }}</label>
+                {% endif %}
+                {% if object.fech_nacido %}
+                <label class="tag is-info is-medium has-text-white mb-0 mt-0 mr-2 mb-1"><span class="icon mr-1"><i class="fas fa-birthday-cake mr-2 has-text-white"></i></span> {{ object.fech_nacido}}</label>
+                {% endif %}
+                {% if object.biografia %}
+                <h1 class="title is-5 mb-1">Biografia:</h1>
+                <p class="has-text-dark has-text-justified" style="width: 85%;">{{ object.biografia }}</p>
+                {% endif %}
+
+                {% if object.scientifca.all %}
+                <h2 class="subtitle is-5">Sociedad Cientifica:</h2>
+                {% for m in object.scientifca.all %}
+                <a href="{{m.url}}" class="tag is-info is-medium has-text-white mb-0 mt-0"><span class="icon mr-1"><i class="fas fa-atom mr-2 has-text-white"></i></span>{{ m.nombre }}</a><br>
+                {% endfor %}
+                {% else %}
+                <h2 class="subtitle is-5"></h2>
+
+                {% endif%}
+            </div>
+        </div>
+    </div>
+    {% if art_arbitrajes %}
+    <!-- Articulos -->
+    <div class="container wow animate__animated animate__fadeInUp mb-2" data-wow-duration="2s">
+        <h1 class="wow animate__animated animate__fadeInDown title is-1 center mb-4">Articulos</h1>
+        <hr>
+        <div class="card-content pl-4 pt-4 pr-4 pb-4">
+            <div class="table-wrapper has-mobile-cards">
+                <table class="table is-bordered is-fullwidth is-striped is-hoverable is-fullwidth"
+                    id="dtable-articulos">
+                    <thead>
+                        <tr>
+                            <th width="5%">id</th>
+                            <th width="90%">Reportes</th>
+                            <th width="5%">Archivo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for m in art_arbitrajes %}
+                        <tr>
+                            <td>{{m.id}}</td>
+                            <td> {{ m.texto }}</td>
+                            {% if m.doc %}
+                            <td><a href="/media/{{ m.doc }}" target="_blank" class="center"><span
+                                        class="icon is-medium fas fa-file-download"></span></a></td>
+                            {% else %}
+                            <td><a href="#" target="_blank" class="center"><span
+                                        class="icon is-medium fas fa-question-circle"></span></a></td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Datos de reportes -->
+    {% if reportes %}
+    <div class="container wow animate__animated animate__fadeInUp" data-wow-duration="2s">
+        <h1 class="wow animate__animated animate__fadeInDown title is-1 center mb-4">Reportes</h1>
+        <hr>
+        <div class="card-content pl-4 pt-4 pr-4 pb-4">
+            <div class="table-wrapper has-mobile-cards">
+                <table class="table is-bordered is-fullwidth is-striped is-hoverable is-fullwidth" id="dtable-reportes">
+                    <thead>
+                        <tr>
+                            <th width="5%">id</th>
+                            <th width="90%">Reportes</th>
+                            <th width="5%">Archivo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for m in reportes %}
+                        <tr>
+                            <td>{{m.id}}</td>
+                            <td> {{ m.texto }}</td>
+                            {% if m.doc %}
+                            <td><a href="/media/{{ m.doc }}" target="_blank" class="center"><span
+                                        class="icon is-medium fas fa-file-download"></span></a></td>
+                            {% else %}
+                            <td><a href="#" target="_blank" class="center"><span
+                                        class="icon is-medium fas fa-question-circle"></span></a></td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Datos eventos -->
+    {% if eventos %}
+    <div class="container wow animate__animated animate__fadeInUp" data-wow-duration="2s">
+        <h1 class="wow animate__animated animate__fadeInDown title is-1 center mb-4">Eventos</h1>
+        <hr>
+        <div class="card-content pl-4 pt-4 pr-4 pb-4">
+            <div class="table-wrapper has-mobile-cards">
+                <table class="table is-bordered is-fullwidth is-striped is-hoverable is-fullwidth" id="dtable-eventos">
+                    <thead>
+                        <tr>
+                            <th width="5%">id</th>
+                            <th width="90%">Reportes</th>
+                            <th width="5%">Archivo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for m in eventos %}
+                        <tr>
+
+                            <td>{{m.id}}</td>
+                            <td> {{ m.texto }}</td>
+                            {% if m.doc %}
+                            <td><a href="/media/{{ m.doc }}" target="_blank" class="center"><span
+                                        class="icon is-medium fas fa-file-download"></span></a></td>
+                            {% else %}
+                            <td><a href="#" target="_blank" class="center"><span
+                                        class="icon is-medium fas fa-question-circle"></span></a></td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if noticias %}
+    <div class="container mt-2 wow animate__animated animate__fadeInUp" data-wow-duration="2s">
+        <h1 class="title is-1 center mb-4">Noticias</h1>
+        <hr>
+        <div class="wow animate__animated animate__fadeInUp">
+            <div class="container">
+                {% for m in noticias %}
+                <article class="wow animate__animated animate__fadeInLeft media" data-wow-duration="1s">
+                    <figure class="media-left is-96x96">
+                        {% if m.imagen %}
+                        <img class="" src="{{ m.imagen.url }}" alt="" width="200px" height="200px">
+                        {% else %}
+                        <img class="" src="{% static 'img/empty.png' %}" alt="" width="200px" height="200px">
+                        {% endif %}
+                    </figure>
+                    <div class="media-content">
+                        <div class="content">
+                            <a href="{% url 'ver_noticias' m.id %}" class="title is-4 has-text-link mt-0 mb-0">{{ m.titulo }}</a><br>
+                            <label class="has-text-grey">Publicado: {{ m.fecha_creacion }}</label><br>
+
+                            <p class="text">{{ m.desc }}</p>
+                        </div>
+                    </div>
+
+                </article>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</section>
+
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+
+    $(function () {
+        $('#dtable-articulos').DataTable({
+            responsive: true,
+            autoWidth: false,
+            destroy: true,
+            deferRender: true,
+            "language": {
+            "sProcessing":     "Procesando...",
+                        "sLengthMenu":     "Mostrar _MENU_ registros",
+                        "sZeroRecords":    "No se encontraron resultados",
+                        "sEmptyTable":     "Ningún dato disponible en esta tabla =(",
+                        "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix":    "",
+                        "sSearch":         "Buscar:",
+                        "sUrl":            "",
+                        "sInfoThousands":  ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst":    "Primero",
+                            "sLast":     "Último",
+                            "sNext":     "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        },
+                        "buttons": {
+                            "copy": "Copiar",
+                            "colvis": "Visibilidad"
+                        }
+        },
+        });
+        $('#dtable-reportes').DataTable({
+            responsive: true,
+            autoWidth: false,
+            destroy: true,
+            deferRender: true,
+            "language": {
+            "sProcessing":     "Procesando...",
+                        "sLengthMenu":     "Mostrar _MENU_ registros",
+                        "sZeroRecords":    "No se encontraron resultados",
+                        "sEmptyTable":     "Ningún dato disponible en esta tabla =(",
+                        "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix":    "",
+                        "sSearch":         "Buscar:",
+                        "sUrl":            "",
+                        "sInfoThousands":  ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst":    "Primero",
+                            "sLast":     "Último",
+                            "sNext":     "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        },
+                        "buttons": {
+                            "copy": "Copiar",
+                            "colvis": "Visibilidad"
+                        }
+        },
+        });
+        $('#dtable-eventos').DataTable({
+            responsive: true,
+            autoWidth: false,
+            destroy: true,
+            deferRender: true,
+            "language": {
+            "sProcessing":     "Procesando...",
+                        "sLengthMenu":     "Mostrar _MENU_ registros",
+                        "sZeroRecords":    "No se encontraron resultados",
+                        "sEmptyTable":     "Ningún dato disponible en esta tabla =(",
+                        "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix":    "",
+                        "sSearch":         "Buscar:",
+                        "sUrl":            "",
+                        "sInfoThousands":  ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst":    "Primero",
+                            "sLast":     "Último",
+                            "sNext":     "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        },
+                        "buttons": {
+                            "copy": "Copiar",
+                            "colvis": "Visibilidad"
+                        }
+        },
+        });
+    });
+
+</script>
+{% endblock %}

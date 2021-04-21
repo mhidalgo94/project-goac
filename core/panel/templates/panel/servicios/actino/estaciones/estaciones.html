@@ -1,0 +1,191 @@
+{% extends 'panel/erp/views.html' %}
+{% load static %}
+
+{% block head %}
+
+
+{% endblock %}
+
+{% block contenido %}
+<section class="section is-main-section pb-1 pt-1">
+    <div class="tile is-ancestor">
+        <div class="tile is-parent">
+            <div class="card tile is-child">
+                <div class="card-content">
+                    <div class="level is-movile">
+                        <div class="level-item">
+                            <form action="." method="POST">
+
+                                <label class="switch is-rounded"><b class="is-size-5 mr-2 pt-1 pb-1">Verano:</b>
+                                    <input type="hidden" name="accion" value="act_verano">
+                                    {{form.horario_verano}}
+                
+                                    <span class="check"></span>
+                                </label>
+                                <button class="button is-primary is-small is-fullwidth pt-1" type="submit">
+                                    <i class="fas fa-save mr-2"></i> <b>Guardar</b>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tile is-parent">
+            <div class="card tile is-child">
+                <div class="card-content">
+                    <div class="level is-mobile">
+                        <div class="level-item">
+                            <div class="is-widget-label">
+                                <h3 class="subtitle is-spaced">
+                                    Activas
+                                </h3>
+                                <h1 class="title is-4 has-text-info">
+                                    {{ est_activas.count }}
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="level-item has-widget-icon">
+                            <div class="is-widget-icon" style="font-size: 54px;"><span class="icon has-text-info is-large">
+                                    <i class="fas fa-map-marker-alt"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tile is-parent">
+            <div class="card tile is-child">
+                <div class="card-content">
+                    <div class="level is-mobile">
+                        <div class="level-item">
+                            <div class="is-widget-label">
+                                <h3 class="subtitle is-spaced">
+                                    No Activas
+                                </h3>
+                                <h1 class="title is-4 has-text-danger">
+                                    {{ est_noactivas.count }}
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="level-item has-widget-icon">
+                            <div class="is-widget-icon" style="font-size: 54px;"><span
+                                    class="icon has-text-danger is-large">
+                                    <i class="fas fa-map-marker-alt"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tile is-parent">
+            <div class="card tile is-child">
+                <div class="card-content">
+                    <div class="level is-mobile">
+                        <div class="level-item">
+                            <div class="is-widget-label">
+                                <a href="{% url 'create_estacion' %}" class="button is-success is-normal ml-2">Agregar Estación</a>
+                            </div>
+                        </div>
+                        <div class="level-item has-widget-icon">
+                            <div class="is-widget-icon" style="font-size: 54px;">
+                                <span class="icon has-text-success is-large">
+                                    <i class="fas fa-chart-area"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<hr>
+<section class="section is-main-section mb-1 pb-1 pt-1">
+    <section class="hero">
+        <div class="columns is-multiline is-centered">
+            {% for m in object_list %}
+            <div class="column is-one-third">
+                <div class="card pl-1">
+                    <input type="hidden" id="codigo" name="codigo" value="{{m.codigo}}">
+                    <div class="card-image">
+                        <figure class="image">
+                            <img src="{{ m.get_imagen }}" alt="Placeholder image"
+                                style="height:153px;width: 234px;margin: 0 auto;" class="center">
+                        </figure>
+                    </div>
+                    <div class="card-content pt-1 pb-1 pl-2 pr-2">
+                        <div class="media">
+                            <div class="media-content">
+                                <p class="title is-4 mb-2"><i class="fas fa-map-marker-alt"></i> {{ m.estacion }}
+                                </p>
+                                <a style="text-decoration: none;color: #3273dc;padding: 0;margin: 0; cursor: unset;">
+                                    <fas class="fas fa-map-marked"></fas> {{m.provincia}}
+                                </a>
+                            </div>
+                        </div>
+                        <p class="mb-1"><strong>Código:</strong>
+                            <span class="tag is-medium is-grey"> {{m.codigo}}</span>
+                            <strong>Tipo:</strong>
+                            <span class="tag is-medium is-grey"> {{m.tipo}}</span>
+                        </p>
+                        <div class="field is-horizontal">
+                            <p class=""><strong>Longitud:</strong>
+                                <span class="tag is-medium is-grey"> {{m.longitud}}° <b class="ml-1">O</b></span>
+                            </p>
+                        </div>
+                        <div class="field is-horizontal">
+                            <p class=""><strong>Latitud:</strong>
+                                <span class="tag is-medium is-grey">{{m.latitud}}° <b class="ml-1">N</b></span>
+                            </p>
+                        </div>
+
+                        <div class="field is-horizontal">
+                            <p class=""><strong>Altura sobre NMM:</strong>
+                                <span class="tag is-medium is-grey">{{m.altura}} <b class="ml-1">m</b></span>
+                            </p>
+                        </div>
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label is-small">Estado:</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field is-narrow">
+                                    <div class="control">
+                                        {% if m.estado.id == 11 %}
+                                        <span
+                                            class="tag is-medium has-background-info has-text-white"><b>{{m.estado}}</b></span>
+                                        {% else %}
+                                        <span class="tag is-medium is-danger"><b>{{m.estado}}</b></span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer mt-2 pt-2 pl-2 pb-2 pr-2 is-centered">
+                        <div class="container" style="display: flex;">
+                            <a href="{% url 'edit_estacion' m.codigo %}"
+                                class="button is-link is-fullwidth is-outlined is-small mr-1"><i
+                                    class="fas fa-edit mr-1"></i> Editar</a>
+                            <button rel="delete" value="{{m.codigo}}"
+                                class="button is-danger is-fullwidth is-outlined is-small">
+                                <i class="fas fa-trash mr-1"></i> Borrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+    </section>
+
+</section>
+
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'panel/js/servicios/actino/estaciones.js' %}"></script>
+{% endblock %}

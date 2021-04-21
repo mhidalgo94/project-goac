@@ -1,0 +1,150 @@
+{% extends 'panel/erp/forms.html' %}
+{% load static %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block contenido %}
+
+<div class="tile is-ancestor">
+    <div class="tile is-parent">
+        <div class="card tile is-child">
+            <div class="card-content mt-4 pr-4">
+                <form id="form-0" action="." method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="edit">
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="subtitle">Usuario<label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.username}}
+                                </div>
+                                <p class="help ml-2">Requiered nombre usuario</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="subtitle">{{ form.first_name.label }}:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.first_name}}
+                                </div>
+                                <p class="help ml-2">Requiere su nombre</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="subtitle">{{ form.last_name.label }}:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.last_name}}
+                                </div>
+                                <p class="help ml-2">Requiere sus apellidos</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="subtitle">Correo:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{form.email}}
+                                </div>
+                                <p class="help ml-2">Requiere su correo</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="subtitle">Género:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control select ml-1">
+                                    {{ form.sexo}}
+                                </div>
+                            </div>
+                            <div class="field-label is-normal"><label class="subtitle">Imagen:</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <div class="field file">
+                                        <label class="upload control">
+                                            <a class="button is-primary">
+                                                <span class="icon mr-1"><i class="fas fa-upload"></i></span>
+                                                {{ form.imagen}}Subir Imagen
+                                            </a>
+                                        </label>
+                                        <label class="upload control">
+                                            {% if object.imagen %}
+                                            <a href="{{ object.imagen.url }}" target="_blank"><i
+                                                    class="fas fa-image ml-2 mt-1" style="font-size: 35px;"></i></a>
+                                            {% else %}
+                                            <p class="help ml-2 mt-2">No ha ingresado una imagen</p>
+                                            {% endif %}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="subtitle">{{ form.miembro.label }}:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="select">
+                                    {{ form.miembro}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="field is-horizontal">
+    <div class="field-label">
+        <!-- Creando Espacio -->
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <div class="field is-grouped">
+                <div class="control">
+                    <button type="submit" class="button is-primary">
+                        <span><i class="fas fa-edit"></i> Guardar</span>
+                    </button>
+                </div>
+                <div class="control">
+                    <a href="{% url 'panel' %}" class="button is-danger is-outlined">
+                        <span><i class="fas fa-times"></i> Cancelar</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</form>
+
+
+
+{% endblock %}
+
+{% block javascript %}
+
+{% endblock %}

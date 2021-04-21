@@ -1,0 +1,100 @@
+{% load static %}
+
+<div class="container tile is-child" id="div-historicos">
+    <div class="section pt-3">
+
+        <div class="card article pt-3">
+            <div class="container">
+                <h3 class="subtitle has-text-centered">Valores Medios Históricos (1981 - 2009) por Categorías de
+                    Nubosidad
+                </h3>
+            </div>
+
+            <div class="container center" style="max-width: 600px;">
+                <table class="table is-striped is-hoverable ">
+                    <thead>
+                        <tr>
+                            <th class="has-text-centered">Categorías de cielo</th>
+                            <th class="has-text-centered">Rangos de nubosidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Despejado</td>
+                            <td>0 - 3</td>
+                        </tr>
+                        <tr>
+                            <td>Parcialmente Nublado</td>
+                            <td>4 - 6</td>
+                        </tr>
+                        <tr>
+                            <td>Nublado</td>
+                            <td>7 - 10</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-content has-text-centered">
+                <hr>
+                <h3 class="subtitle is-size-6">Seleccione el mes para mostrar Gráficos Medios Históricos en Radiación
+                    Solar</h3>
+                <div class="control" style="width:auto;">
+                    <div class="select">
+                        <select id="select-mes">
+                            <option value="0">Seleccione el Mes</option>
+                            <option value="ENE">Enero</option>
+                            <option value="FEB">Febrero</option>
+                            <option value="MAR">Marzo</option>
+                            <option value="ABR">Abril</option>
+                            <option value="MAY">Mayo</option>
+                            <option value="JUN">Junio</option>
+                            <option value="JUL">Julio</option>
+                            <option value="AGO">Agosto</option>
+                            <option value="SEP">Septiembre</option>
+                            <option value="OCT">Octubre</option>
+                            <option value="NOV">Noviembre</option>
+                            <option value="DIC">Diciembre</option>
+                        </select>
+                    </div>
+                    <br>
+                    <div class="select mt-2" id="select-div" style="display: none;">
+                        <select id="select-rad">
+                            <option value="D">DIFUSA</option>
+                            <option value="S">DIRECTA</option>
+                            <option value="Q">GLOBAL</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="container mt-4" id="imagen-div" style="display: none;">
+                    <figure class="image" style="max-width: 500px;max-height: 500px;">
+                        <img id="imagen-historicos" src="" alt="Imágenes Históricas">
+                    </figure>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#select-mes').on('change', function(){
+        if (this.value === "0"){
+            document.getElementById('select-div').style.display = 'none';
+            document.getElementById('imagen-div').style.display = 'none';
+        }else{
+            document.getElementById('select-div').style.display = 'inline-block';
+            document.getElementById('imagen-div').style.display = 'inline-block';
+            imagen_src();
+        }
+    });
+    $('#select-rad').on('change', function(){
+        imagen_src();
+    });
+    function imagen_src(){
+        let mes = $('#select-mes').val();
+        let rad = $('#select-rad').val();
+        let src = `/static/servicios/actino/imagen_historicos/${rad}_${mes}_3en1.jpg`;
+        document.getElementById('imagen-historicos').src = src;
+    }    
+    
+</script>
