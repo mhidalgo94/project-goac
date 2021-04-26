@@ -54,7 +54,7 @@ function updatetable() {
                 orderable: false,
                 render: function (data, type, row) {
                     let html = '';
-                    html += '<span class="tags"><a href="/static/servicios/actino/' + row.archivo + '" class=" button is-info is-small pt-0 pb-0 pl-2 pr-2"><i class="fas fa-file"></i></a><button class="button is-danger is-small pt-0 pb-0 ml-1" rel="btn-del" val="' + row.archivo + '"><span class="icon is-small pt-0 pb-0 pl-0 pr-0"><i class="fas fa-trash"></i></span></button></span>'
+                    html += '<span class="tags"><a href="/static/servicios/actino/csv/' + row.archivo + '" class=" button is-info is-small pt-0 pb-0 pl-2 pr-2"><i class="fas fa-file"></i></a><button class="button is-danger is-small pt-0 pb-0 ml-1" rel="btn-del" val="' + row.archivo + '"><span class="icon is-small pt-0 pb-0 pl-0 pr-0"><i class="fas fa-trash"></i></span></button></span>'
                     return html;
 
                 }
