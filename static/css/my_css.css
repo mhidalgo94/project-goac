@@ -48,7 +48,7 @@ p{
 
 #bg-text{
 	top: 190px;
-	height:160px;
+	/* min-height:160px; */
 	width: 80%;
 	padding: 5px;
 	margin:0 auto;
@@ -108,7 +108,7 @@ p{
 }
 #bg-contacto{
 	margin-top: 10px;
-	background: url("../img/contact.png") no-repeat center;
+	/* background: url("../img/contact.png") no-repeat center; */
 	width: 500px;
 	height: 600px;
 	background-size: 120%;
@@ -187,8 +187,8 @@ figure.image{
 		font-size: 37px;
 	}
 	#bg-text{
-		top: 140px;
-		height:300px;
+		top: 120px;
+		/* height:300px; */
 	}
 	#img-instrumento{
 		position: block;

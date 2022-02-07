@@ -1,27 +1,28 @@
 from django.urls import path
 
-from .views.views import DashboartListView, ServiciosListView
+from .views.views import DashboartListView, ServiciosListView, EjectView
 from .views.portada.views import PortadaCreateView, PortadaListView
 from .views.instrumento.views import InstrumentoCreateView, InstrumentoListView, InstrumentoUpdateView
 from .views.contactos.views import ContactoListView
 from .views.miembros.views import MiembrosListView, MiembrosCreateView, MiembrosUpdateView, PefilMiembroEditView
 from .views.miembros.scientifica.views import SCientificasListView, SCientificaCreateView, SCientificaUpdateView
 from core.panel.views.noticias.views import NoticiasCreateView, NoticiasListView, NoticiasUpdateView
-from core.panel.views.publicaciones.views import PublArtArbitrajeCreateView, PublArtArbitrajeListView, PublArtArbitrajeUpdateView, PublEventosModelCreateView, PublEventosModelListView, PublEventosUpdateView, PublReportesListView, PublReportesCreateView, PublReportesUpdateView
-from core.panel.views.usuarios.views import PefilEditPwdView, PerfilUpdateView, UsuariosListView, UsuariosCreateView,UsuariosUpdateView
-from core.panel.views.investigaciones.views import CategoriasInvListView, InvestigacionUpdateView, InvestigacionesCreateView, InvestigacionesListView
-from core.panel.views.talleres.participantes.views import ParticipanteTCreateView, ParticipanteTListView, ParticipanteTUpdateView
-from core.panel.views.talleres.resumenes.views import ResumenesTCreateView, ResumenesTListView, ResumenesTUpdateView
-
-from core.panel.views.talleres.views import TallerCreateView, TallerListView, TallerUpdateView
-from core.panel.views.servicios.actino.views import ActinoControlEstacionesView, ActinoErrorView, ObservadoresListView, ArchivosActinoView, ActinoEstacionUpdateView, ActinoEstacionCreateView
-
-from core.panel.views.servicios.pyra_par.views import PyraParDatosListView, APITokenFormView
+from core.panel.views.publicaciones.views import *
+from core.panel.views.usuarios.views import *
+from core.panel.views.investigaciones.views import *
+from core.panel.views.talleres.participantes.views import *
+from core.panel.views.talleres.resumenes.views import * 
+from core.panel.views.talleres.views import *
+from core.panel.views.servicios.actino.views import * 
+from core.panel.views.servicios.pyra_par.views import *
+from core.panel.views.servicios.seoc.views import *
+from core.panel.views.servicios.met.views import *
 
 
 # Path de direcciones
 urlpatterns = [
     path('', DashboartListView.as_view() ,name='panel'),
+    path('ejecutar/', EjectView.as_view() ,name='ejecutar'),
     # Portada Web
     path('web/edit_portada/', PortadaListView.as_view() ,name='edit_portada'),
     path('web/create_portada/', PortadaCreateView.as_view() ,name='create_portada'),
@@ -62,7 +63,6 @@ urlpatterns = [
     path('investigaciones/edit_investigaciones/<int:pk>/', InvestigacionUpdateView.as_view(),name='edit_investigacion'),
     # Categorias de Investigaciones
     path('investigaciones/categorias/list_categorias/', CategoriasInvListView.as_view() ,name='list_categorias'),
-
     # Talleres
     path('talleres/list_talleres/', TallerListView.as_view() ,name='list_talleres'),
     path('talleres/create_talleres/', TallerCreateView.as_view() ,name='create_talleres'),
@@ -75,21 +75,31 @@ urlpatterns = [
     path('talleres/resumenes/list_resumenes/', ResumenesTListView.as_view() ,name='list_resumenes'),
     path('talleres/resumenes/create_resumenes/', ResumenesTCreateView.as_view() ,name='create_resumenes'),
     path('talleres/resumenes/edit_resumenes/<int:pk>/', ResumenesTUpdateView.as_view() ,name='edit_resumenes'),
-
-    # Servicios
     # Todos los servicios
     path('servicios/', ServiciosListView.as_view() ,name='todos_servicios'),
-    # Servicios Actino
+    # Servicio Actino
     path('servicios/actino/list_observadores/', ObservadoresListView.as_view() ,name='list_observadores'),
     path('servicios/actino/list_archivos/', ArchivosActinoView.as_view() ,name='list_archivos'),
     path('servicios/actino/errores/', ActinoErrorView.as_view() ,name='log_error'),
     path('servicios/actino/estaciones/', ActinoControlEstacionesView.as_view() ,name='control_estaciones'),
     path('servicios/actino/estaciones/crear_estacion/', ActinoEstacionCreateView.as_view() ,name='create_estacion'),
     path('servicios/actino/estaciones/edit_estacion/<str:codigo>/', ActinoEstacionUpdateView.as_view() ,name='edit_estacion'),
-    # Servicios Pyra y Par
-
+    # Servicio Pyra y Par
     path('servicios/pyra_par/list_datos_pyra_par/', PyraParDatosListView.as_view(), name= 'list_pyra_par'),
-    path('servicios/pyra_par/editToken/', APITokenFormView.as_view(), name= 'editToken'),
+    path('servicios/pyra_par/editToken/', PyParAPITokenListView.as_view(), name= 'pypar_editToken'),
+    # Servicio SEOC
+    path('servicios/seoc/list_datos_seoc/', SeocDatosListView.as_view(), name= 'list_seoc'),
+    path('servicios/seoc/editToken/', SeocAPITokenList.as_view(), name= 'seoc_editToken'),
+    path('servicios/seoc/edit-seoc/<int:pk>/', SeocUpdateView.as_view(), name= 'seoc_edit_data'),
+    # Servicio Met
+    path('servicios/met/list_datos_met/', MetDatosListView.as_view(), name= 'list_met'),
+    path('servicios/met/historicos_met/', MetHistoricosListView.as_view(), name= 'list_met_historicos'),
+    path('servicios/met/edit-historicos_met/<int:pk>/', MetHistoricosUpdateView.as_view(), name= 'edit_historicos'),
+    path('servicios/met/editToken/', MetAPITokenList.as_view(), name= 'met_editToken'),
+    path('servicios/met/log-error/', MetErrorView.as_view(), name= 'met_error'),
+    path('servicios/met/edit-met/<int:pk>/', MetUpdateView.as_view(), name= 'met_edit_data'),
+
+    
     # Usuarios
     path('usuarios/list_usuarios/', UsuariosListView.as_view() ,name='list_usuarios'),
     path('usuarios/create_usuarios/', UsuariosCreateView.as_view() ,name='create_usuario'),

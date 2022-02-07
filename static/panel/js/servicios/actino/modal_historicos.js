@@ -36,6 +36,9 @@ function datatableModal(){
             ajax: {
                 url: window.location.pathname,
                 type: 'POST',
+                headers:{
+                    'X-CSRFToken':csrftoken,
+                },
                 data: {
                     'accion': 'buscar_archivos_historicos'
                 },
@@ -54,7 +57,7 @@ function datatableModal(){
                     orderable: false,
                     render: function (data, type, row) {
                         let html = '';
-                        html += '<span class="tags"><a href="/static/servicios/actino/' + row.archivo + '" class=" button is-info is-small pt-0 pb-0 pl-2 pr-2"><i class="fas fa-file"></i></a><button class="button is-danger is-small pt-0 pb-0 ml-1" rel="btn-del-hist" val="' + row.archivo + '"><span class="icon is-small pt-0 pb-0 pl-0 pr-0"><i class="fas fa-trash"></i></span></button></span>'
+                        html += '<span class="tags"><a href="/static/servicios/actino/actino_historicos/' + row.archivo + '" class=" button is-info is-small pt-0 pb-0 pl-2 pr-2"><i class="fas fa-file"></i></a><button class="button is-danger is-small pt-0 pb-0 ml-1" rel="btn-del-hist" val="' + row.archivo + '"><span class="icon is-small pt-0 pb-0 pl-0 pr-0"><i class="fas fa-trash"></i></span></button></span>'
                         return html;
     
                     }
@@ -92,6 +95,9 @@ $(function (){
                 $.ajax({
                     url: window.location.pathname,
                     type: 'POST',
+                    headers:{
+                        'X-CSRFToken':csrftoken,
+                    },
                     data: datos,
                     dataType: 'json',
                     processData: false,
@@ -126,7 +132,7 @@ $(function (){
         let archivo = $(this).attr('val');
         let parameters = { 'accion': 'eliminar', 'archivo': archivo ,'path': 'historico'}
         Swal.fire({
-            title: 'Notificación',
+            title: 'Notificación!',
             text: `Estas seguro eliminar el archivo '${archivo}' ?`,
             icon: 'warning',
             showCancelButton: true,
@@ -139,6 +145,9 @@ $(function (){
                 $.ajax({
                     url: window.location.pathname,
                     type: 'POST',
+                    headers:{
+                        'X-CSRFToken':csrftoken,
+                    },
                     data: parameters,
                     dataType: 'json'
                 }).done(function (data) {

@@ -1,6 +1,6 @@
 {% load static %}
 
-<!DOCTYPE html >
+<!DOCTYPE html>
 <html lang="es-es">
 
 <head>
@@ -8,9 +8,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="robots" content="index, follow">
   <meta name="keywords" content="GOAC, lidar, atmosferica, radiativa, aerosoles, nubes, radiacion solar,">
   <meta name="description" content="GOAC - Grupo de Óptica Atmosférica de Camagüey. El estudio de los procesos de transferencia radiativa en la atmósfera para las condiciones de Cuba">
+  <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}">
   <title>{{ titulo }}</title>
   <!-- font -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -18,7 +18,7 @@
 
   <!-- Bulma Version 0.9.0-->
   <link rel="stylesheet" href="{% static 'css/bulma.min.css' %}" />
-  <link rel="stylesheet" type="text/css" href="{% static 'css/hero.css' %}">
+  <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/hero.css' %}"> -->
   <link rel="stylesheet" type="text/css" href="{% static 'css/my_css.css' %}">
   <!-- font awesome -->
   <link rel="stylesheet" type="text/css" href="{% static 'lib/fontawesome/css/all.min.css' %}">
@@ -41,6 +41,24 @@
       }
     )
     wow.init();
+
+    
+  function getCookie(name){
+      let cookieValue = null;
+      if (document.cookie && document.cookie != ''){
+          const cookies = document.cookie.split(";");
+          for(let i = 0;i<cookies.length; i++){
+              const cookie = cookies[i].trim();
+              if (cookie.substring(0, name.length+1) === (name + "=")){
+                  cookieValue = decodeURIComponent(cookie.substring(name.length+1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+  } 
+  var csrftoken = getCookie('csrftoken');
+
   </script>
   {% block head %}
 

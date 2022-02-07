@@ -6,7 +6,7 @@ $(function () {
         let parameters = { 'accion': 'eliminar', 'codigo': parseInt(codigo) }
         Swal.fire({
             title: 'Avertencia!',
-            text: 'Estas seguro desea eliminar estación ' + codigo,
+            text: 'Estas seguro desea eliminar la estación ' + codigo,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -18,13 +18,16 @@ $(function () {
                 $.ajax({
                     url: window.location.pathname,
                     type: 'POST',
+                    headers:{
+                        'X-CSRFToken':csrftoken,
+                    },
                     data: parameters,
                     dataType: 'json'
                 }).done(function (data) {
                     if (!data.hasOwnProperty('error')) {
                         Swal.fire({
                             title: 'Notificación!',
-                            text: 'Estación ha sido eliminada correctamente',
+                            text: `Estación "${codigo}" ha sido eliminada correctamente`,
                             icon: 'success',
                             timer: 3000,
                             onClose: () => {

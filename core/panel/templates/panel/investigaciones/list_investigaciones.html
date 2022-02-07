@@ -21,28 +21,7 @@
 {% endblock %}
 
 {% block rows %}
-	<tr>
-		{% for rows in object %}
-		<td> {{ rows.id }}</td>
-		<td>{{ rows.nombre }}</td>
-		<td>
-			<div class="image">
-				<img src="{{ rows.imagen }}" class="is-rounded">
-			  </div>
-		</td>
-		<td >{{ rows.desc }}</td>
-		<td class="is-actions-cell">
-			<div class="buttons is-right">
-				<button class="button is-small is-warning" type="button">
-					<span class="icon"><i class="fas fa-edit"></i></span>
-				</button>
-				<button class="button is-small is-danger center" type="button">
-					<span class="icon"><i class="fas fa-trash"></i></span>
-				</button>
-			</div>
-		</td>
-	</tr>
-	{% endfor %}
+	
 {% endblock %}
 
 {% block botones %}
@@ -67,7 +46,7 @@
 		<div class="level-item">
 		  <div>
 			<span class="icon"><i class="mdi mdi-buffer default"></i></span>
-			<b>Click al Botón Abrir Categorias para mostrar panel de categorías</b>
+			<b>Click al Botón Categorias para mostrar panel de categorías</b>
 		  </div>
 		</div>
 	  </div>

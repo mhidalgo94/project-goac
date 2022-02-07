@@ -7,8 +7,8 @@ from django.contrib.auth.views import UserModel
 class PwdResetForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput(attrs={
         'placeholder': 'Nombre de usuario para enviarle un correo',
-        'class': 'input',
-        'autocomplete': 'off'
+        'class': 'input is-primary',
+        'autocomplete': 'off',
     }))
 
     def clean(self):

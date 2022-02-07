@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.db import models
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.forms import model_to_dict
@@ -12,6 +13,8 @@ class InstrumentoModel(ModeloBaseDos):
     nombre = models.CharField(verbose_name='Nombre', max_length=50)
     imagen = models.ImageField('Imagen Instrumento',upload_to='web/img/instrumento/' ,null=True, blank=True)
     desc = models.TextField(verbose_name='Descripcion Instumento', max_length=400, null=True, blank=True)
+    contenido = RichTextUploadingField()
+
 
     def get_imagen(self):
         if self.imagen:
@@ -77,7 +80,7 @@ class NoticiasModels(ModeloBaseDos):
     estado = models.BooleanField('Estado', default = False)
     titulo = models.CharField(verbose_name='Titulo Publicacion', max_length=150)
     desc = models.TextField(verbose_name='Descripcion de la Publicacion', max_length=250)
-    imagen = models.ImageField(verbose_name='Imagen Noticia',null=True, blank=True, upload_to='web/noticias/img/instrumento/')
+    imagen = models.ImageField(verbose_name='Imagen Noticia',null=True, blank=True, upload_to='web/noticias/img/%Y/%m/%d')
     contenido = RichTextUploadingField()
     autor = models.ForeignKey(MiembrosModel, on_delete=models.CASCADE)
     doc = models.URLField('Documento', blank=True, null=True)
@@ -123,6 +126,9 @@ class PublReportesModel(ModeloBaseDos):
     texto = models.TextField(verbose_name='Titulo', max_length=900)
     doc = models.URLField('Documento', blank=True, null=True)
     miembro = models.ManyToManyField(MiembrosModel, verbose_name='Miembros', blank=True)
+    anio = models.PositiveIntegerField(verbose_name='Año',default=datetime.now().year)
+    invest = models.ForeignKey('InvestigacionesModel',verbose_name='Investigación', null=True,blank=True, on_delete=models.SET_NULL)
+
 
     # Solo para el data table
     def get_file(self):
@@ -154,6 +160,8 @@ class PublArtArbitrajeModel(ModeloBaseDos):
     texto = models.TextField(verbose_name='Titulo', max_length=900)
     doc = models.URLField('Documento', blank=True, null=True)
     miembro = models.ManyToManyField(MiembrosModel, verbose_name='Miembros', blank=True)
+    anio = models.PositiveIntegerField(verbose_name='Año',default=datetime.now().year)
+    invest = models.ForeignKey('InvestigacionesModel',verbose_name='Investigación', null=True,blank=True, on_delete=models.SET_NULL)
 
     # Solo para el data table
     def get_file(self):
@@ -185,8 +193,9 @@ class PublEventosModel(ModeloBaseDos):
     estado = models.BooleanField('Estado', default = False)
     texto = models.TextField(verbose_name='Titulo', max_length=900)
     doc = models.URLField('Documento', blank=True, null=True)
-
     miembro = models.ManyToManyField(MiembrosModel, verbose_name='Miembros', blank=True)
+    anio = models.PositiveIntegerField(verbose_name='Año',default=datetime.now().year)
+    invest = models.ForeignKey('InvestigacionesModel',verbose_name='Investigación', null=True,blank=True, on_delete=models.SET_NULL)
 
     # Solo para el data table
     def get_file(self):
@@ -227,11 +236,14 @@ class CatInvestigacionesModel(ModeloBaseDos):
 
 
 class InvestigacionesModel(ModeloBaseDos):
-    titulo = models.CharField(verbose_name='Titulo Investigacion', max_length=300)
+    titulo = models.CharField(verbose_name='Titulo Investigacion', max_length=310)
     cat = models.ForeignKey(CatInvestigacionesModel, verbose_name='Categoria', on_delete=models.CASCADE)
     texto = models.TextField(verbose_name='Texto', max_length=900)
+    resumen = RichTextUploadingField(null=True,blank=True)
     doc = models.URLField(verbose_name='Documento', null=True, blank=True)
     miembro = models.ManyToManyField(MiembrosModel, verbose_name='Miembros', blank=True)
+    anio_inicial = models.PositiveIntegerField(verbose_name='Año Inicial',default=datetime.now().year)
+    anio_final = models.PositiveIntegerField(verbose_name='Año Final',default=datetime.now().year+1,)
 
     # Solo para el data table
     def get_file(self):

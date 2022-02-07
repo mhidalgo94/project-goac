@@ -16,7 +16,7 @@ class UsuariosListView(LoginRequiredMixin,ListView):
     model = Usuarios
     template_name = 'panel/usuarios/list_usuarios.html'
 
-    @csrf_exempt
+    # @csrf_exempt
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_superuser is False:
             messages.error(request, 'No tienes permisos suficiente para acceder a usuarios')

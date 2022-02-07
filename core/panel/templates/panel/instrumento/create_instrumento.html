@@ -1,7 +1,13 @@
 {% extends 'panel/erp/forms.html' %}
 {% load static %}
+{% block head %}
+
+{{ form.media}}
+
+{% endblock %}
 
 {% block contenido %}
+
 
 <form action="." method="POST" enctype="multipart/form-data">
     {% csrf_token %}
@@ -42,6 +48,18 @@
         <div class="field-body">
             <div class="field">
                 {{ form.desc }}
+
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="field is-horizontal">
+        <div class="field-label is-normal">
+            <label class="subtitle has-text-ghost has-text-center">Contenido:</label>
+        </div>
+        <div class="field-body">
+            <div class="field">
+                {{ form.contenido }}
 
                 </p>
             </div>

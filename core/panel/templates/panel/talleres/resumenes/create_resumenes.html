@@ -5,9 +5,6 @@
 {{ form.media }}
 <link rel="stylesheet" href="{% static 'lib/select2-4.0/css/select2.min.css' %}" />
 <script src="{% static 'lib/select2-4.0/js/select2.min.js' %}"></script>
-<!-- static de modal bulma -->
-<link rel="stylesheet" href="{% static 'css/modal-fx.min.css' %}" />
-<script src="{% static 'js/modal-fx.min.js' %}"></script>
 
 {% endblock %}
 
@@ -15,7 +12,7 @@
 
 <div class="tile is-ancestor">
     <div class="tile is-parent">
-        <div class="card tile is-child">
+        <div class="tile is-child">
             <div class="card-content mt-4 pr-4">
                 <form id="form-0" action="." method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
@@ -65,7 +62,7 @@
                             </div>
                         </div>
                     </div>
-                    <hr>
+                    <hr style="margin-left: 0;margin-right: 0;">
                     <div class="field is-horizontal">
                         <div class="field-label">
                             <!-- Creando Espacio -->
@@ -101,7 +98,7 @@
         placeholder: 'Seleccione taller relacionado',
         width: '100%',
     });
-    $('.select2').select2({
+    $('.select3').select2({
         placeholder: 'Seleccione participantes relacionado',
         width: '100%',
     });

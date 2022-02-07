@@ -22,13 +22,13 @@ class LoginFormView(LoginView):
 
     def get_context_data(self, **kwargs):
         context =  super().get_context_data(**kwargs)
-        context['titulo'] = 'GOAC | Login'
+        context['titulo'] = 'GOAC | Entrar'
         
         return context
 
 class PwdResetView(FormView):
     form_class = PwdResetForm
-    template_name = 'login/pwd_reset.html'
+    template_name = 'login/send_mail.html'
     success_url = reverse_lazy('login')
 
     def dispatch(self, request, *args, **kwargs):
@@ -37,7 +37,7 @@ class PwdResetView(FormView):
 
     def get_context_data(self, **kwargs):
         context =  super().get_context_data(**kwargs)
-        context['titulo'] = 'GOAC | Restaurar Contraseña'
+        context['titulo'] = 'GOAC | Verificar Usuario'
         
         return context
 

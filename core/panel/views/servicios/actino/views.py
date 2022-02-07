@@ -11,10 +11,10 @@ from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.generic.edit import CreateView
 
-from config.settings import ACTINO_ROOT, ACTINO_HISTORICOS_ROOT
+from config.settings import ACTINO_ROOT, ACTINO_HISTORICOS_ROOT, LOG_ERROR_ACTINO,LOG_ERROR_ACTINO
 from core.servicios.actino.models import ActinoHorarioVeranoModel, ActinoObservadorModel, ActinoEstacionesModel
 from core.servicios.actino.forms import ActinoHorarioVeranoForm, ObservadorForms, EstacionesForm
-from core.log_error import read_log_error, save_log, estado_log, path_log_file
+from core.log_error import read_log_error, save_log, estado_log
 
 
 # Lista de observadores
@@ -39,7 +39,10 @@ class ObservadoresListView(LoginRequiredMixin, ListView):
             elif action == 'edit':
                 obv = ActinoObservadorModel.objects.get(id=request.POST['id'])
                 obv.nombre = request.POST['nombre']
-                obv.imagen = request.FILES['imagen']
+                if len(request.FILES) == 0:
+                    obv.imagen = ""
+                else:
+                    obv.imagen = request.FILES['imagen']
                 obv.estacion = request.POST['estacion']
                 obv.save()
             elif action == 'add-observador':
@@ -54,7 +57,7 @@ class ObservadoresListView(LoginRequiredMixin, ListView):
                 messages.error(request, 'Al parecer tiene el mismo codigo')
                 return redirect(reverse_lazy('list_observadores'))
         except Exception as e:
-            save_log(str(e))
+            save_log(LOG_ERROR_ACTINO,str(e))
             messages.error(request, str(e))
         return redirect(reverse_lazy('list_observadores'))
 
@@ -70,14 +73,14 @@ class ObservadoresListView(LoginRequiredMixin, ListView):
 class ArchivosActinoView(LoginRequiredMixin, TemplateView):
     template_name = 'panel/servicios/actino/archivos/archivos_actino.html'
 
-    @csrf_exempt
+    # @csrf_exempt
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_superuser is False:
             messages.error(request, 'No tienes permisos suficiente para acceder')
             return redirect('panel')
         return super().dispatch(request, *args, **kwargs)
 
-    # Inicia con los datelles de la carpeta al iniciar la pagina    
+    # Inicia con los detalles de la carpeta al iniciar la pagina    
     def detalles_carpeta(self):
         # Todos los archivos
         all_files = os.listdir(ACTINO_ROOT)
@@ -125,7 +128,6 @@ class ArchivosActinoView(LoginRequiredMixin, TemplateView):
                 for chunk in archivo.chunks():
                     arch.write(chunk)
                     return f'Archivo "{nombre_archivo}" guardado correctamente'
-
         
     # Para eliminar el archivo
     def eliminar_file(self, path ,file_name, usuario=None):
@@ -133,14 +135,20 @@ class ArchivosActinoView(LoginRequiredMixin, TemplateView):
         if os.path.exists(path_archivo):
             os.remove(path_archivo)
             msg = 'Archivo '+file_name+' eliminado correctamente por: '+usuario
-            save_log(msg)
+            save_log(LOG_ERROR_ACTINO,msg)
             return msg
         else:
             msg = 'No existe este archivo'+file_name
-            save_log(msg)
+            save_log(LOG_ERROR_ACTINO,msg)
         
         return False
 
+    # Lee el archivo para el funcionamiento btn lectura file
+    def leer_archivo(self,archivo):
+        path = os.path.join(ACTINO_ROOT,archivo)
+        with open(path,'r') as f:
+            lectura = f.read()
+            return lectura
     # Peticiones Post
     def post(self, request, *args, **kwargs):
         data = {}
@@ -170,13 +178,17 @@ class ArchivosActinoView(LoginRequiredMixin, TemplateView):
                     data['error'] = 'No es un archivo csv'
             elif accion == 'buscar_archivos_historicos':
                 data['datos_historicos'] = self.info_archivos(ACTINO_HISTORICOS_ROOT)
-
             elif accion == 'subir-archivo-historico':
                 respuesta = self.subir_archivo(self.request.FILES['file'],ACTINO_HISTORICOS_ROOT)
                 data = respuesta
+            elif accion == 'leer-archivo':
+                lectura = self.leer_archivo(archivo)
+                data['lectura'] = lectura
+            else:
+                data['error'] = 'Ha ocurrido un error'
 
         except Exception as e:
-            save_log(str(e))
+            save_log(LOG_ERROR_ACTINO,str(e))
             data['error'] = str(e)
 
         return JsonResponse(data, safe=False)
@@ -192,7 +204,7 @@ class ArchivosActinoView(LoginRequiredMixin, TemplateView):
 class ActinoErrorView(LoginRequiredMixin, TemplateView):
     template_name = 'panel/servicios/actino/log/error.html'
 
-    @csrf_exempt
+    # @csrf_exempt
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_superuser is False:
             messages.error(request, 'No tienes permisos suficiente para acceder')
@@ -205,36 +217,28 @@ class ActinoErrorView(LoginRequiredMixin, TemplateView):
         try:
             accion = request.POST.get('accion')
             if accion == 'delete_log':
-                path_archivo = path_log_file
+                path_archivo = LOG_ERROR_ACTINO
                 if os.path.exists(path_archivo):
                     os.remove(path_archivo)
         except:
             data['error'] = 'No se pudo eliminar el archivo'
         return JsonResponse(data)
 
-    def lectura_log(self):
-        lectura = read_log_error()
-        if lectura is True:
-            return lectura[::-1]
-        else:
-            return 'El archivo de registro no existe'
 
     def get_context_data(self, **kwargs):
         context =  super().get_context_data(**kwargs)
         context['titulo'] = "GOAC | Servicos Actino | Errores"
         context['info'] = {'head_card': 'Log de Errores Actino', 'icono': 'fas fa-exclamation-triangle' }
-        context['obv'] = ActinoObservadorModel.objects.all()
-        context['log'] = estado_log()
+        context['log'] = estado_log(LOG_ERROR_ACTINO)
         return context
 
 
 # Control de Estaciones y Horario de verano
 class ActinoControlEstacionesView(LoginRequiredMixin, ListView):
     model = ActinoEstacionesModel
-    estado_verano = ActinoHorarioVeranoModel.objects.last()
     template_name = 'panel/servicios/actino/estaciones/estaciones.html'
 
-    @csrf_exempt
+    # @csrf_exempt
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_superuser is False:
             messages.error(request, 'No tienes permisos suficiente para acceder')
@@ -247,11 +251,13 @@ class ActinoControlEstacionesView(LoginRequiredMixin, ListView):
         try:
             accion = request.POST.get('accion')
             codigo_ = request.POST.get('codigo')
+            estado_verano = ActinoHorarioVeranoModel.objects.last()
+
             if accion == 'eliminar':
                 estacion = ActinoEstacionesModel.objects.get(codigo=codigo_)
                 estacion.delete()
             elif accion == 'act_verano':
-                form = ActinoHorarioVeranoForm(request.POST,instance=self.estado_verano)
+                form = ActinoHorarioVeranoForm(request.POST,instance=estado_verano)
                 if form.is_valid():
                     form.save()
                     return redirect(reverse_lazy('control_estaciones'))
@@ -263,12 +269,13 @@ class ActinoControlEstacionesView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context =  super().get_context_data(**kwargs)
+        estado_verano = ActinoHorarioVeranoModel.objects.last()
         context['titulo'] = "GOAC | Estaciones Actino"
         context['info'] = {'head_card': 'Estaciones Actino', 'icono': 'fas fa-map-marker-alt' }
         context['horario_verano'] = timezone.now()
-        context['est_activas'] = self.model.objects.filter(estado__id=11)
-        context['est_noactivas'] = self.model.objects.all().exclude(estado__id=11)
-        context['form'] = ActinoHorarioVeranoForm(instance=self.estado_verano)
+        context['est_activas'] = self.model.objects.filter(estado__nombre="ACTIVO")
+        context['est_noactivas'] = self.model.objects.all().exclude(estado__nombre="ACTIVO")
+        context['form'] = ActinoHorarioVeranoForm(instance=estado_verano)
         return context
 
 

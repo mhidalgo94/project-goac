@@ -1,0 +1,152 @@
+{% extends 'panel/erp/views.html' %}
+{% load static %}
+
+{% block head %}
+<!-- Jquery -->
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+<!-- SweetAlert -->
+<script src="{% static 'lib/sweetalert2-9.10/sweetalert2.all.min.js' %}"></script>
+{% endblock %}
+
+{% block contenido %}
+<section class="section is-main-section mb-1 pb-1 pt-1">
+    <div class="tile is-ancestor">
+        <div class="tile is-parent">
+            <div class="card tile is-child">
+                <div class="card-content">
+                    <div class="level is-mobile">
+                        <div class="level-item">
+                            <div class="is-widget-label">
+                                <h3 class="subtitle is-spaced">
+                                    Tamaño Archivo
+                                </h3>
+                                <h1 class="title is-4 has-text-info">
+                                    {{ log.tamano_archivo | filesizeformat }}
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="level-item has-widget-icon">
+                            <div class="is-widget-icon" style="font-size: 54px;"><span
+                                    class="icon has-text-success is-large">
+                                    <i class="fas fa-file fa-x4"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tile is-parent">
+            <div class="card tile is-child">
+                <div class="card-content">
+                    <div class="level is-mobile">
+                        <div class="level-item">
+                            <div class="is-widget-label">
+                                <h3 class="subtitle is-spaced has-text-centered"> Ult. Modificación </h3>
+                                <h1 class="title is-5 has-text-info">
+                                    {{ log.fecha_modif |date:"SHORT_DATE_FORMAT"}} - {{ log.fecha_modif|time}}
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="level-item has-widget-icon">
+                            <div class="is-widget-icon" style="font-size: 54px;"><span
+                                    class="icon has-text-warning is-large">
+                                    <i class="fas fa-folder-open"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tile is-parent">
+            <div class="card tile is-child">
+                <div class="card-content">
+                    <div class="level is-mobile">
+                        <div class="level-item">
+                            <div class="is-widget-label">
+                                <h1 class="title is-4 has-text-info">
+                                    <!-- Cantidad de archivos En la carpeta -->
+                                    <form action="." method="POST">
+                                        <input type="hidden" name="accion" value="delete_log">
+                                        <button type="submit" class="button is-danger is-outlined">
+                                            <i class="fas fa-trash mr-1"></i>
+                                            Eliminar Logs
+                                        </button>
+                                    </form>
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="level-item has-widget-icon">
+                            <div class="is-widget-icon" style="font-size: 50px;"><span
+                                    class="icon has-text-danger is-large">
+                                    <i class="fas fa-ban fa-x4"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container">
+    <div class="ml-2 mr-2 has-background-grey-lighter has-text-grey" style="padding-left: 10px;border-radius: 4px;">
+        <div style="max-height: 400px;overflow: auto;">
+
+            {% for m in log.lectura_log %}
+            <p><span class="has-text-danger">{{forloop.counter }}:</span>{{ m }}</p>
+            {% empty %}
+            <p>No tiene ningun log registrado</p>
+            {% endfor %}
+        </div>
+
+    </div>
+    {% endblock %}
+
+    {% block javascript %}
+    <script type="text/javascript">
+
+        $('form').on('submit', function (e) {
+            e.preventDefault();
+            let parameters = $(this).serializeArray();
+            Swal.fire({
+                title: 'Notificación',
+                text: 'Estas seguro eliminar salvas de logs?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Seguro!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        url: window.location.pathname,
+                        type: 'POST',
+                        data: parameters,
+                        dataType: 'json'
+                    }).done(function (data) {
+                        if (!data.hasOwnProperty('error')) {
+                            Swal.fire({
+                                title: 'Correcto!',
+                                text: 'Archivo eliminado correctamente',
+                                icon: 'success',
+                                confirmButtonText: 'OK',
+                                timer: 3000,
+                                onClose: () => {
+                                    window.location.reload();
+                                }
+                            });
+                            return false;
+                        }
+                        mensaje_error(data.error);
+                    }).fail(function (data) {
+                    }).always(function (data) {
+                    });
+                }
+            });
+
+        });
+
+    </script>
+
+    {% endblock %}

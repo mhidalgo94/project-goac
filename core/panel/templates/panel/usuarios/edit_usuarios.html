@@ -9,7 +9,7 @@
 
 <div class="tile is-ancestor">
     <div class="tile is-parent">
-        <div class="card tile is-child">
+        <div class="tile is-child">
             <div class="card-content mt-4 pr-4">
                 <form id="form-0" action="." method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
@@ -112,7 +112,7 @@
 
                                 </p>
                                 <p id="btn-eye" class="control">
-                                    <a  class="button is-static"><i id="passw-text" class="fas fa-eye"></i>
+                                    <a class="button is-static"><i id="passw-text" class="fas fa-eye"></i>
                                     </a>
                                 </p>
                             </div>
@@ -127,7 +127,7 @@
                                 <label class="switch is-rounded">
                                     {{ form.is_superuser}}
                                     <span class="check"></span>
-                                  </label>
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -143,53 +143,52 @@
                             </div>
                         </div>
                     </div>
+                    <hr style="margin-left: 0;margin-right: 0;">
+
+                    <div class="field is-horizontal">
+                        <div class="field-label">
+                            <!-- Creando Espacio -->
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="field is-grouped">
+                                    <div class="control">
+                                        <button type="submit" class="button is-primary">
+                                            <span><i class="fas fa-edit"></i> Editar</span>
+                                        </button>
+                                    </div>
+                                    <div class="control">
+                                        <a href="{% url 'list_usuarios' %}" class="button is-danger is-outlined">
+                                            <span><i class="fas fa-times"></i> Cancelar</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
             </div>
         </div>
     </div>
 </div>
-<hr>
-<div class="field is-horizontal">
-    <div class="field-label">
-        <!-- Creando Espacio -->
-    </div>
-    <div class="field-body">
-        <div class="field">
-            <div class="field is-grouped">
-                <div class="control">
-                    <button type="submit" class="button is-primary">
-                        <span><i class="fas fa-edit"></i> Guardar</span>
-                    </button>
-                </div>
-                <div class="control">
-                    <a href="{% url 'list_usuarios' %}" class="button is-danger is-outlined">
-                        <span><i class="fas fa-times"></i> Cancelar</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-</form>
-
-
 
 {% endblock %}
 
 {% block javascript %}
 
 <script>
-   
+
     $('#btn-eye').on('click', function () {
         let get = $('#passw-text').hasClass('fa-eye');
         if (get) {
             $('#passw-text').removeClass('fa-eye');
             $('#passw-text').addClass('fa-eye-slash');
-            $('#id_password').get(0).type='text';
+            $('#id_password').get(0).type = 'text';
         } else {
             $('#passw-text').removeClass('fa-eye-slash');
             $('#passw-text').addClass('fa-eye');
-            $('#id_password').get(0).type='password';
+            $('#id_password').get(0).type = 'password';
 
         }
     });

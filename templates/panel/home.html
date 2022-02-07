@@ -6,10 +6,11 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}">
   <title>{{ titulo }}</title>
   <!-- Bulma is included -->
-  <link rel="stylesheet" href="{% static 'lib/panel/css/main.min.css' %}">
-  <!-- <link rel="stylesheet" href="{% static 'lib/panel/css/bulma.min.css' %}"> -->
+  <link rel="stylesheet" href="{% static 'lib/panel/css/main.css' %}">
+  <link rel="stylesheet" href="{% static 'lib/panel/css/bulma.min.css' %}">
   <!-- Jquery -->
   <script src="{% static 'lib/datatables-1.10/plugins/bulma/jquery-3.5.1.js' %}"></script>
   <!-- Font Awesome -->
@@ -19,6 +20,25 @@
 
   <!-- funciones -->
   <script src="{% static 'js/my_func.js' %}"></script>
+
+  <script type="text/javascript">
+    function getCookie(name){
+      let cookieValue = null;
+      if (document.cookie && document.cookie != ''){
+          const cookies = document.cookie.split(";");
+          for(let i = 0;i<cookies.length; i++){
+              const cookie = cookies[i].trim();
+              if (cookie.substring(0, name.length+1) === (name + "=")){
+                  cookieValue = decodeURIComponent(cookie.substring(name.length+1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+    } 
+    var csrftoken = getCookie('csrftoken');
+
+  </script>
 
   {% block head %}
 

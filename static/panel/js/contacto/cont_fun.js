@@ -38,6 +38,9 @@ function updatetable(){
         ajax: {
             url : window.location.pathname,
             type: 'POST',
+            headers:{
+                'X-CSRFToken':csrftoken,
+            },
             data: {
                 'action': 'searchdata'
             },

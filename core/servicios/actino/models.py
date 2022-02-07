@@ -32,19 +32,23 @@ class ActinoEstacionesModel(models.Model):
         if self.imagen:
            return '{}{}'.format(MEDIA_URL, self.imagen)
         return '{}{}'.format(STATIC_URL, 'img/empty.png')
-        
+    
+    def toJSON(self):
+        item = model_to_dict(self)
+        item['imagen'] = self.get_imagen()
+        item['estado'] = self.estado.nombre
+        return item 
 
     class Meta:
         verbose_name= 'Estación Actino'
         verbose_name_plural = 'Estaciones de Actino'
 
     def __str__(self):
-        return '{}-{}'.format(self.estacion, self.codigo)
+        return '{}:{}'.format(self.estacion, self.codigo)
 
 class ActinoHorarioVeranoModel(models.Model):
     id = models.AutoField(primary_key=True)
     horario_verano = models.BooleanField(verbose_name='Horario Verano', default=False)
-    # sexo = models.CharField(max_length=10, choices=gender_choices, default='male', verbose_name='Sexo')
 
 
     class Meta:
@@ -63,7 +67,7 @@ class ActinoObservadorModel(models.Model):
     def get_imagen(self):
         if self.imagen:
             return '{}{}'.format(MEDIA_URL, self.imagen)
-        return '{}{}'.format(STATIC_URL, 'img/empty.png')
+        return '{}{}'.format(STATIC_URL, 'img/miembro.png')
 
     def toJSON(self):
         item = model_to_dict(self)

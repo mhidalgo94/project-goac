@@ -15,9 +15,9 @@
                     <thead>
                         
                         <tr>
-                            <th width="5%">id</th>
-                            <th width="90%">Reportes</th>
-                            <th width="5%">Archivo</th>
+                            <th width="80%" class="has-text-centered">Reportes</th>
+                            <th width="10%" class="has-text-centered">Año</th>
+                            <th width="10%">Archivo</th>
                         </tr>
         
                     </thead>
@@ -25,13 +25,13 @@
                     <tbody>
                         {% for m in reportes %}
                         <tr>
-                            
-                            <td>{{m.id}}</td>
-                            <td> {{ m.texto }}</td>
+                            <td class="has-text-justified"> <p class="is-size-6 pl-0 pb-0 mb-0">{{ m.texto }}</p>{% if m.invest %} <p class="is-size-6 pl-0 pt-0 mt-0"><strong>Proyecto:</strong> <a  href="/investigaciones/{{m.invest.cat.nombre}}/{{m.invest.id}}/">{{m.invest}}</a> {% endif %}</p></td>
+                            <td class="has-text-justified"> {{ m.anio }}</td>
                             {% if m.doc %}
                             <td><a href="{{ m.doc }}" target="_blank" class="center"><span class="icon is-medium fas fa-file-download"></span></a></td>
                             {% else %}
-                            <td><a href="#" target="_blank" class="center"><span class="icon is-medium fas fa-question-circle"></span></a></td>
+                            <td><a  class="center"><span class="icon is-medium has-text-danger fas fa-file-excel"></span></a></td>
+
                             {% endif %}
                             
                         </tr>
@@ -61,8 +61,8 @@ $(function (){
                         "sLengthMenu":     "Mostrar _MENU_ registros",
                         "sZeroRecords":    "No se encontraron resultados",
                         "sEmptyTable":     "Ningún dato disponible en esta tabla =(",
-                        "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                        "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfo":           "Mostrando un total: _TOTAL_",
+                        "sInfoEmpty":      "Mostrando total: 0",
                         "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
                         "sInfoPostFix":    "",
                         "sSearch":         "Buscar:",

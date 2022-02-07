@@ -2,7 +2,6 @@ from django.http import JsonResponse
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView,  UpdateView, CreateView
-from django.views.decorators.csrf import csrf_exempt
 
 from core.web.models import CatInvestigacionesModel, InvestigacionesModel
 from core.web.forms import CatInvestigacionForm, InvestigacionesForm
@@ -12,7 +11,6 @@ class InvestigacionesListView(LoginRequiredMixin,ListView):
     model = InvestigacionesModel
     template_name = 'panel/investigaciones/list_investigaciones.html'
 
-    @csrf_exempt
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
@@ -51,27 +49,6 @@ class InvestigacionesCreateView(LoginRequiredMixin,CreateView):
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
-    def post(self, request, *args, **kwargs):
-        data = {}
-        try:
-            action = request.POST['action']
-            if action == 'create-investigacion':
-                form = self.form_class(files=request.FILES, data= request.POST)
-                if form.is_valid():
-                    form.save()
-                else:
-                    data['error'] = form.errors
-            elif action == 'create-catinvest':
-                form = self.form_modal(request.POST)
-                if form.is_valid():
-                    form.save()
-                else:
-                    data['error'] = form.errors
-            else:
-                data['error'] = 'Ha ocurrido un error'
-        except Exception as e:
-            data['error'] = str(e)
-        return JsonResponse(data)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -88,32 +65,12 @@ class InvestigacionUpdateView(LoginRequiredMixin,UpdateView):
     template_name = 'panel/investigaciones/edit_investigaciones.html'
     success_url = reverse_lazy('list_investigaciones')
 
-    @csrf_exempt
+
     def dispatch(self,request, *args, **kwargs):
         self.object = self.get_object()
         return super().dispatch(request,*args, **kwargs)
 
-    def post(self, request, *args, **kwargs):
-        data = {}
-        try:
-            action = request.POST['action']
-            if action == 'create-catinvest':
-                model_modal = self.model_modal()
-                model_modal.nombre = request.POST['nombre']
-                model_modal.save()
-            elif action == 'edit-investigacion':
-                _instance = self.get_object()
-                form = self.form_class(data = request.POST,instance=_instance,files= request.FILES)
-                if form.is_valid():
-                    form.save()
-                else:
-                    data['error'] = form.errors
-            else:
-                data['error'] = 'Ha ocurrido un error'
-        except Exception as e:
-            data['error'] = str(e)
-        return JsonResponse(data) 
-
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'GOAC | Editar Miembro'
@@ -130,7 +87,6 @@ class CategoriasInvListView(LoginRequiredMixin,ListView):
     form_modal = CatInvestigacionForm
     template_name = 'panel/investigaciones/categorias/list_categorias.html'
 
-    @csrf_exempt
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 

@@ -3,14 +3,15 @@
 <aside class="aside is-placed-left is-expanded" style="overflow-y: auto;">
   <div class="aside-tools has-background-dark">
     <a href="{% url 'portada' %}" class="aside-tools-label mt-2">
-      <img class="ml-6" src="{% static 'img/goac-logo.png' %}" alt="" style="background: none;" width="140" height="40">
+      <img class="ml-5" src="{% static 'img/goac-logo.png' %}" alt="" style="background: none;">
+    
     </a>
   </div>
   <div class="menu is-menu-main">
     <p class="menu-label">Inicio</p>
     <ul class="menu-list">
       <li>
-        <a href="{% url 'panel' %}" class="is-active router-link-active has-icon">
+        <a href="{% url 'panel' %}" class="router-link-active has-icon">
           <span class="icon"><i class="fas fa-laptop"></i></span>
           <span class="menu-item-label">Panel Control</span>
         </a>
@@ -37,14 +38,14 @@
               <span class="ml-3">Instrumentos</span>
             </a>
           </li>
+          <li>
+            <a href="{% url 'list_noticias' %}">
+              <span class="ml-3">Noticias</span>
+            </a>
+          </li>
         </ul>
       </li>
-      <li>
-        <a href="{% url 'list_noticias' %}" class="has-icon">
-          <span class="icon"><i class="fas fa-newspaper"></i></span>
-          <span class="menu-item-label">Noticias</span>
-        </a>
-      </li>
+      
       <li>
         <a class="has-icon has-dropdown-icon">
           <span class="icon"><i class="fas fa-bookmark"></i></span>
@@ -149,9 +150,15 @@
         </a>
       </li>
       <li>
+        <a href="{% url 'schema-redoc' %}" class="has-icon">
+          <span class="icon"><i class="fas fa-file"></i></span>
+          <span class="menu-item-label">DOC API</span>
+        </a>
+      </li>
+      <li>
         <a href="{% url 'logout' %}" class="has-icon">
           <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
-          <span class="menu-item-label">Logout</span>
+          <span class="menu-item-label">Salir</span>
         </a>
       </li>
 

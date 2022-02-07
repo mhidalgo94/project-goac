@@ -1,4 +1,3 @@
-# Estructura en clase
 from datetime import datetime
 
 # path_file = 'D20210222.csv'
@@ -21,7 +20,7 @@ class Lectura_csv:
 
     # Hace una lectura el csv
     def read_csv(self):
-        with open(self.path, 'r') as doc:
+        with open(self.path, 'r',encoding="unicode_escape") as doc:
             value = doc.readlines()
             value = [s.strip('\n') for s in value]
             return value
@@ -54,4 +53,3 @@ class Lectura_csv:
     def csv_fecha(self,estacion, fecha):
         dicc = dict()
         dicc[estacion] = self.fecha.strftime(""+estacion+"%Y%m%d.csv")
-        return dicc

@@ -1,0 +1,68 @@
+{% extends 'web/navbar-body.html' %}
+{% load static %}
+
+{% block head %}
+<!-- HigthChart 8.1 -->
+<script src="{% static 'lib/highcharts-8.1/highcharts.js' %}"></script>
+<script src="{% static 'lib/highcharts-8.1/modules/exporting.js' %}"></script>
+<script src="{% static 'lib/highcharts-8.1/modules/export-data.js' %}"></script>
+<script src="{% static 'lib/highcharts-8.1/modules/accessibility.js' %}"></script>
+<!-- Bulma Calendar -->
+<link rel="stylesheet" href="{% static 'lib/bulma-calendar/css/bulma-calendar.min.css' %}" />
+<script src="{% static 'lib/bulma-calendar/js/bulma-calendar.min.js' %}"></script>
+
+<script type="text/javascript">
+    // Esta es la fecha del dia llamadas por los graficos diario y mensuales
+    let date = new Date();
+    var fecha_hoy = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
+</script>
+
+{% endblock %}
+
+{% block contenido_agregados %}
+<section class="wow animate__animated animate__fadeInUp section has-background-white">
+    <h1 class="title is-1 center mb-4">{{ titulo_page }}</h1>
+    <!-- Select Pestaña -->
+    <div class="tabs is-centered is-boxed">
+        <ul>
+            <li class="pr-1" id="gdiario">
+                <a>
+                    <span class="icon is-small"><i class="fas fa-chart-area"></i></span>
+                    <span><b>Graficos Diario</b></span>
+                </a>
+            </li>
+            <li class="pr-1" id="ult30dias">
+                <a>
+                    <span class="icon is-small"><i class="fas fa-calendar-alt"></i></span>
+                    <span><b>Gráficos Mensual</b></span>
+                </a>
+            </li>
+            <li class="pr-1" id="info">
+                <a>
+                    <span class="icon is-small"><i class="fas fa-info"></i></span>
+                    <span><b>Información</b></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="article">
+        <div class="article-body">
+            <!-- Graficos diarios -->
+            {% include 'web/servicios/seoc/gdiarios.html' %}
+            <!-- Graficos de los ultimos 30 dias -->
+            {% include 'web/servicios/seoc/gmensual.html' %}
+            <!-- Informacion sobre el servicos -->
+            {% include 'web/servicios/seoc/info.html' %}
+           
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/servicios/seoc/func_basic.js' %}"></script>
+
+{% endblock %}

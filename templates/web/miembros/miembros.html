@@ -1,45 +1,189 @@
 {% extends 'web/navbar-body.html' %}
 {% load static %}
 
-
-
 {% block contenido_agregados %}
 <section class="wow animate__animated animate__fadeIn content has-background-white mt-6">
     <h1 class="wow animate__animated animate__fadeInDown title is-1 center mb-4">{{ titulo_page }}</h1>
-    <hr>
-    <div id="app" class="content columns is-two-fifths center is-multiline mt-3 has-background-light">
-        {% for m in miembros %}
-        <div class="wow animate__animated animate__fadeInUp card column is-3 is-shady" data-wow-duration="1.5s"style="min-height: 625px;">
-            <div class="card-image">
-                <figure class="image"">
-                    <img class="image is-rounded" src="{{ m.get_imagen }}" alt="Imagen Perfil">
-                </figure>
-            </div>
-            <div class="card-content pb-0" style="height: 325px;max-height:325px;">
-                <div class="media">
-                    <div class="media-content">
-                        <h1 class="title is-5 mb-2">{{ m.full_name  | capfirst}}</h1><hr class="mt-0 mb-0">
-                        <p class="subtitle is-6 mb-0 mt-2 pt-0"><label for="" class="label">Correo:</label>{{ m.correo }}</p>
-                        <p class="subtitle is-6 mb-0 mt-2 pt-0"><label for="" class="label">Ocupación:</label>{{m.ocupacion}}</p>
-                        <p class="subtitle is-6 mb-0 mt-2 pt-0"><label for="" class="label">Estado:</label>{{ m.estado }}</p>
-                        {% if m.t_trabajo %}
-                        <p class="subtitle is-6 mb-0 mt-2 pt-0" style="height: 90px;"><label for="" class="label">Fecha de Ingreso:</label>
-                            <!-- sin año y sin mes de trabajo -->
-                            {{m.t_trabajo}}
-                        </p>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-            <footer class="card-footer">
-                <a href="{% url 'perfil_miembros' m.id %}" class="card-footer-item"><span>Perfil</span></a>
-                <hr>
-            </footer>
 
-        </div>
+    <div class="tabs is-centered is-boxed">
+        <ul class="tabs-list">
+          <li id="li-activos" class="is-active "><a><b>Activos</b></a></li>
+          <li id="li-precedente"><a><b>Precedentes</b></a></li>
+          <li id="li-colaborador"><a><b>Colaborador</b></a></li>
+        </ul>
+      </div>
+    <div class="container is-centered mt-3" id="div-activos">
+            
+        {% for m in activos %}
+            <div class="wow animate__animated animate__fadeInLeft box">
+                <article class="media">
+                    <div class="media-left">
+                      <figure class="image is-128x128">
+                        <img src="{{m.get_imagen}}" alt="Image">
+                      </figure>
+                    </div>
+                    <div class="media-content">
+                      <div class="content">
+                        <p>
+                          <strong>{{m.full_name}}</strong> {% if m.ocupacion and not None %}- <small>{{m.ocupacion}}</small> {% endif %}
+                          <br>
+                          <small class="has-text-link">{{m.correo}}</small>
+                          <br>
+                          {{m.biografia}}
+                        </p>
+                      </div>
+                      <nav class="level is-mobile">
+                        <div class="level-left">
+                          
+                          
+                        </div>
+                        <div class="level-right">
+                            {% if m.curriculo %}
+                            <a href="{{m.curriculo.url}}" class="level-item" aria-label="like">
+                                <span class="icon is-small">
+                                  <i class="fas fa-file" aria-hidden="true"></i>
+                                </span>
+                              </a>
+                            {% endif %}
+                            <a href="{% url 'perfil_miembros' m.id %}" class="level-item" aria-label="like">
+                                Leer mas
+                            </a>
+                        </div>
+                      </nav>
+                    </div>
+                </article>
+          </div>
         {% endfor %}
         
     </div>
+    <div class="container is-centered mt-3" id="div-precedentes" style="display: none;">
+            
+        {% for m in precedentes %}
+            <div class="box">
+                <article class="media">
+                    <div class="media-left">
+                      <figure class="image is-128x128">
+                        <img src="{{m.get_imagen}}" alt="Image">
+                      </figure>
+                    </div>
+                    <div class="media-content">
+                      <div class="content">
+                        <p>
+                          <strong>{{m.full_name}}</strong> - <small>{{m.ocupacion}}</small>
+                          <br>
+                          <small class="has-text-link">{{m.correo}}</small>
+                          <br>
+                          {{m.biografia}}
+                        </p>
+                      </div>
+                      <nav class="level is-mobile">
+                        <div class="level-left">
+                          
+                          
+                        </div>
+                        <div class="level-right">
+                            {% if m.curriculo %}
+                            <a href="{{m.curriculo.url}}" class="level-item" aria-label="like">
+                                <span class="icon is-small">
+                                  <i class="fas fa-file" aria-hidden="true"></i>
+                                </span>
+                              </a>
+                            {% endif %}
+                            <a href="{% url 'perfil_miembros' m.id %}" class="level-item" aria-label="like">
+                                Leer mas
+                            </a>
+                        </div>
+                      </nav>
+                    </div>
+                </article>
+          </div>
+        {% endfor %}
+        
+    </div>
+    <div class="container is-centered mt-3" id="div-colaborador" style="display: none;">
+            
+        {% for m in colaboradores %}
+            <div class="box">
+                <article class="media">
+                    <div class="media-left">
+                      <figure class="image is-128x128">
+                        <img src="{{m.get_imagen}}" alt="Image">
+                      </figure>
+                    </div>
+                    <div class="media-content">
+                      <div class="content">
+                        <p>
+                          <strong>{{m.full_name}}</strong> - <small>{{m.ocupacion}}</small>
+                          <br>
+                          <small class="has-text-link">{{m.correo}}</small>
+                          <br>
+                          {{m.biografia}}
+                        </p>
+                      </div>
+                      <nav class="level is-mobile">
+                        <div class="level-left">
+                          
+                          
+                        </div>
+                        <div class="level-right">
+                            {% if m.curriculo %}
+                            <a href="{{m.curriculo.url}}" class="level-item" aria-label="like">
+                                <span class="icon is-small">
+                                  <i class="fas fa-file" aria-hidden="true"></i>
+                                </span>
+                              </a>
+                            {% endif %}
+                            <a href="{% url 'perfil_miembros' m.id %}" class="level-item" aria-label="like">
+                                Leer mas
+                            </a>
+                        </div>
+                      </nav>
+                    </div>
+                </article>
+          </div>
+        {% endfor %}
+        
+    </div>
+
 </section>
+
+<script type="text/javascript">
+    // Selectores de pestanas - tabs
+    let liActivos = document.querySelector("#li-activos");
+    let liPrecedentes = document.querySelector('#li-precedente');
+    let liColaborador = document.querySelector('#li-colaborador');
+
+    liActivos.onclick= (e) =>{
+      if (document.querySelector("li.is-active") !== null){
+        document.querySelector("li.is-active").classList.remove('is-active');
+      }
+      liActivos.className= "is-active";
+      document.querySelector("#div-activos").style.display="block";
+      document.querySelector("#div-precedentes").style.display="none";
+      document.querySelector("#div-colaborador").style.display="none";
+    }
+    
+    liPrecedentes.onclick=(e)=>{
+      if (document.querySelector("li.is-active") !== null){
+        document.querySelector("li.is-active").classList.remove('is-active');
+      }
+      liPrecedentes.className = "is-active";
+      document.querySelector("#div-activos").style.display="none";
+      document.querySelector("#div-precedentes").style.display="block";
+      document.querySelector("#div-colaborador").style.display="none";
+    }
+    liColaborador.onclick=(e)=>{
+      if (document.querySelector("li.is-active") !== null){
+        document.querySelector("li.is-active").classList.remove('is-active');
+      }
+      liColaborador.className = "is-active";
+      document.querySelector("#div-activos").style.display="none";
+      document.querySelector("#div-precedentes").style.display="none";
+      document.querySelector("#div-colaborador").style.display="block";
+    }
+    
+
+
+</script>
 
 {% endblock %}

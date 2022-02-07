@@ -3,7 +3,7 @@ from django import forms
 from core.talleres.models import ResumenesTallerModel, TallerModel, ParticipantesTallerModel
 
 class TallerForm(forms.ModelForm):
-
+	
 
     class Meta:
         model = TallerModel
@@ -26,7 +26,18 @@ class TallerForm(forms.ModelForm):
 					'class': 'select2 is-multiple',
 					'multiple': 'multiple',
                     'placeholder': 'Seleccione Participantes del Taller'
-				})
+				}),
+			'fecha_inicio':forms.DateInput(
+				attrs={
+					'class': 'input is-normal',
+                    'placeholder': 'D/M/Y'
+				}),
+			'fecha_culmina':forms.DateInput(
+			attrs={
+				'class': 'input is-normal',
+				'placeholder': 'D/M/Y'
+			})
+
         }
 
 class ParticipantesTallerForm(forms.ModelForm):
@@ -65,7 +76,7 @@ class ResumenesTForm(forms.ModelForm):
 				}),
             'participantes':forms.SelectMultiple(
 				attrs={
-					'class': 'select2 is-multiple',
+					'class': 'select3 is-multiple',
 					'multiple': 'multiple',
                     'placeholder': 'Seleccione Participantes del Taller'
 				})

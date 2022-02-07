@@ -32,6 +32,9 @@ $('#form-0').on('submit', function (e) {
             $.ajax({
                 url: window.location.pathname,
                 type: 'POST',
+                headers:{
+                    'X-CSRFToken':csrftoken,
+                },
                 data: parameters,
                 dataType: 'json',
                 processData: false,
@@ -74,6 +77,9 @@ $('#form-1').on('submit', function (e) {
             $.ajax({
                 url: window.location.pathname,
                 type: 'POST',
+                headers:{
+                    'X-CSRFToken':csrftoken,
+                },
                 data: parameters,
                 dataType: 'json',
                 processData: false,

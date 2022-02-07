@@ -1,0 +1,158 @@
+{% extends 'panel/erp/views.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'lib/datatables-1.10/plugins/bulma/dataTables.bulma.min.css' %}" />
+<script src="{% static 'lib/datatables-1.10/plugins/bulma/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'lib/datatables-1.10/plugins/bulma/dataTables.bulma.min.js' %}"></script>
+<!-- static de modal bulma -->
+<link rel="stylesheet" href="{% static 'css/modal-fx.min.css' %}" />
+<script src="{% static 'js/modal-fx.min.js' %}"></script>
+{% endblock %}
+
+{% block contenido %}
+
+<div class="container">
+    <table class="table is-hoverable" id="dtable">
+        <thead>
+            <tr>
+                <th width="20%" class="has-text-centered">Fecha</th>
+                <th width="10%" class="has-text-centered">Variable</th>
+                <th width="20%" class="has-text-centered">Nombre</th>
+                <th width="10%" class="has-text-centered">Tipo</th>
+                <th width="5%" class="has-text-centered">Unidad</th>
+                <th width="20%" class="has-text-centered">Valor</th>
+                <th width="5%" class="has-text-centered">Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <hr>
+    <div class="field">
+        <div class="field is-grouped">
+            <div class="control">
+                <button type="button" id="update" class="button is-success is-outlined">
+                    <span><i class="fas fa-redo-alt"></i> Actualizar</span>
+                </button>
+            </div>
+            <div class="control">
+                <button type="button" id="agregar" class="button is-info is-outlined">
+                    <span><i class="fas fa-plus"></i> Agregar</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal para crear -->
+<div class="modal modal-fx-fadeInScale" id="modal-historicos" style="overflow: hidden;">
+    <div class="modal-background"></div>
+    <div class="modal-content is-medium">
+        <form action="." method="POST" id="modal-form">
+            {% csrf_token %}
+            <input type="hidden" id="accion" name="accion" value="agregar-historicos">
+            <header class="modal-card-head has-background-info">
+                <h2 class="modal-card-title has-text-white">
+                    <i class="fas fa-plus mr-1"></i><b class="titulo">Agregar Histórico</b>
+                </h2>
+                <button type="button" id="modal-close" class="modal-close"></button>
+            </header>
+            <section class="modal-card-body has-background-white-ter has-text-black">
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal"><label class="subtitle">Fecha:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.fecha}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal"><label class="subtitle">Variable:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.variable}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal"><label class="subtitle">Nombre:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.nombre}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal"><label class="subtitle">Tipo:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    <div class="select">
+                                        {{ form.tipo }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal"><label class="subtitle">Valor:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.valor }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal"><label class="subtitle">Unidad M:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.unidad_medida }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+            </section>
+            <footer class="modal-card-foot has-background-grey-lighter">
+                <div class="level">
+                    <div class="level-right">
+                        <button class="button is-info" type="submit">
+                            <i class="fas fa-save mr-1"></i>Guardar
+                        </button>
+                    </div>
+                    <div class="level-right ml-2">
+                        <button class="button is-warning" type="submit" id="clear-form">
+                            <i class="fas fa-broom mr-1"></i>Limpiar
+                        </button>
+                    </div>
+                </div>
+            </footer>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+
+<script src="{% static 'panel/js/servicios/met/historicos.js' %}"></script>
+
+{% endblock %}

@@ -9,7 +9,7 @@
 
 <div class="tile is-ancestor">
     <div class="tile is-parent">
-        <div class="card tile is-child">
+        <div class="tile is-child">
             <div class="card-content mt-4 pr-4">
                 <form id="form-0" action="." method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
@@ -61,35 +61,34 @@
                             </div>
                         </div>
                     </div>
+                    <hr style="margin-left: 0;margin-right: 0;">
+                    <div class="field is-horizontal">
+                        <div class="field-label">
+                            <!-- Creando Espacio -->
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="field is-grouped">
+                                    <div class="control">
+                                        <button type="submit" class="button is-primary">
+                                            <span><i class="fas fa-save"></i> Guardar</span>
+                                        </button>
+                                    </div>
+                                    <div class="control">
+                                        <a href="{% url 'list_usuarios' %}" class="button is-danger is-outlined">
+                                            <span><i class="fas fa-times"></i> Cancelar</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
             </div>
         </div>
     </div>
 </div>
-<div class="field is-horizontal">
-    <div class="field-label">
-        <!-- Creando Espacio -->
-    </div>
-    <div class="field-body">
-        <div class="field">
-            <div class="field is-grouped">
-                <div class="control">
-                    <button type="submit" class="button is-primary">
-                        <span><i class="fas fa-save"></i> Guardar</span>
-                    </button>
-                </div>
-                <div class="control">
-                    <a href="{% url 'list_usuarios' %}" class="button is-danger is-outlined">
-                        <span><i class="fas fa-times"></i> Cancelar</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-</form>
-
-
 
 {% endblock %}
 
@@ -114,7 +113,7 @@
 
         }
     });
-    
+
     $('#btn-eye2').on('click', function () {
         let get = $('#passw-text1').hasClass('fa-eye');
         if (get) {
@@ -128,7 +127,7 @@
 
         }
     });
-    
+
     $('#btn-eye3').on('click', function () {
         let get = $('#passw-text2').hasClass('fa-eye');
         if (get) {
@@ -172,7 +171,7 @@
                             icon: 'success',
                             timer: 3000,
                             onClose: () => {
-                               location.href= '{{ url_panel }}';
+                                location.href = '{{ url_panel }}';
                             }
                         });
                         return false;

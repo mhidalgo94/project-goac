@@ -1,9 +1,17 @@
-from django.db.models import fields
+from django import forms
 from django.forms import ModelForm
 
-from core.servicios.pyra_par.models import APIToken
+from core.servicios.pyra_par.models import PyParAPIToken
 
 class APITokenForm(ModelForm):
     class Meta:
-        model = APIToken
-        fields = ['user',]
+        model = PyParAPIToken
+        fields = '__all__'
+
+        widgets = {
+            'user': forms.Select(
+                attrs={
+                    'class':'select'
+                }
+            )
+        }

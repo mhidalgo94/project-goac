@@ -1,0 +1,94 @@
+{% extends 'panel/erp/views.html' %}
+{% load static %}
+
+{% block head %}
+
+<link rel="stylesheet" href="{% static 'lib/datatables-1.10/plugins/bulma/dataTables.bulma.min.css' %}" />
+<link rel="stylesheet" href="{% static 'lib/datatables-1.10/plugins/bulma/buttons.bulma.min.css' %}" />
+<!-- Export Data -->
+<script src="{% static 'lib/datatables-1.10/plugins/bulma/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'lib/datatables-1.10/plugins/bulma/dataTables.bulma.min.js' %}"></script>
+
+<script src="{% static 'lib/datatables-1.10/plugins/bulma/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'lib/datatables-1.10/plugins/bulma/buttons.bulma.min.js' %}"></script>
+<script src="{% static 'lib/datatables-1.10/plugins/bulma/jszip.min.js' %}"></script>
+<script src="{% static 'lib/datatables-1.10/plugins/bulma/buttons.html5.min.js' %}"></script>
+<script src="{% static 'lib/datatables-1.10/plugins/bulma/buttons.print.min.js' %}"></script>
+<script src="{% static 'lib/datatables-1.10/plugins/bulma/buttons.colVis.min.js' %}"></script>
+
+<!-- Bulma Calendar -->
+<link rel="stylesheet" href="{% static 'lib/bulma-calendar/css/bulma-calendar.min1.css' %}" />
+<script src="{% static 'lib/bulma-calendar/js/bulma-calendar.min1.js' %}"></script>
+{% endblock %}
+
+{% block contenido %}
+
+<div class="container">
+    <div class="container mb-2">
+        <form id="form-filter" action="." method="POST">
+            <div class="container mb-2">
+                <div class="field field has-addons">
+                    <div class="control">
+                        <div class="select mr-2">
+                          <select name="estacion">
+                            {% for m in codig_esta %}
+                            <option value={{m.codigo}}>{{m.estacion}}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                    </div>
+                    <div class="control" style="width: 350px">
+                        <input id="filter-date1" class="input" type="datetime" name="fechaInicial">
+                        
+                    </div>
+                    <div class="control" style="width: 370px">
+                        <input id="filter-date2" class="input" type="datetime" name="fechaFinal">
+                        
+                    </div>
+                    <div class="control">
+                        <button type="submit" class="button is-info is-outlined">
+                            <span><i class="fas fa-filter"></i></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <table class="table is-hoverable mt-2" id="dtable">
+        <thead>
+            <tr>
+                <th width="10%">Estación</th>
+                <th width="10%">Fecha</th>
+                <th width="10%">Tiempo</th>
+                <th width="10%">dc</th>
+                <th width="10%">dw</th>
+                <th width="10%">dnt</th>
+                <th width="10%">eoa</th>
+                <th width="10%">eoan</th>
+                <th width="5%">Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <hr>
+    <div class="field">
+        <div class="field is-grouped">
+            <div class="control">
+                <button type="button" id="update" class="button is-success is-outlined">
+                    <span><i class="fas fa-redo-alt"></i> Actualizar</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block javascript %}
+
+<script src="{% static 'panel/js/servicios/seoc/datos_seoc.js' %}"></script>
+
+{% endblock %}

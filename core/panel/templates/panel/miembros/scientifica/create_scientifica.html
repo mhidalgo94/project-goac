@@ -4,15 +4,10 @@
 
 
 {% block contenido %}
-
-
-
-
 <div class="tile is-ancestor">
     <div class="tile is-parent">
-        <div class="card tile is-child">
+        <div class="tile is-child">
             <div class="card-content mt-4 pr-4">
-                <hr>
                 <form action="." method="POST">
                     {% csrf_token %}
                     <div class="field is-horizontal">
@@ -55,7 +50,7 @@
         </div>
     </div>
 </div>
-<hr>
+<hr style="margin-left: 0;margin-right: 0;">
 <div class="content">
     <div class="field ml-6">
         <div class="field is-grouped">

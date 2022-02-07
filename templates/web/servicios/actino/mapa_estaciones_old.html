@@ -1,0 +1,110 @@
+{% load static %}
+
+<!-- Pestaña Estaciones -->
+<div class="container tile is-child" id="div-servicios" style="height: 50rem;">
+    <div class="card-content pr-4">
+        <h1 class="title center" id="titulo">Mapa de Estaciones</h1>
+        <div class="columns pt-3">
+            <div class="column is-6">
+                <div class="container" id="col-mapa">
+                    <div id="div-mark">
+                        {% for e in estaciones %}
+                        {% if e.estado.nombre == "ACTIVO" %}
+                        <span id="signal_{{ e.codigo }}" onmouseover="show_info({{e.codigo}})"
+                            onmouseout="hidden_info({{e.codigo}})"><i
+                                class="fas fa-map-marker-alt has-text-info is-size-4"></i></span>
+                        {% else %}
+                        <span id="signal_{{ e.codigo }}" onmouseover="show_info({{e.codigo}})"
+                            onmouseout="hidden_info({{e.codigo}})"><i
+                                class="fas fa-map-marker-alt has-text-grey is-size-4"></i></span>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <img src="{% static 'img/mapcuba.png' %}" alt="Mapa Cuba" id="map-img">
+                </div>
+                <script type="text/javascript">
+                    function show_info(codigo) {
+                        const estacion = String(`.info-estacion-${codigo}`);
+                        const elemento = document.querySelector(estacion).classList.toggle('show');
+                        document.querySelector('.leyenda-estaciones').classList.toggle('show');
+
+                    }
+                    function hidden_info(codigo) {
+                        const estacion = String(`.info-estacion-${codigo}`);
+                        const elemento = document.querySelector(estacion).classList.toggle('show');
+                        document.querySelector('.leyenda-estaciones').classList.toggle('show');
+                    }
+
+                </script>
+            </div>
+            <div class="column is-6 pt-1" id="det_estacion">
+
+                {% for e in estaciones %}
+                <div class="card-content pt-0 info-estacion-{{e.codigo}}" id="info-estacion">
+                    <div class="image has-max-width is-aligned-center">
+                        <figure class="image center" style="max-width: 290px;">
+                            <img src="{{e.get_imagen}}" alt="Estacion">
+                            <hr style="padding: 0;margin-bottom: 0;">
+                        </figure>
+                    </div>
+                    <div class="content center">
+                        <div style="padding: 0 15px;">
+                            <div class="media mb-2">
+                                <div class="media-content" style="overflow: hidden;">
+                                    <p class="title is-4 mb-2 pb-0"><i
+                                            class="fas fa-map-marker-alt"></i> {{e.estacion}}
+                                    </p>
+                                    <a class="ml-3 pb-1"
+                                        style="text-decoration: none;color: #3273dc;padding: 0;margin: 0; cursor: unset;">
+                                        <fas class="fas fa-map-marked"></fas> {{e.provincia}}
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="columns">
+                                <div class="column pb-0 pt-0">
+                                    <p class="pb-0 mb-0">
+                                    <p class="text is-size-6 mb-0 pb-0 pt-0"><strong>Codigo:</strong> {{e.codigo}} <strong>Tipo:</strong> {{e.tipo}}</p>
+                                    <p class="text is-size-6 mb-0 pb-0 pt-0"></p>
+                                    <p class="text is-size-6 mb-0 pt-0 pb-0"><strong>Latitud: </strong> {{e.latitud}} °N</p>
+                                    <p class="text is-size-6 mb-0 pt-0 pb-0"><strong>Longitud:</strong> {{e.longitud}} °O</p>
+
+                                    </p>
+                                </div>
+                                <div class="column pt-0">
+                                    <p class="text is-size-6 mb-0 pt-0 pb-0"><strong>Altura sobre NMM:</strong>{{e.altura}}m</b></p>
+                                    <p class="text is-size-6 pt-0"><strong>Estado:</strong> {{e.estado}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="card mt-0">
+                    <div class="leyenda-estaciones card-content">
+                        <p>Mueva el cursor sobre los puntos localizados en el mapa para obtener el
+                            estado e
+                            información sobre la estación actinométricas de interés </p>
+                        <p class="subtitle mb-1 pb-1">Leyenda</p>
+                        <span><i class="fas fa-map-marker-alt has-text-info is-size-4"></i></span>
+                        <b class="mb-2">Estación Operativa</b><br>
+                        <span><i class="fas fa-map-marker-alt has-text-grey is-size-4"></i></span>
+                        <b>Estación Inactiva</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <p>Mapa de prueba <i class="fas fa-map-marker-alt"></i></p>
+
+        <div id="map" style="height: 400px"></div>
+
+
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+
+        <script src="{% static 'js/servicios/actino/mapa.js' %}"></script>
+
+    </div>
+</div>

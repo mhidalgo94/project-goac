@@ -33,6 +33,9 @@ function confirm(url, titulo, contenido, icono, parameters, funcion) {
             $.ajax({
                 url: url,
                 type: 'POST',
+                headers:{
+                    'X-CSRFToken':csrftoken,
+                },
                 data: parameters,
                 dataType: 'json'
             }).done(function (data) {
@@ -81,3 +84,4 @@ $(function () {
     });
 
 });
+

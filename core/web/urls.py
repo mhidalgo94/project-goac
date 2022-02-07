@@ -3,9 +3,7 @@ from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 
-from core.web.views import ActinoView, ResumenDetailView, TalleresDetailView, TalleresView, WebArtArbitrajesView, WebDetailView, WebEventosView, WebMiembroView, WebNoticiasDetailView, WebNoticiasView, WebPerfilView, WebReportesView, InvestigacionesDetailView
-
-# Include your urls
+from core.web.views import *
 
 urlpatterns = [
     # Portada
@@ -13,9 +11,11 @@ urlpatterns = [
     # Miembros
     path('miembros/', WebMiembroView.as_view(), name='miembros'),
     path('miembros/<int:id>/',WebPerfilView.as_view(),name='perfil_miembros'),
+    # Instrumentos Detalles
+    path('instrumento/<int:id>/',WebInstrumentoDetailView.as_view(),name='detail_instrumento'),
     # Noticias
-    path('noticias/', WebNoticiasView.as_view(), name='noticias'),
-    path('noticias/<int:id>/',WebNoticiasDetailView.as_view(),name='ver_noticias'),
+    path('todas-noticias/', WebNoticiasView.as_view(), name='noticias'),
+    path('noticia/<int:id>/',WebNoticiasDetailView.as_view(),name='ver_noticias'),
     # Publicaciones Reportes
     path('publicaciones/reportes/',WebReportesView.as_view(),name='reportes'),
     # Publicaciones Reportes
@@ -23,7 +23,8 @@ urlpatterns = [
     # Publicaciones Reportes
     path('publicaciones/art_arbitrajes/',WebArtArbitrajesView.as_view(),name='art_arbitrajes'),
     # Investigaciones
-    path('investigaciones/<str:nombre>/',InvestigacionesDetailView.as_view(),name='det_investigaciones'),
+    path('investigaciones/<str:nombre>/',InvestigacionesListView.as_view(),name='list_investigaciones'),
+    path('investigaciones/<str:nombre>/<int:id>/',InvestigacionesDetailView.as_view(),name='det_investigaciones'),
     # Talleres
     path('talleres/todos_talleres/',TalleresView.as_view(),name='todos_talleres'),
     path('talleres/detalles_talleres/<int:pk>/',TalleresDetailView.as_view(),name='detalles_talleres'),
@@ -31,10 +32,14 @@ urlpatterns = [
     # Servicios
     # Actino
     path('servicios/actino/',ActinoView.as_view(),name='servicio_actino' ),
-    
-    
-
-
+    # SEOC
+    path('servicios/seoc/',SeocView.as_view(),name='servicio_seoc' ),
+    # MET
+    path('servicios/met/',MetView.as_view(),name='servicio_met' ),
+    # Pyra & Par
+    path('servicios/pyra-par/',PyraParView.as_view(),name='servicios_pyra_par' ),
+    # Error
+    path('servicio-error/', ServicioInterruptoTemplateView.as_view(),name='servicio_interrupto'),
 ]
 
 

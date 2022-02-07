@@ -18,7 +18,7 @@ class MiembrosListView(LoginRequiredMixin,ListView):
     model = MiembrosModel
     template_name = 'panel/miembros/list_miembros.html'
 
-    @csrf_exempt
+    # @csrf_exempt
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_superuser is False:
             messages.error(request, 'No tienes permisos suficiente para acceder')
@@ -176,7 +176,7 @@ class PefilMiembroEditView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['titulo'] = 'GOAC | Editar Contraseña'
+        context['titulo'] = 'GOAC | Editar Perfil Miembro'
         context['url_panel'] = self.success_url
         context['info'] = {'head_card': 'Editar Perfil Miembro' , 'icono': 'fas fa-edit mr-2'}
         context['modal'] = self.form_modal()

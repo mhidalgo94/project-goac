@@ -1,0 +1,28 @@
+{% extends 'web/navbar-body.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'lib/datatables-1.10/plugins/bulma/dataTables.bulma.min.css' %}" />
+<script src="{% static 'lib/datatables-1.10/plugins/bulma/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'lib/datatables-1.10/plugins/bulma/dataTables.bulma.min.js' %}"></script>
+{% endblock %}
+
+{% block contenido_agregados %}
+    <div class=" wow animate__animated animate__fadeInUp">
+        <div class="container mt-6">
+            <div class="card article">
+                <div class="card-content">
+                    <div class="media center">
+                        <h1 class="title is-4 has-text-center">{{ object.nombre }}</h1>
+                    </div>
+                    <div class="content article-body">
+                        <p>
+                            {{ object.contenido | safe}}
+                            
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

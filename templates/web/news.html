@@ -17,7 +17,7 @@
             <div class="media-content">
                 <div class="content">
                     <a href="{% url 'perfil_miembros' news.autor.id %}" ><label class="has-text-link">{{ news.autor }}</label><br></a>
-                    <label class="has-text-grey">Publicado: {{ news.fecha_creacion }}</label><br>
+                    <label class="has-text-grey">{{ news.fecha_modificacion }}</label><br>
                     <a href="{% url 'ver_noticias' news.id %}" class="title has-text-link mt-0 mb-0">{{ news.titulo }}</a>
                     <p class="text">{{ news.desc }}</p>
                 </div>

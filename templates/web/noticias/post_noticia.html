@@ -19,7 +19,7 @@
                         <div class="media-content has-text-centered">
                             <p class="title article-title">{{ object.titulo }}</p>
                             <p class="subtitle is-6 article-subtitle">
-                                <a href="{% url 'perfil_miembros' object.autor.id %}">{{ object.autor.full_name | capfirst}}</a> el {{ object.fecha_creacion }}
+                                <a href="{% url 'perfil_miembros' object.autor.id %}">{{ object.autor.full_name | capfirst}}</a> el {{ object.fecha_modificacion }}
                             </p>
                         </div>
                     </div>

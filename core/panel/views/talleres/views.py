@@ -25,14 +25,12 @@ class TallerListView(LoginRequiredMixin, ListView):
         context ={
             'titulo' : "GOAC | Lista de Talleres",
             'info': {'head_card': 'Lista de Talleres', 'icono': 'fas fa-wrench' },
-            'object_list': objects
+            'object_list': objects,
+            'busqueda':busqueda
         }
         return render(request,self.template_name, context)
 
     def dispatch(self, request, *args, **kwargs):
-        if request.user.is_superuser is False:
-            messages.error(request, 'No tienes permisos suficiente para acceder')
-            return redirect('panel')
         return super().dispatch(request, *args, **kwargs)
 
 
@@ -50,9 +48,6 @@ class TallerCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('list_talleres')
 
     def dispatch(self, request, *args, **kwargs):
-        if request.user.is_superuser is False:
-            messages.error(request, 'No tienes permisos suficiente para acceder')
-            return redirect('panel')
         return super().dispatch(request, *args, **kwargs)
 
 
@@ -69,11 +64,7 @@ class TallerUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'panel/talleres/edit_taller/edit_taller.html'
     success_url = reverse_lazy('list_talleres')
 
-    @csrf_exempt
     def dispatch(self, request, *args, **kwargs):
-        if request.user.is_superuser is False:
-            messages.error(request, 'No tienes permisos suficiente para acceder')
-            return redirect('panel')
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):

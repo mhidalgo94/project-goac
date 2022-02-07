@@ -18,6 +18,7 @@
 
                                 <label class="switch is-rounded"><b class="is-size-5 mr-2 pt-1 pb-1">Verano:</b>
                                     <input type="hidden" name="accion" value="act_verano">
+                                    {% csrf_token %}
                                     {{form.horario_verano}}
                 
                                     <span class="check"></span>
@@ -103,7 +104,8 @@
     </div>
 </section>
 
-<hr>
+<hr style="margin-left: 0;margin-right: 0;">
+
 <section class="section is-main-section mb-1 pb-1 pt-1">
     <section class="hero">
         <div class="columns is-multiline is-centered">
@@ -155,7 +157,7 @@
                             <div class="field-body">
                                 <div class="field is-narrow">
                                     <div class="control">
-                                        {% if m.estado.id == 11 %}
+                                        {% if m.estado.nombre == "ACTIVO" %}
                                         <span
                                             class="tag is-medium has-background-info has-text-white"><b>{{m.estado}}</b></span>
                                         {% else %}

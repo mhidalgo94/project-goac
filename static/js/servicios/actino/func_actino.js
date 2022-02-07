@@ -3,11 +3,20 @@ var grafica_global;
 var grafica_directa;
 var grafica_difusa;
 var valor_verano = document.getElementById('horario_verano').value;
+if (valor_verano === '0'){
+    document.getElementById('leyenda_horario_verano').style.display = 'none';
+}else{
+    document.getElementById('leyenda_horario_verano').style.display = 'block';
+}
+
 // Insertar datos al estado del tiempo
 function EstadoTiempo(datos, info) {
+    // revisar cuando el fenomeno es cero y tiene nota
     if (datos) {
         if (datos.global === "-999" || datos.global === "-999.0") {
-            if (datos.fenom === '4') {
+            if (datos.notas){
+                LimpiarEstadoTiempo();
+            } else if (datos.fenom === '4') {
                 document.getElementById('est_tiempo').style.display = 'none';
                 document.getElementById('est_leyenda').style.display = 'none';
                 document.getElementById('est_fenomeno').style.display = 'block';
@@ -38,7 +47,7 @@ function EstadoTiempo(datos, info) {
                 document.getElementById('est_fenomeno').style.display = 'block';
                 $('#text_fenomeno').text('Tormenta sin Precipitación');
             }
-        } else {
+        }else {
             $('#et-aire').html(datos.temp_aire);
             $('#et-suelo').html(datos.temp_suelo);
             if (datos.humedad_relativa === "-999" || datos.humedad_relativa === "-999.0") {
@@ -59,7 +68,7 @@ function EstadoTiempo(datos, info) {
             if (parseInt(datos.nubosidad) <= 3) {
                 document.getElementById('et-nubosidad').src = "/static/img/actino/sun.png";
             } else if (parseInt(datos.nubosidad) > 3 && parseInt(datos.nubosidad) < 7) {
-                document.getElementById('et-nubosidad').src = "/static/img/actino/sun-cloud.png";
+                document.getElementById('et-nubosidad').src = "/static/img/actino/sun-cloud_old.png";
             } else if (parseInt(datos.nubosidad) >= 7) {
                 document.getElementById('et-nubosidad').src = "/static/img/actino/cloud.png";
             }
@@ -203,13 +212,13 @@ function datatable(json) {
                         row.innerHTML = '<td class="ha-text-white has-text-centered has-background-grey-light">' + hora + '</td><td colspan="9" class="has-text-danger-dark has-background-grey-light"><b>Fenómeno: Chubascos</b></td>';
 
                     } else if (data.fenom === "8") {
-                        row.innerHTML = '<td class="ha-text-white has-text-centered has-background-grey-light">' + hora + '</td><td colspan="9" class="has-text-danger-dark has-background-grey-light"><b>Fenómeno: Tormenta con Precipitaciones</b></td>';
+                        row.innerHTML = '<td class="ha-text-white has-text-centered has-background-grey-light">' + hora + '</td><td colspan="9" class="has-text-danger-dark has-background-grey-light"><b>Fenómeno: Tormenta con Precipitación</b></td>';
 
                     } else if (data.fenom === "9") {
-                        row.innerHTML = '<td class="ha-text-white has-text-centered has-background-grey-light">' + hora + '</td><td colspan="9" class="has-text-danger-dark has-background-grey-light"><b>Fenómeno: Tormenta sin Precipitaciones</b></td>';
+                        row.innerHTML = '<td class="ha-text-white has-text-centered has-background-grey-light">' + hora + '</td><td colspan="9" class="has-text-danger-dark has-background-grey-light"><b>Fenómeno: Tormenta sin Precipitación</b></td>';
                     }
                 } else {
-                    row.innerHTML = '<td class="has-text-centered">' + hora + '</td><td><figure class="has-text-centered image is-32x32 ml-0 mr-0"><img src="/static/img/actino/sun-cancel.png" alt="image"></figure></td><td colspan="8" class="has-text-danger"><b>Nota:' + notas + '</b></td>';
+                    row.innerHTML = '<td class="ha-text-white has-text-centered has-background-grey-light">' + hora + '</td><td colspan="9" class="has-text-danger-dark has-background-grey-light"><b>Nota:' + notas + '</b></td>';
                 }
 
             }
@@ -255,6 +264,12 @@ function DetallesObservador(nombre, especialidad, xp, fecha_nac, img) {
 // Iniciar grafico
 // Grafico Radiacion Global
 function GraficoRadGlobal(actual, fecha, historicos, ejeX) {
+    var x = ejeX;
+    var sumar = parseInt($('#horario_verano').val());
+    for(var i = 0; i<=13;i++){
+        x[i] += sumar
+
+    }
     grafica_global = Highcharts.chart('rad-global', {
         chart: {
             zoomType: 'x'
@@ -268,18 +283,29 @@ function GraficoRadGlobal(actual, fecha, historicos, ejeX) {
             verticalAlign: 'bottom'
         },
         credits: {
-            enabled: false
+            enabled: true,
+            text:"GOAC",
+            href:"http://www.goac.cu",
+            position:{
+                x:-60,
+                y:-50,
+            },
+            style:{
+                fontSize:"12px",
+            }
         },
         legend: {
-            align: 'center',
-            verticalAlign: 'bottom',
+            align: 'right',
+            verticalAlign: 'top',
             borderWidth: 0,
             backgroundColor:
                 Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF'
         },
         xAxis: {
+            title: {
+                text: 'Hora Local'
+            },
             categories: ejeX,
-            max: ejeX.length - 1,
         },
         yAxis: {
             type: 'line',
@@ -301,13 +327,13 @@ function GraficoRadGlobal(actual, fecha, historicos, ejeX) {
         // Serie de datos del eje Y
         series: [{
             type: 'area',
-            name: 'Históricos',
+            name: 'Medias Históricas',
             data: historicos.slice(0,ejeX.length),
             color: '#2ee13d',
             marker: {
                 enabled: false,
             },
-            enableMouseTracking: true, // Abilitar datos sobre puntos
+            enableMouseTracking: false, // Abilitar datos sobre puntos
             gapSize: 0,
 
         }, {
@@ -327,6 +353,7 @@ function GraficoRadGlobal(actual, fecha, historicos, ejeX) {
 }
 // Grafico Radiacion Directa
 function GraficoRadDirecta(actual, fecha, historicos, ejeX) {
+    
     grafica_directa = Highcharts.chart('rad-directa', {
         chart: {
             zoomType: 'x'
@@ -340,18 +367,29 @@ function GraficoRadDirecta(actual, fecha, historicos, ejeX) {
             verticalAlign: 'bottom'
         },
         credits: {
-            enabled: false
+            enabled: true,
+            text:"GOAC",
+            href:"http://www.goac.cu",
+            position:{
+                x:-60,
+                y:-50,
+            },
+            style:{
+                fontSize:"12px",
+            }
         },
         legend: {
-            align: 'center',
-            verticalAlign: 'bottom',
+            align: 'right',
+            verticalAlign: 'top',
             borderWidth: 0,
             backgroundColor:
                 Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF'
         },
         xAxis: {
+            title: {
+                text: 'Hora Local'
+            },
             categories: ejeX,
-            max: ejeX.length - 1,
         },
         yAxis: {
             type: 'line',
@@ -373,13 +411,13 @@ function GraficoRadDirecta(actual, fecha, historicos, ejeX) {
         // Serie de datos del eje Y
         series: [{
             type: 'area',
-            name: 'Históricos',
+            name: 'Medias Históricas',
             data: historicos.slice(0,ejeX.length),
             color: '#2ee13d',
             marker: {
                 enabled: false,
             },
-            enableMouseTracking: true, // Abilitar datos sobre puntos
+            enableMouseTracking: false, // Abilitar datos sobre puntos
             gapSize: 0,
 
         }, {
@@ -411,18 +449,29 @@ function GraficoRadDifusa(actual, fecha, historicos, ejeX) {
             verticalAlign: 'bottom'
         },
         credits: {
-            enabled: false
+            enabled: true,
+            text:"GOAC",
+            href:"http://www.goac.cu",
+            position:{
+                x:-60,
+                y:-50,
+            },
+            style:{
+                fontSize:"12px",
+            }
         },
         legend: {
-            align: 'center',
-            verticalAlign: 'bottom',
+            align: 'right',
+            verticalAlign: 'top',
             borderWidth: 0,
             backgroundColor:
                 Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF'
         },
         xAxis: {
+            title: {
+                text: 'Hora Local'
+            },
             categories: ejeX,
-            max: ejeX.length - 1,
         },
         yAxis: {
             type: 'line',
@@ -444,7 +493,7 @@ function GraficoRadDifusa(actual, fecha, historicos, ejeX) {
         // Serie de datos del eje Y
         series: [{
             type: 'area',
-            name: 'Históricos',
+            name: 'Medias Históricas',
             data: historicos.slice(0,ejeX.length),
             color: '#2ee13d',
             marker: {
@@ -476,6 +525,9 @@ function call_ajax(action, estacion, fecha) {
     $.ajax({
         url: window.location.pathname,
         type: 'POST',
+        headers:{
+            'X-CSRFToken':csrftoken,
+        },
         data: {
             'action': action,
             'estacion': estacion,
@@ -507,7 +559,7 @@ function call_ajax(action, estacion, fecha) {
         // Limpiar la tabla
         LimpiarTable();
         // Limpiar cuadro Observador
-        DetallesObservador('', '', '', '', '/static/img/empty.png');
+        DetallesObservador('', '', '', '', '/static/img/miembro.png');
         // limpiar grafica
         if (grafica_global !== undefined) {
             grafica_global.destroy();
@@ -596,21 +648,13 @@ $(function () {
         $("#div-info").hide();
         $("#div-contacto").show();
     });
-    $('#update').on('click', function () {
-        const estacion = $('#estacion').val();
-        const fecha = $("#input-fecha").val();
-
-        if (fecha == '') {
-            call_ajax('hoy', estacion, fecha);
-        } else {
-            call_ajax('buscar_fecha', estacion, fecha);
-        }
-    });
+    
     $('#estacion').change(function () {
         const estacion = $('#estacion').val();
         const fecha = $("#input-fecha").val();
-
-        if (fecha == '') {
+        if (fecha === undefined) {
+            call_ajax('hoy', estacion, fecha);
+        }else if (fecha === '') {
             call_ajax('hoy', estacion, fecha);
         } else {
             call_ajax('buscar_fecha', estacion, fecha);
@@ -631,6 +675,7 @@ $(function () {
     call_ajax('hoy', $('#estacion').val(), '');
     // Calendario Bulma pra boton de busqueda por fecha
     var calendario = bulmaCalendar.attach("#input-fecha", {
+        startDate: new Date(),
         dateFormat: 'YYYY-MM-DD',
         showClearButton: false,
     });

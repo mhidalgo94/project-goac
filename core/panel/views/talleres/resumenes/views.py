@@ -16,7 +16,7 @@ class ResumenesTListView(LoginRequiredMixin, ListView):
     template_name = 'panel/talleres/resumenes/list_resumenes.html'
     model = ResumenesTallerModel
 
-    @csrf_exempt
+    # @csrf_exempt
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_superuser is False:
             messages.error(request, 'No tienes permisos suficiente para acceder')

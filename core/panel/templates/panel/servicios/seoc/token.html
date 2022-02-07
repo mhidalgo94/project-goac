@@ -1,0 +1,135 @@
+{% extends 'panel/erp/views.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'lib/datatables-1.10/plugins/bulma/dataTables.bulma.min.css' %}" />
+<script src="{% static 'lib/datatables-1.10/plugins/bulma/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'lib/datatables-1.10/plugins/bulma/dataTables.bulma.min.js' %}"></script>
+<!-- static de modal bulma -->
+<link rel="stylesheet" href="{% static 'css/modal-fx.min.css' %}" />
+<script src="{% static 'js/modal-fx.min.js' %}"></script>
+{% endblock %}
+
+{% block contenido %}
+
+<div class="container">
+    <table class="table is-hoverable" id="dtable">
+        <thead>
+            <tr>
+                <th width="5%">id</th>
+                <th width="30%">Usuario</th>
+                <th width="40%">API key</th>
+                <th width="20%">Fecha Modif</th>
+                <th width="5%">Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <hr>
+    <div class="field">
+        <div class="field is-grouped">
+            <div class="control">
+                <button type="button" id="update" class="button is-success is-outlined">
+                    <span><i class="fas fa-redo-alt"></i> Actualizar</span>
+                </button>
+            </div>
+            <div class="control">
+                <button id="btn-agregar" type="button" id="update" class="button is-info is-outlined">
+                    <span><i class="fas fa-plus"></i> Agregar</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal API TOKEN -->
+<div class="modal modal-fx-fadeInScale" id="modal-apikey" style="overflow: hidden;">
+    <div class="modal-background"></div>
+    <div class="modal-content is-medium">
+        <form action="." method="POST" id="modal-form">
+            <input type="hidden" id="action" name="action" value="add-apikey">
+            <header class="modal-card-head has-background-info">
+                <h2 class="modal-card-title has-text-white">
+                    <i class="fas fa-plus mr-1"></i><b class="titulo">Agregar API Key</b>
+                </h2>
+                <button type="button" id="modal-close" class="modal-close"></button>
+            </header>
+            <section class="modal-card-body has-background-white-ter has-text-black">
+                <p class="subtitle has-text-grey mb-5 mr-1">Usuario:
+                <div class="select is-fullwidth">
+                    {{form.user}}
+
+                </div>
+                </p>
+
+            </section>
+            <footer class="modal-card-foot has-background-grey-lighter">
+                <div class="level">
+                    <div class="level-right">
+                        <button class="button is-info" type="submit" id="modal-cancel">
+                            <i class="fas fa-save mr-1"></i>Guardar
+                        </button>
+                    </div>
+                </div>
+            </footer>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+
+<!-- Funciones -->
+<script src="{% static 'panel/js/servicios/seoc/apit_list_token.js' %}"></script>
+
+<script type="text/javascript">
+    $('#modal-cancel').on('click', function () {
+        $('#modal-apikey').removeClass('is-active');
+    });
+    $('#modal-close').on('click', function () {
+        $('#modal-apikey').removeClass('is-active');
+        $('#modal-form').reset();
+    });
+    $('#btn-agregar').on('click', function () {
+        $('#modal-apikey').addClass('is-active');
+    });
+
+    $('form').on('submit', function (e) {
+        e.preventDefault()
+        var parametros = $(this).serializeArray();
+        $.ajax({
+            url: window.location.pathname,
+            type: 'POST',
+            headers:{
+                'X-CSRFToken':csrftoken,
+            },
+            data: parametros,
+            dataType: 'json'
+        }).done(function (data) {
+            if (!data.hasOwnProperty('error')) {
+                Swal.fire({
+                    title: 'Notificación!',
+                    text: 'API Key creada correctamente',
+                    icon: 'success',
+                    timer: 3000,
+                    onClose: () => {
+                        updatetable();
+                    }
+                });
+                return false;
+            }
+            mensaje_error(data.error);
+        }).fail(function (data) {
+        }).always(function (data) {
+            // $('form')[0].reset();
+        });
+    });
+</script>
+
+
+{% endblock %}

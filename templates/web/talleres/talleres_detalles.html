@@ -23,25 +23,14 @@
           <ul>
             <li class="is-active pr-1" id="taller">
               <a>
-                <span class="icon is-small"><i class="fas fa-wrench"></i></span>
-                <span>Taller</span>
+                <span class="icon is-small"><i class="fas fa-info"></i></span>
+                <span>Información</span>
               </a>
             </li>
             <li class="pr-1" id="programas">
               <a>
                 <span class="icon is-small"><i class="fas fa-calendar-alt"></i></span>
-                <span>Programas</span>
-              </a>
-            </li>
-            <li class="pr-1" id="resumenes">
-              <a>
-                <span class="icon is-small"><i class="fas fa-clipboard-check"></i></span>
-                {% if object.resumen.count > 0 %}
-                <span>Resumenes</span>
-                {% else %}
-                <span>Resumen</span>
-
-                {% endif %}
+                <span>Programa</span>
               </a>
             </li>
             <li class="pr-1" id="participantes">
@@ -50,6 +39,18 @@
                 <span>Participantes</span>
               </a>
             </li>
+            <li class="pr-1" id="resumenes">
+              <a>
+                <span class="icon is-small"><i class="fas fa-clipboard-check"></i></span>
+                {% if object.resumen.count > 0 %}
+                <span>Resúmenes</span>
+                {% else %}
+                <span>Resúmenes</span>
+
+                {% endif %}
+              </a>
+            </li>
+            
           </ul>
         </div>
 
@@ -77,57 +78,58 @@
             {% endif %}
           </div>
         </div>
+        <!-- Pestaña Participantes -->
+        <div class="container tile is-child" id="div-participantes">
+          <div class="table-wrapper has-mobile-cards">
+            <table class="table is-bordered is-fullwidth is-striped is-hoverable is-fullwidth" id="dtable">
+              <thead>
+                <tr>
+                  <th width="40%"><b>Nombre</b></th>
+                  <th width="40%" class="has-text-centered"><b>Centro que Pertenece</b></th>
+                  <th width="20%" class="has-text-centered"><b>País</b></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for m in object.participantes.all %}
+                <tr>
+                  <td class="has-text-left"> {{ m.nombre }}</td>
+                  <td class="has-text-left">{{ m.centro }}</td>
+                  <td class="has-text-centered">{{ m.pais }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+      </div>
 
         <!-- Pestaña Resumenes -->
         <div class="container tile is-child" id="div-resumenes">
           <div class="content pt-4 pl-4">
             <p class="has-text-justified center">
               {% if resumenes.count %}
-              {% for i in resumenes.all %}
-              <div class="block mt-4">
-                <h1 class="title">{{ i.titulo }}</h1>
-                {{ i.resumen | safe |truncatechars:650}}
-                
-            </div>
-            <div class="level">
-              <div class="level-left">
-              </div>
-              <div class="level-right">
-                <a href="{% url 'detalles_resumenes_talleres' i.id %}" class="button is-normal is-info is-outlined">Leer Resumen</a>
-              </div>
-            </div>
-            <hr>
-            {% endfor %}
-            {% else %}
-            <h2 class="subtitle">No existen datos de resumenes</h2>
-            {% endif %}
+                {% for i in resumenes.all %}
+                  <div class="block mt-4">
+                    <h1 class="title">{{ i.titulo }}</h1>
+                    {{ i.resumen | safe |truncatechars:650}}
+                    
+                  </div>
+                  <div class="level">
+                    <div class="level-left">
+                    </div>
+                    <div class="level-right">
+                      <a href="{% url 'detalles_resumenes_talleres' i.id %}" class="button is-normal is-info is-outlined">Leer Resumen</a>
+                    </div>
+                  </div>
+                  <hr>
+                {% endfor %}
+              {% else %}
+                <h2 class="subtitle">No existen datos de resúmenes</h2>
+              {% endif %}
             </p>
           </div>
         </div>
 
-        <!-- Pestaña Participantes -->
-        <div class="container tile is-child" id="div-participantes">
-            <div class="table-wrapper has-mobile-cards">
-              <table class="table is-bordered is-fullwidth is-striped is-hoverable is-fullwidth" id="dtable">
-                <thead>
-                  <tr>
-                    <th width="40%"><b>Nombre</b></th>
-                    <th width="40%" class="has-text-centered"><b>Centro que Pertenece</b></th>
-                    <th width="20%" class="has-text-centered"><b>País</b></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for m in object.participantes.all %}
-                  <tr>
-                    <td class="has-text-left"> {{ m.nombre }}</td>
-                    <td class="has-text-left">{{ m.centro }}</td>
-                    <td class="has-text-centered">{{ m.pais }}</td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-            </div>
-        </div>
+        
       </div>
     </div>
 

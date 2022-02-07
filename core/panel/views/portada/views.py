@@ -17,7 +17,7 @@ class PortadaCreateView(LoginRequiredMixin,CreateView):
     form_class = PortadaForm
     template_name = 'panel/web/create_portada.html'
     
-    @csrf_exempt
+    # @csrf_exempt
     def dispatch(self,request, *args, **kwargs):
         if request.user.is_superuser is False:
             messages.error(request, 'No tienes permisos suficiente para acceder')

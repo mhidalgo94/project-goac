@@ -37,6 +37,9 @@ function updatetable(){
         ajax: {
             url : window.location.pathname,
             type: 'POST',
+            headers:{
+                'X-CSRFToken':csrftoken,
+            },
             data: {
                 'action': 'searchdata'
             },
@@ -54,7 +57,7 @@ function updatetable(){
                 class : 'is-center',
                 orderable: false,
                 render: function(data,type,row){
-                    var btn = '<button style="border:none;cursor:pointer;" class="tag is-warning is-normal" rel="edit" id="'+data+'"><i class="fas fa-edit"></i></button>'
+                    var btn = '<button style="border:none;cursor:pointer;" class="tag is-warning is-normal mr-1" rel="update" id="'+data+'"><i class="fas fa-sync"></i></button>'
                     btn += '<button style="border:none;cursor:pointer;" class="tag is-danger is-noram" rel="delete" id="'+data+'"><i class="fas fa-trash"></i></button>'
                     return btn
                 }
@@ -89,16 +92,19 @@ $(function (){
             });
         });
     });
-    $('#dtable').on('click', 'button[rel="edit"]', function(){
-        var id_ = $(this).attr('id');
-        Swal.fire({
-            title : 'Notificación!',
-            text : 'Esta en desarrollo',
-            icon: 'success',
-            timer: 3000,
-            onClose: () => {
-                updatetable();
-            }
+    $('#dtable').on('click', 'button[rel="update"]' , function(){
+        var id = $(this).attr('id');
+        var parameters = {'action':'update','id': parseInt(id) }
+        confirm(window.location.pathname, 'Advertencia','Estas seguro que deseas actualizar esta API Key?','warning' ,parameters, function(){
+            Swal.fire({
+                title : 'Notifición!',
+                text : 'API Key actualizada correctamente',
+                icon: 'success',
+                timer: 3000,
+                onClose: () => {
+                    updatetable();
+                }
+            });
         });
     });
     

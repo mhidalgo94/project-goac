@@ -1,0 +1,465 @@
+{% extends 'web/navbar-body.html' %}
+{% load static %}
+
+{% block head %}
+<!-- HigthChart 8.1 -->
+<script src="{% static 'lib/highcharts-8.1/highcharts.js' %}"></script>
+<script src="{% static 'lib/highcharts-8.1/highcharts-more.js' %}"></script>
+<script src="{% static 'lib/highcharts-8.1/modules/exporting.js' %}"></script>
+<script src="{% static 'lib/highcharts-8.1/modules/export-data.js' %}"></script>
+<script src="{% static 'lib/highcharts-8.1/modules/accessibility.js' %}"></script>
+
+<!-- Bulma Calendar -->
+<link rel="stylesheet" href="{% static 'lib/bulma-calendar/css/bulma-calendar.min.css' %}" />
+<script src="{% static 'lib/bulma-calendar/js/bulma-calendar.min.js' %}"></script>
+
+<script type="text/javascript">
+    // Esta es la fecha del dia llamadas por los graficos diario y mensuales
+    let date = new Date();
+    var fecha_hoy = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+
+</script>
+
+<script type="text/javascript">
+
+    $(function () {
+        temp(0);
+        presion(0);
+        humedad(0);
+        vientoR(0);
+        lluviaW(0);
+        lluvia48(0);
+
+    })
+</script>
+
+{% endblock %}
+
+{% block contenido_agregados %}
+<section class="wow animate__animated animate__fadeInUp section has-background-white" style="min-height: 80rem;">
+    <h1 class="title is-1 center mb-4 has-text-center">{{ titulo_page }}</h1>
+    <!-- Select Pestaña -->
+    <div class="tabs is-centered is-boxed">
+        <ul>
+            <li class="pr-1" id="mediciones">
+                <a>
+                    <span class="icon is-small"><i class="fas fa-flag"></i></span>
+                    <span><b>Mediciones</b></span>
+                </a>
+            </li>
+            <li class="pr-1" id="historicos">
+                <a>
+                    <span class="icon is-small"><i class="fas fa-history"></i></span>
+                    <span><b>Históricos</b></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <section id="section-mediciones" class="section pt-0">
+        <div class="article">
+            <div class="article-body center">
+                <div class="columns">
+                    <div class="column">
+                        <div class="content">
+                            <div class="content center" style="display: flex;">
+                                <div class="blog has-background-light" style="padding:8px;border-radius:5px;">
+                                    <h5 id="fecha" class="is-5 has-text-centered mb-0"></h5>
+                                </div>
+                                {% if request.user.is_authenticated %}
+                                <div class="field has-addons center ml-5 mt-1" style="width:240px;">
+                                    <div class="control">
+                                        <input type="date" class="input is-small mr-0" style="width: 120px;"
+                                            placeholder="Buscar por fecha" id="input-fecha">
+                                    </div>
+                                    <div class="control ">
+                                        <a class="button is-info is-small ml-0" type="text" id="buscar"><i
+                                                class="fas fa-search"></i></a>
+                                    </div>
+                                </div>
+                                <script type="text/javascript">
+                                    var calendario = bulmaCalendar.attach("#input-fecha", {
+                                        startDate: new Date(),
+                                        dateFormat: 'YYYY-M-D',
+                                        showClearButton: false,
+                                    });
+                                </script>
+                                {% endif %}
+                            </div>
+                            <div class="columns">
+                                <div class="column center">
+                                    <div id="temp" style="width: 200px; height: 210px;"></div>
+                                </div>
+                                <div class="column center">
+                                    <div id="presion" style="width: 200px; height: 210px"></div>
+                                </div>
+                                <div class="column center">
+                                    <div id="humedad" style="width: 200px; height: 240px"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <div class="columns">
+                                <div class="column center">
+                                    <div id="vientoR" style="width: 200px; height: 220px"></div>
+                                </div>
+                                <div class="column center">
+                                    <div id="lluviaW" style="width: 200px; height: 220px"></div>
+                                </div>
+                                <div class="column center">
+                                    <div id="lluvia24" style="width: 200px; height: 240px"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <!-- Valores Extremos En Targetas -->
+        <!-- <div class="container">
+            <div class="article center mt-4">
+                <div class="article-body">
+                    <div class="block">
+                        <div class="content">
+                            <div class="message is-info">
+                                <div class="message-header has-text-left">
+                                    <b><i class="fas fa-history"></i> Valores Extremos desde el 20-05-2014</b>
+                                </div>
+                                <div class="message-body has-background-light pl-1 pr-1">
+                                    <div class="tile is-ancestor">
+                                        <div class="tile is-parent">
+                                            <div class="card tile is-child" style="border-radius: 10px;">
+                                                <div class="card-content pl-1 pr-1">
+                                                    <div class="level is-mobile">
+                                                        <div class="level-item">
+                                                            <div class="is-widget-label">
+                                                                <h3 class="title is-5 is-spaced">
+                                                                    Humedad R.
+                                                                </h3>
+                                                                <h1 class="title mt-1 has-text-info is-4">
+                                                                    {{card_historicos.hr_max.valor}}
+                                                                    {{card_historicos.hr_max.unidad_medida}}
+                                                                </h1>
+                                                                <span class="tag is-white is-medium pl-0">{{card_historicos.hr_max.fecha|date:"d M Y"}}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="level-item has-widget-icon">
+                                                            <div class="is-widget-icon"><span
+                                                                    class="icon has-text-danger is-large"><i
+                                                                        class="fas fa-sort-amount-up is-size-2"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tile is-parent">
+                                            <div class="card tile is-child" style="border-radius: 10px;">
+                                                <div class="card-content pl-1 pr-1">
+                                                    <div class="level is-mobile">
+                                                        <div class="level-item">
+                                                            <div class="is-widget-label">
+                                                                <h3 class="title is-5 is-spaced">
+                                                                    Humedad R.
+                                                                </h3>
+                                                                <h1 class="title has-text-info mt-1 is-4">
+                                                                    {{card_historicos.hr_min.valor}}
+                                                                    {{card_historicos.hr_min.unidad_medida}}
+                                                                </h1>
+                                                                <span class="tag is-white is-medium pl-0">{{card_historicos.hr_min.fecha|date:"d M Y"}}</span>
+    
+                                                            </div>
+                                                        </div>
+                                                        <div class="level-item has-widget-icon">
+                                                            <div class="is-widget-icon"><span
+                                                                    class="icon has-text-success is-large"><i
+                                                                        class="fas fa-sort-amount-down is-size-2"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tile is-parent">
+                                            <div class="card tile is-child" style="border-radius: 10px;">
+                                                <div class="card-content pl-1 pr-1">
+                                                    <div class="level is-mobile">
+                                                        <div class="level-item">
+                                                            <div class="is-widget-label">
+                                                                <h3 class="title is-5 is-spaced">Temperatura</h3>
+                                                                <h1 class="title mt-1 has-text-info is-4">
+                                                                    {{card_historicos.ta_max.valor}}
+                                                                    {{card_historicos.ta_max.unidad_medida}}
+                                                                </h1>
+                                                                <span class="tag is-white is-medium pl-0">{{card_historicos.ta_max.fecha|date:"d M Y"}}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="level-item has-widget-icon">
+                                                            <div class="is-widget-icon"><span
+                                                                    class="icon has-text-danger is-large"><i class="fas fa-sort-amount-up is-size-2"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+    
+                                            </div>
+                                        </div>
+                                        <div class="tile is-parent">
+                                            <div class="card tile is-child" style="border-radius: 10px;">
+                                                <div class="card-content pl-1 pr-1">
+                                                    <div class="level is-mobile">
+                                                        <div class="level-item">
+                                                            <div class="is-widget-label">
+                                                                <h3 class="title is-5 is-spaced">
+                                                                    Temperatura
+                                                                </h3>
+                                                                <h1 class="title has-text-info mt-1 is-4">
+                                                                    {{card_historicos.ta_min.valor}}
+                                                                    {{card_historicos.ta_min.unidad_medida}}
+                                                                </h1>
+                                                                <span class="tag is-white is-medium pl-0">{{card_historicos.ta_min.fecha|date:"d M Y"}}</span>
+    
+                                                            </div>
+                                                        </div>
+                                                        <div class="level-item has-widget-icon">
+                                                            <div class="is-widget-icon"><span
+                                                                    class="icon has-text-success is-large"><i
+                                                                        class="fas fa-sort-amount-down is-size-2"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="tile is-ancestor">
+                                        <div class="tile is-parent">
+                                            <div class="card tile is-child" style="border-radius: 10px;">
+                                                <div class="card-content pl-1 pr-1">
+                                                    <div class="level is-mobile">
+                                                        <div class="level-item">
+                                                            <div class="is-widget-label">
+                                                                <h3 class="title is-5 is-spaced">
+                                                                    Presión
+                                                                </h3>
+                                                                <h1 class="title mt-1 is-4 has-text-info">
+                                                                    {{card_historicos.pr_min.valor}}
+                                                                    {{card_historicos.pr_min.unidad_medida}}
+                                                                </h1>
+                                                                <span class="tag is-white is-medium pl-0">{{card_historicos.pr_min.fecha|date:"d M Y"}}</span>
+    
+                                                            </div>
+                                                        </div>
+                                                        <div class="level-item has-widget-icon">
+                                                            <div class="is-widget-icon"><span
+                                                                    class="icon has-text-danger is-large"><i
+                                                                        class="fas fa-sort-amount-up is-size-2"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tile is-parent">
+                                            <div class="card tile is-child" style="border-radius: 10px;">
+                                                <div class="card-content pl-1 pr-1">
+                                                    <div class="level is-mobile">
+                                                        <div class="level-item">
+                                                            <div class="is-widget-label">
+                                                                <h3 class="title is-5 is-spaced">
+                                                                    Presión
+                                                                </h3>
+                                                                <h1 class="title has-text-info is-4 mt-1">
+                                                                    {{card_historicos.pr_max.valor}}
+                                                                    {{card_historicos.pr_max.unidad_medida}}
+                                                                </h1>
+                                                                <span class="tag is-white is-medium pl-0">{{card_historicos.pr_max.fecha|date:"d M Y"}}</span>
+    
+                                                            </div>
+                                                        </div>
+                                                        <div class="level-item has-widget-icon">
+                                                            <div class="is-widget-icon"><span
+                                                                    class="icon has-text-success is-large"><i
+                                                                        class="fas fa-sort-amount-down is-size-2"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tile is-parent">
+                                            <div class="card tile is-child" style="border-radius: 10px;">
+                                                <div class="card-content pl-1 pr-1">
+                                                    <div class="level is-mobile">
+                                                        <div class="level-item">
+                                                            <div class="is-widget-label">
+                                                                <h3 class="title is-5 is-spaced">
+                                                                    Vel. Viento
+                                                                </h3>
+                                                                <h1 class="title mt-1 is-4 has-text-info">
+                                                                    {{card_historicos.vv.valor}}
+                                                                    {{card_historicos.vv.unidad_medida}}
+                                                                </h1>
+                                                                <span class="tag is-white is-medium pl-0">{{card_historicos.vv.fecha|date:"d M Y"}}</span>
+    
+                                                            </div>
+                                                        </div>
+                                                        <div class="level-item has-widget-icon">
+                                                            <div class="is-widget-icon"><span
+                                                                    class="icon has-text-danger is-large"><i
+                                                                        class="fas fa-sort-amount-up is-size-2"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tile is-parent">
+                                            <div class="card tile is-child" style="border-radius: 10px;">
+                                                <div class="card-content pl-1 pr-1">
+                                                    <div class="level is-mobile">
+                                                        <div class="level-item">
+                                                            <div class="is-widget-label">
+                                                                <h3 class="title is-5 is-spaced">
+                                                                    Int. Lluvia
+                                                                </h3>
+                                                                <h1 class="title has-text-info mt-1 is-4">
+                                                                    {{card_historicos.ri.valor}}
+                                                                    {{card_historicos.ri.unidad_medida}}
+                                                                </h1>
+                                                                <span class="tag is-white is-medium pl-0">{{card_historicos.ri.fecha|date:"d M Y"}}</span>
+    
+                                                            </div>
+                                                        </div>
+                                                        <div class="level-item has-widget-icon">
+                                                            <div class="is-widget-icon">
+                                                                <span class="icon has-text-success is-large"><i
+                                                                        class="fas fa-sort-amount-down is-size-2"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        
+
+        </div>
+        <hr>
+        <!-- Graficos -->
+        <div class="article">
+            <div class="article-body">
+                <div class="columns is-centered">
+                    <div class="content mt-3" style="width: 90%;">
+                        <div id="48horas" class="pt-2"></div>
+                    </div>
+                </div>
+                <div class="columns is-centered mt-4">
+                    <div class="content" style="width: 90%;">
+                        <div id="viento"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Valores Historicos -->
+    <section id="section-historicos" class="section">
+        <div class="content" style="width: 80%;margin: 0 auto;">
+            <h1 class="title is-2 center">Valores Extremos desde el 20-05-2014</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="has-text-centered">Variable</th>
+                        <th class="has-text-centered">Fecha</th>
+                        <th class="has-text-centered">Tipo</th>
+                        <th class="has-text-centered">Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for m in historicos %}
+                    <tr>
+                        {% if m.nombre is None or m.nombre == '' %}
+                        <td>{{m.variable}}</td>
+                        {% else %}
+                        <td>{{m.nombre}}</td>
+                        {% endif %}
+                        <td>{{m.fecha}}</td>
+                        {% if m.tipo == 'MAX' %}
+                        <td>
+                            <i class="fas fa-sort-amount-up is-size-4 has-text-danger"></i>
+                        </td>
+                        {% else %}
+                        <td>
+                            <i class="fas fa-sort-amount-down is-size-4 has-text-success"></i>
+                        </td>
+                        {% endif %}
+                        <td>{{m.valor}} {% if m.unidad_medida is not None %}{{m.unidad_medida}}{% endif%}</td>
+                    </tr>
+                    {% empty %}
+                    <p>No hay datos históricos</p>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+    </section>
+
+</section>
+
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/servicios/met/func_basic.js' %}"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#section-mediciones").show();
+        $("#mediciones").addClass('is-active');
+        $("#section-historicos").hide();
+
+        $('#mediciones').on('click', function () {
+            $('li').removeClass('is-active');
+            $(this).addClass('is-active')
+            $("#section-historicos").hide();
+            $("#section-mediciones").show();
+        });
+
+        $('#historicos').on('click', function () {
+            $('li').removeClass('is-active');
+            $(this).addClass('is-active')
+            $("#section-mediciones").hide();
+            $("#section-historicos").show();
+        });
+
+
+        {% if request.user.is_authenticated %}
+        // Esto es para hacer la autorecarga de los graficos
+            const auto_recarga = () => {
+                const date = new Date();
+                const fecha = $("#input-fecha").val();
+                const fecha_ = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+                if (fecha === fecha_) {
+                    console.log('if call ajax');
+                    call_ajax();
+                }else if (fecha === "") {
+                    console.log('else call ajax');
+                    call_ajax();
+                }
+            }
+
+            setInterval(auto_recarga, 60000);
+        {% else %}
+            setInterval(call_ajax, 60000);
+        {% endif %}
+    })
+</script>
+{% endblock %}

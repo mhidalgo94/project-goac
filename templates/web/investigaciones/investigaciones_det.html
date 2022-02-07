@@ -1,0 +1,140 @@
+{% extends 'web/navbar-body.html' %}
+{% load static %}
+{{form.media}}
+
+{% block contenido_agregados %}
+    <div class=" wow animate__animated animate__fadeInUp">
+        <div class="container mt-6">
+            <div class="card article">
+                <div class="card-content has-text-center" style="min-height: 500px;">
+                            <h1 class="title is-3 center mb-0 pb-1">{{ object.titulo }}</h1><br>
+                        <label class="center pt-0"> {{object.anio_inicial}}-{{object.anio_final}} </label>
+                    {% if object.resumen %}
+                    <div class="content article-body">
+                        <p>
+                            {{ object.resumen | safe}}
+                        </p>
+                    </div>
+                    {% endif %}
+                {% if rel_art %}
+                <!-- Articulos -->
+                <div class="container wow animate__animated animate__fadeInUp mb-2" data-wow-duration="2s">
+                    <h1 class="wow animate__animated animate__fadeInDown title is-1 center mb-4">Publicaciones</h1>
+                    <hr>
+                    <div class="card-content pl-4 pt-4 pr-4 pb-4">
+                        <div class="table-wrapper has-mobile-cards">
+                            <table class="table is-bordered is-fullwidth is-striped is-hoverable is-fullwidth"
+                                id="dtable-articulos">
+                                <thead>
+                                    <tr>
+                                        <th width="90%">Publicaciones</th>
+                                        <th width="5%">Año</th>
+                                        <th width="5%">Archivo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for m in rel_art %}
+                                    <tr>
+                                        <td class="has-text-justified"> 
+                                            <p class="is-size-6 pl-0 pb-0 mb-0">{{ m.texto }}</p>
+                                        </td>
+                                        <td>{{m.anio}}</td>
+                                        {% if m.doc %}
+                                        <td><a href="/media/{{ m.doc }}" target="_blank" class="center"><span
+                                                    class="icon is-medium fas fa-file-download"></span></a></td>
+                                        {% else %}
+                                        <td><a href="#" target="_blank" class="center"><span
+                                                    class="icon is-medium has-text-danger fas fa-file-excel"></span></a></td>
+                                        {% endif %}
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% if rel_even %}
+                <!-- Eventos -->
+                <div class="container wow animate__animated animate__fadeInUp mb-2" data-wow-duration="2s">
+                    <h1 class="wow animate__animated animate__fadeInDown title is-1 center mb-4">Eventos</h1>
+                    <hr>
+                    <div class="card-content pl-4 pt-4 pr-4 pb-4">
+                        <div class="table-wrapper has-mobile-cards">
+                            <table class="table is-bordered is-fullwidth is-striped is-hoverable is-fullwidth"
+                                id="dtable-articulos">
+                                <thead>
+                                    <tr>
+                                        <th width="90%">Eventos</th>
+                                        <th width="5%">Año</th>
+                                        <th width="5%">Archivo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for m in rel_even %}
+                                    <tr>
+                                        <td class="has-text-justified"> 
+                                            <p class="is-size-6 pl-0 pb-0 mb-0">{{ m.texto }}</p>
+                                        </td>
+                                        <td>{{m.anio}}</td>
+                                        {% if m.doc %}
+                                        <td><a href="/media/{{ m.doc }}" target="_blank" class="center"><span
+                                                    class="icon is-medium fas fa-file-download"></span></a></td>
+                                        {% else %}
+                                        <td><a href="#" target="_blank" class="center"><span
+                                                    class="icon is-medium has-text-danger fas fa-file-excel"></span></a></td>
+                                        {% endif %}
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% if rel_rep %}
+                <!-- Reportes -->
+                <div class="container wow animate__animated animate__fadeInUp mb-2" data-wow-duration="2s">
+                    <h1 class="wow animate__animated animate__fadeInDown title is-1 center mb-4">Reportes</h1>
+                    <hr>
+                    <div class="card-content pl-4 pt-4 pr-4 pb-4">
+                        <div class="table-wrapper has-mobile-cards">
+                            <table class="table is-bordered is-fullwidth is-striped is-hoverable is-fullwidth"
+                                id="dtable-articulos">
+                                <thead>
+                                    <tr>
+                                        <th width="90%">Reportes</th>
+                                        <th width="5%">Año</th>
+                                        <th width="5%">Archivo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for m in rel_rep %}
+                                    <tr>
+                                        <td class="has-text-justified"> 
+                                            <p class="is-size-6 pl-0 pb-0 mb-0">{{ m.texto }}</p>
+                                        </td>
+                                        <td>{{m.anio}}</td>
+                                        {% if m.doc %}
+                                        <td><a href="/media/{{ m.doc }}" target="_blank" class="center"><span
+                                                    class="icon is-medium fas fa-file-download"></span></a></td>
+                                        {% else %}
+                                        <td><a href="#" target="_blank" class="center"><span
+                                                    class="icon is-medium has-text-danger fas fa-file-excel"></span></a></td>
+                                        {% endif %}
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+
+{% endblock %}

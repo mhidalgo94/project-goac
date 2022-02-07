@@ -9,8 +9,8 @@
 
 
 {% block contenido %}
-<div class="container pl-4 pt-4 pb-2 mb-2">
-    <h1 class="subtitle">{{ object.titulo }}</h1>
+<div class="container pl-4 pb-2 mb-2">
+    <h1 class="subtitle">Título: {{ object.titulo }}</h1>
 </div>
 
 <!-- Pestanas -->
@@ -28,18 +28,19 @@
                 <span>Programas</span>
             </a>
         </li>
-        <li class="pr-1" id="resumenes">
-            <a>
-                <span class="icon is-small"><i class="fas fa-clipboard-check"></i></span>
-                <span>Resumenes</span>
-            </a>
-        </li>
         <li class="pr-1" id="participantes">
             <a>
                 <span class="icon is-small"><i class="fas fa-user-friends"></i></span>
                 <span>Participantes</span>
             </a>
         </li>
+        <li class="pr-1" id="resumenes">
+            <a>
+                <span class="icon is-small"><i class="fas fa-clipboard-check"></i></span>
+                <span>Resumenes</span>
+            </a>
+        </li>
+        
         <li class="pr-1" id="participantes">
             <a id="delete-taller" rel="{{object.pk}}">
                 <span class="icon is-small"><i class="fas fa-trash has-text-danger"></i></span>
@@ -105,8 +106,8 @@
                         <label class="label">Génesis:</label>
                         <div class="control ml-2">
                             {{ form.genesis}}
-
                         </div>
+                        <hr style="margin-left: 0;margin-right: 0;">
                         <div class="field is-horizontal pb-4 pl-4 ml-5 pt-4">
                             <div class="field-body">
                                 <div class="field-right">
@@ -140,7 +141,41 @@
             <input type="hidden" name="action" value="programas">
             <input type="hidden" name="pk" value="{{object.pk}}">
             {{ form.programa }}
-            <div class="field is-horizontal pb-4 pl-4 ml-5 pt-4">
+            <hr style="margin-left: 0;margin-right: 0;">
+            <div class="field is-horizontal pb-4 pl-4 ml-5">
+                <div class="field-body">
+                    <div class="field-right">
+                        <div class="field is-grouped">
+                            <div class="control">
+                                <button type="submit" class="button is-primary">
+                                    <span><i class="fas fa-save"></i> Guardar Cambios</span>
+                                </button>
+                            </div>
+                            <div class="control">
+                                <a href="{% url 'list_talleres' %}" type="button" id="reset"
+                                    class="button is-danger is-outlined">
+                                    <span><i class="fas fa-times"></i> Cancelar</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container tile is-child" id="div-participantes">
+    <div class="card-content mt-4 pr-4">
+        <form id="form-4" action="." method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="participantes">
+            <input type="hidden" name="pk" value="{{object.pk}}">
+            <div class="select is-multiple is-fullwidth">
+                {{ form.participantes }}
+            </div>
+            <hr style="margin-left: 0;margin-right: 0;">
+            <div class="field is-horizontal pb-4 pl-4 ml-5">
                 <div class="field-body">
                     <div class="field-right">
                         <div class="field is-grouped">
@@ -206,37 +241,6 @@
     </div>
 </div>
 
-<div class="container tile is-child" id="div-participantes">
-    <div class="card-content mt-4 pr-4">
-        <form id="form-4" action="." method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <input type="hidden" name="action" value="participantes">
-            <input type="hidden" name="pk" value="{{object.pk}}">
-            <div class="select is-multiple is-fullwidth">
-                {{ form.participantes }}
-            </div>
-            <div class="field is-horizontal pb-4 pl-4 ml-5 pt-4">
-                <div class="field-body">
-                    <div class="field-right">
-                        <div class="field is-grouped">
-                            <div class="control">
-                                <button type="submit" class="button is-primary">
-                                    <span><i class="fas fa-save"></i> Guardar Cambios</span>
-                                </button>
-                            </div>
-                            <div class="control">
-                                <a href="{% url 'list_talleres' %}" type="button" id="reset"
-                                    class="button is-danger is-outlined">
-                                    <span><i class="fas fa-times"></i> Cancelar</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
 
 
 

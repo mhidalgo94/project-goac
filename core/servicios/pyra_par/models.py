@@ -4,33 +4,32 @@ import binascii
 import os
 from django.conf import settings
 
-# Create your models here.
-
 class Pyra_ParModel(models.Model):
     id = models.AutoField(primary_key=True)
     fecha_creacion = models.DateField('Fecha de creacion', auto_now=False, auto_now_add=True)
     fecha_modificacion = models.DateField('Fecha de modificacion', auto_now=True, auto_now_add=False)
-    fecha = models.DateField('Fecha')
-    tiempo = models.TimeField('Tiempo', unique=True)
-    pyra = models.FloatField('Pyra')
-    par = models.FloatField('Par')
+    fecha = models.DateTimeField(verbose_name='Fecha')
+    pyra = models.FloatField(verbose_name = 'Pyra')
+    factor_pyra = models.FloatField(verbose_name = 'Factor Pyra')
+    par = models.FloatField(verbose_name = 'Par')
+    factor_par = models.FloatField(verbose_name = 'Factor Par')
 
     def toJSON(self):
         item = model_to_dict(self)
-        item['fecha'] = self.fecha.strftime('%Y-%m-%d')
+        item['fecha'] = self.fecha.strftime('%Y-%m-%d %H:%M:%S')
         return item
 
     def __str__(self):
-        return '{} - {}'.format(self.fecha.strftime("%Y-%m-%d"), self.tiempo)
+        return '{}'.format(self.fecha.strftime("%Y-%m-%d %H:%M:%S"))
 
     class Meta:
         verbose_name = 'Pyra y Par'
         verbose_name_plural = 'Pyra y Par'
 
-class APIToken(models.Model):
+class PyParAPIToken(models.Model):
     created = models.DateTimeField(verbose_name = "Created", auto_now_add=True)
     key = models.CharField("Key", max_length=40, unique=True, editable=False)
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='auth_token', on_delete=models.CASCADE, verbose_name="User")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="User")
 
     def toJSON(self):
         item = model_to_dict(self)

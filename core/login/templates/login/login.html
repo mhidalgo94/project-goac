@@ -38,7 +38,7 @@
                       </div>
                     </div>                    
                     <div class="field is-grouped mt-2 mb-1">
-                        <button type="submit" class="button is-primary is-fullwidth">
+                        <button type="submit" class="button is-link is-fullwidth">
                           Entrar
                           <i class="fa fa-sign-in-alt ml-2"></i>
                         </button>
@@ -68,9 +68,11 @@
       var input = document.getElementsByTagName('input');
       input.username.placeholder='Ingrese usuario';
       input.username.classList.add('input');
+      input.username.classList.add('is-primary');
       input.username.autocomplete='off';
       input.username.focus='true';
       input.password.placeholder='Ingrese su contraseña';
+      input.password.classList.add('is-primary');
       input.password.autocomplete='off';
 
       input.password.classList.add('input');

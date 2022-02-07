@@ -4,9 +4,6 @@
 {% block head %}
 <link rel="stylesheet" href="{% static 'lib/select2-4.0/css/select2.min.css' %}" />
 <script src="{% static 'lib/select2-4.0/js/select2.min.js' %}"></script>
-<!-- static de modal bulma -->
-<link rel="stylesheet" href="{% static 'css/modal-fx.min.css' %}" />
-<script src="{% static 'js/modal-fx.min.js' %}"></script>
 
 {% endblock %}
 
@@ -14,7 +11,7 @@
 
 <div class="tile is-ancestor">
     <div class="tile is-parent">
-        <div class="card tile is-child">
+        <div class="tile is-child">
             <div class="card-content mt-4 pr-4">
                 <form id="form-0" action="." method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
@@ -43,7 +40,6 @@
                             </div>
                         </div>
                     </div>
-                    <hr>
                     <div class="field is-horizontal">
                         <div class="field-label is-normal">
                             <label class="subtitle">{{ form.miembro.label }}:</label>
@@ -52,6 +48,29 @@
                             <div class="field">
                                 <div class="select is-multiple" style="width: 650px;">
                                     {{ form.miembro}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal"><label class="subtitle">{{form.anio.label}}:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field has-addons">
+                                <p class="control">
+                                    {{ form.anio}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="subtitle">Investigación:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control is-left is-normal select">
+                                    {{ form.invest }}
                                 </div>
                             </div>
                         </div>
@@ -71,33 +90,33 @@
                         </div>
                     </div>
                     {% endif %}
+                    <hr style="margin-left: 0;margin-right: 0;">
+                    <div class="field is-horizontal pb-2">
+                        <div class="field-label">
+                            <!-- Creando Espacio -->
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="field is-grouped">
+                                    <div class="control">
+                                        <button type="submit" class="button is-primary">
+                                            <span><i class="fas fa-edit"></i> Editar</span>
+                                        </button>
+                                    </div>
+                                    <div class="control">
+                                        <a href="{% url 'list_arbitraje' %}" class="button is-danger is-outlined">
+                                            <span><i class="fas fa-times"></i> Cancelar</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
-<hr>
-<div class="field is-horizontal">
-    <div class="field-label">
-        <!-- Creando Espacio -->
-    </div>
-    <div class="field-body">
-        <div class="field">
-            <div class="field is-grouped">
-                <div class="control">
-                    <button type="submit" class="button is-primary">
-                        <span><i class="fas fa-save"></i> Guardar</span>
-                    </button>
-                </div>
-                <div class="control">
-                    <a href="{% url 'list_arbitraje' %}" class="button is-danger is-outlined">
-                        <span><i class="fas fa-times"></i> Cancelar</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</form>
 
 {% endblock %}
 

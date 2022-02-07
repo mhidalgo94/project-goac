@@ -1,4 +1,4 @@
-from django.forms import ModelForm, widgets
+from django.forms import ModelForm
 from django import forms
 
 from core.web.models import CatInvestigacionesModel, InvestigacionesModel, PublArtArbitrajeModel, PublEventosModel, WebModelo, ContactoModel, InstrumentoModel, NoticiasModels, PublReportesModel
@@ -108,7 +108,7 @@ class InstrumentoForm(ModelForm):
 
 	class Meta:
 		model = InstrumentoModel
-		fields = ['nombre', 'imagen', 'desc']
+		fields = ['nombre', 'imagen', 'desc', 'contenido']
 		labels = {
 			'nombre': 'Nombre',
 			'imagen': 'Imagen Instrumento',
@@ -154,26 +154,26 @@ class ContactoForm(ModelForm):
 		widgets = {
 			'nombre':forms.TextInput(
 				attrs={
-					'class': 'input is-normal ml-2',
+					'class': 'input is-normal',
 					'placeholder': 'Input full name',
 					'autocomplete': 'off'
 				}
 			),
 			'subject':forms.TextInput(
 				attrs={
-					'class':"input is-normal ml-2",
+					'class':"input is-normal",
 					'placeholder': 'Input Subject',
 					'autocomplete': 'off'
 				}),
 			'correo':forms.EmailInput(
 				attrs={
-					'class':"input is-normal ml-1",
+					'class':"input is-normal",
 					'placeholder': 'Input email',
 					'autocomplete': 'off'
 				}),
 			'mensaje':forms.Textarea(
 				attrs={
-					'class':'textarea ml-2',
+					'class':'textarea',
 					'placeholder':'Text...',
 					'rows': '7',
 					'autocomplete': 'off'
@@ -220,7 +220,7 @@ class PublReportesForm(ModelForm):
 
 	class Meta:
 		model = PublReportesModel
-		fields = ['texto', 'doc', 'miembro','estado',]
+		fields = ['texto', 'doc', 'miembro','estado','anio', 'invest',]
 
 		widgets ={
 			'texto': forms.Textarea(
@@ -242,13 +242,18 @@ class PublReportesForm(ModelForm):
 					'multiple': 'multiple',
 					'size' : '8'
 				}),
+			'anio': forms.NumberInput(
+				attrs={
+					'class':"input",
+				}),
 		}
+
 
 class PublArtArbitrajeForm(ModelForm):
 
 	class Meta:
 		model = PublArtArbitrajeModel
-		fields = ['texto', 'doc', 'miembro','estado',]
+		fields = ['texto', 'doc', 'miembro','estado','anio', 'invest',]
 
 		widgets ={
 			'texto': forms.Textarea(
@@ -269,6 +274,10 @@ class PublArtArbitrajeForm(ModelForm):
 					'class': 'select is-multiple select2',
 					'multiple': 'multiple',
 					'size' : '8'
+				}),
+			'anio': forms.NumberInput(
+				attrs={
+					'class':"input",
 				}),
 		}
 
@@ -277,7 +286,7 @@ class PublEventosForm(ModelForm):
 
 	class Meta:
 		model = PublEventosModel
-		fields = ['texto', 'doc', 'miembro','estado',]
+		fields = ['texto', 'doc', 'miembro','estado','anio', 'invest',]
 
 		widgets ={
 			'texto': forms.Textarea(
@@ -298,6 +307,10 @@ class PublEventosForm(ModelForm):
 					'class': 'select is-multiple select2',
 					'multiple': 'multiple',
 					'size' : '8'
+				}),
+			'anio': forms.NumberInput(
+				attrs={
+					'class':"input",
 				}),
 		}
 
@@ -322,7 +335,7 @@ class CatInvestigacionForm(ModelForm):
 class InvestigacionesForm(ModelForm):
 	class Meta:
 		model = InvestigacionesModel
-		fields = ['titulo', 'cat', 'texto','doc', 'miembro','estado',]
+		fields = ['titulo', 'cat', 'texto','doc', 'miembro','estado','resumen','anio_inicial', 'anio_final',]
 
 		labels = {
 			"titulo": "Titulo"
@@ -356,4 +369,12 @@ class InvestigacionesForm(ModelForm):
 					'multiple': 'multiple',
 					'size' : '8'
 				}),
+			'anio_inicial': forms.NumberInput(
+				attrs={
+					'class':"input",
+				}),
+			'anio_final': forms.NumberInput(
+				attrs={
+					'class':"input",
+				}),			
 		}

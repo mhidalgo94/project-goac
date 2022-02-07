@@ -88,6 +88,7 @@
         </div>
     </div>
 </section>
+<hr style="margin-left: 0;margin-right: 0;">
 <div class="container">
     <div class="ml-2 mr-2 has-background-grey-lighter has-text-grey" style="padding-left: 10px;border-radius: 4px;">
         <div style="max-height: 400px;overflow: auto;">
@@ -122,6 +123,9 @@
                     $.ajax({
                         url: window.location.pathname,
                         type: 'POST',
+                        headers:{
+                            'X-CSRFToken':csrftoken,
+                        },
                         data: parameters,
                         dataType: 'json'
                     }).done(function (data) {

@@ -36,6 +36,9 @@ function updatetable() {
         ajax: {
             url: window.location.pathname,
             type: 'POST',
+            headers:{
+                'X-CSRFToken':csrftoken,
+            },
             data: {
                 'accion': 'buscar_archivos'
             },
@@ -50,11 +53,16 @@ function updatetable() {
         columnDefs: [
             {
                 targets: [-1],
-                class: 'is-center',
+                class: 'is-centered pl-0 pr-0',
                 orderable: false,
                 render: function (data, type, row) {
                     let html = '';
-                    html += '<span class="tags"><a href="/static/servicios/actino/csv/' + row.archivo + '" class=" button is-info is-small pt-0 pb-0 pl-2 pr-2"><i class="fas fa-file"></i></a><button class="button is-danger is-small pt-0 pb-0 ml-1" rel="btn-del" val="' + row.archivo + '"><span class="icon is-small pt-0 pb-0 pl-0 pr-0"><i class="fas fa-trash"></i></span></button></span>'
+                    // Boton lectura archivo
+                    html += '<button class="button is-info is-small pt-0 pb-0 mr-1" rel="btn-view" val="' + row.archivo + '"><span class="icon is-small pt-0 pb-0 pl-0 pr-0"><i class="fas fa-search"></i></span></button>'
+                    // Boton descargar archivo
+                    html +='<a href="/static/servicios/actino/csv/' + row.archivo + '" class=" button is-info is-small pt-0 pb-0 pl-2 pr-2"><i class="fas fa-file"></i></a>'
+                    // Boton eliminar archivo
+                    html += '<button class="button is-danger is-small pt-0 pb-0 ml-1" rel="btn-del" val="' + row.archivo + '"><span class="icon is-small pt-0 pb-0 pl-0 pr-0"><i class="fas fa-trash"></i></span></button>'
                     return html;
 
                 }
@@ -71,12 +79,44 @@ $(function () {
         updatetable();
     });
 
+    $('#dtable').on('click', 'button[rel="btn-view"]', function(){
+        $(this).addClass('is-loading');
+        let archivo = $(this).attr('val');
+        let parameters = { 'accion': 'leer-archivo', 'archivo': archivo}
+        $.ajax({
+            url: window.location.pathname,
+            type: 'POST',
+            headers:{
+                'X-CSRFToken':csrftoken,
+            },
+            data: parameters,
+            dataType: 'json',
+        }).done(function (data) {
+            if (!data.hasOwnProperty('error')) {
+                $('.is-loading').removeClass('is-loading');
+                $('#modal-viewfile').addClass('is-active');
+                $('#name-file').html(archivo);
+                document.getElementById('file-lectura').innerText = data.lectura;
+                document.getElementById('modal-download-file').href = `/static/servicios/actino/csv/${archivo}`
+                return false;
+            }
+            $('.is-loading').removeClass('is-loading');
+            mensaje_error(data.error);
+        }).fail(function (data) {
+        }).always(function (data) {
+        });
+    })
+
+    $('#fileview-close').on('click', function () {
+        $('#modal-viewfile').removeClass('is-active');
+    });
+
     // Boton para eliminar archivo
     $('#dtable').on('click', 'button[rel="btn-del"]', function () {
         let archivo = $(this).attr('val');
         let parameters = { 'accion': 'eliminar', 'archivo': archivo ,'path': 'diario'}
         Swal.fire({
-            title: 'Notificación',
+            title: 'Notificación!',
             text: `Estas seguro eliminar el archivo '${archivo}' ?`,
             icon: 'warning',
             showCancelButton: true,
@@ -89,6 +129,9 @@ $(function () {
                 $.ajax({
                     url: window.location.pathname,
                     type: 'POST',
+                    headers:{
+                        'X-CSRFToken':csrftoken,
+                    },
                     data: parameters,
                     dataType: 'json'
                 }).done(function (data) {
@@ -132,6 +175,9 @@ $(function () {
                 $.ajax({
                     url: window.location.pathname,
                     type: 'POST',
+                    headers:{
+                        'X-CSRFToken':csrftoken,
+                    },
                     data: datos,
                     dataType: 'json',
                     processData: false,

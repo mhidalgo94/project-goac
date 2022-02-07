@@ -1,0 +1,35 @@
+{% load static %}
+
+<div class="content tile is-child pt-5" id="div-gdiario">
+
+    {% if request.user.is_authenticated %}
+    <div class="columns is-centered">
+
+        <div class="center pl-2">
+            <div class="field has-addons center">
+                <div class="control">
+                    <input id="input-fecha" type="date" class="input is-small mr-0" placeholder="Buscar por fecha">
+                </div>
+                <div class="control ">
+                    <a class="button is-info is-small ml-0" type="text" id="buscar"><i class="fas fa-search"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% endif %}
+
+    <div class="columns is-centered pt-5" style="width: 100%;margin: 10px auto;">
+        <div id="cmw"></div>
+    </div>
+    <div class="columns is-centered pt-5" style="width: 90%;margin: 10px auto;">
+        <div id="jvn"></div>
+    </div>
+    <div class="columns is-centered pt-5" style="width: 90%;margin: 10px auto;">
+        <div id="lfe"></div>
+    </div>
+    <div class="columns is-centered pt-5" style="width: 90%;margin:10px auto;">
+        <div id="tpc"></div>
+    </div>
+</div>
+<script src="{% static 'js/servicios/seoc/fun_gdiarios.js' %}"></script>

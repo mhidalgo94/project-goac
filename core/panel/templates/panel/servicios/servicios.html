@@ -1,14 +1,13 @@
 {% extends 'panel/erp/views.html' %}
 {% load static %}
 
-
 {% block contenido %}
 <section class="section pt-4">
     <!-- Servicio Actino -->
     <div class="container">
         <article class="message is-medium is-info">
             <div class="message-header">
-                <p><i class="fas fa-cog"></i> Servicio Actinométrica</p>
+                <p><i class="fas fa-cog"></i>  Actinométrica</p>
             </div>
             <div class="message-body">
                 <div class="tile is-ancestor has-text-centered" id="">
@@ -48,27 +47,27 @@
             </div>
         </article>
     </div>
-    <!-- Servicio BAOD -->
+    <!-- Servicio SEOC -->
     <div class="container pt-4">
         <article class="message is-medium is-info">
             <div class="message-header">
-                <p><i class="fas fa-cog"></i> Servicio BAOD</p>
+                <p><i class="fas fa-cog"></i> SEOC</p>
             </div>
             <div class="message-body">
                 <div class="tile is-ancestor has-text-centered" id="">
                     <div class="tile is-parent">
                         <article class="tile is-child box ">
-                            <p class="title">Icono</p>
-                            <a type="button" href="#" class="button is-primary is-outlined">
-                                <p class="text"><b class="is-size-7">Boton 1</b></p>
+                            <p class="title"><i class="fas fa-database has-text-link"></i></p>
+                            <a type="button" href="{% url 'list_seoc' %}" class="button is-link is-outlined">
+                                <p class="text"><b class="is-size-7">Base Datos</b></p>
                             </a>
                         </article>
                     </div>
                     <div class="tile is-parent">
                         <article class="tile is-child box">
-                            <p class="title">Icono</p>
-                            <a type="button" href="#" class="button is-primary is-outlined">
-                                <p class="text"><b class="is-size-7">Boton 2</b></p>
+                            <p class="title"><i class="fas fa-key has-text-success"></i></p>
+                            <a type="button" href="{% url 'seoc_editToken' %}" class="button is-success is-outlined">
+                                <p class="text"><b class="is-size-7">API Key</b></p>
                             </a>
                         </article>
                     </div>
@@ -84,27 +83,64 @@
             </div>
         </article>
     </div>
-
-    <!-- Servicio Pyra y Par -->
+    <!-- Servicio Met -->
     <div class="container pt-4">
         <article class="message is-medium is-info">
             <div class="message-header">
-                <p><i class="fas fa-cog"></i> Servicio Pyra y Par</p>
+                <p><i class="fas fa-cog"></i> Estación Automática</p>
             </div>
             <div class="message-body">
                 <div class="tile is-ancestor has-text-centered" id="">
                     <div class="tile is-parent">
                         <article class="tile is-child box ">
-                            <p class="title"><i class="fas fa-table has-text-link"></i></p>
-                            <a type="button" href="{% url 'list_pyra_par' %}" class="button is-link is-outlined">
-                                <p class="text"><b class="is-size-7">Datos</b></p>
+                            <p class="title"><i class="fas fa-database has-text-link"></i></p>
+                            <a type="button" href="{% url 'list_met' %}" class="button is-link is-outlined">
+                                <p class="text"><b class="is-size-7">Base Datos</b></p>
                             </a>
                         </article>
                     </div>
                     <div class="tile is-parent">
                         <article class="tile is-child box">
-                            <p class="title"><i class="fas fa-key has-text-dark"></i></p>
-                            <a type="button" href="{% url 'editToken' %}" class="button is-warning is-outlined is-inverted">
+                            <p class="title"><i class="fas fa-key has-text-success"></i></p>
+                            <a type="button" href="{% url 'met_editToken' %}" class="button is-success is-outlined">
+                                <p class="text"><b class="is-size-7">API Key</b></p>
+                            </a>
+                        </article>
+                    </div>
+                    <div class="tile is-parent">
+                        <article class="tile is-child box">
+                            <p class="title"><i class="fas fa-history has-text-primary"></i></p>
+                            <a type="button" href="{% url 'list_met_historicos' %}"
+                                class="button is-primary is-outlined">
+                                <p class="text"><b class="is-size-7">Historicos</b></p>
+                            </a>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <!-- Servicio Pyra y Par -->
+    <div class="container pt-4">
+        <article class="message is-medium is-info">
+            <div class="message-header">
+                <p><i class="fas fa-cog"></i> Pyra & Par</p>
+            </div>
+            <div class="message-body">
+                <div class="tile is-ancestor has-text-centered" id="">
+                    <div class="tile is-parent">
+                        <article class="tile is-child box ">
+                            <p class="title"><i class="fas fa-database has-text-link"></i></p>
+                            <a type="button" href="{% url 'list_pyra_par' %}" class="button is-link is-outlined">
+                                <p class="text"><b class="is-size-7">Base Datos</b></p>
+                            </a>
+                        </article>
+                    </div>
+                    <div class="tile is-parent">
+                        <article class="tile is-child box">
+                            <p class="title"><i class="fas fa-key has-text-success"></i></p>
+                            <a type="button" href="{% url 'pypar_editToken' %}" class="button is-success is-outlined">
                                 <p class="text"><b class="is-size-7">API Key</b></p>
                             </a>
                         </article>
@@ -123,27 +159,168 @@
     </div>
     </div>
 
-    <article class="message is-medium is-info">
-        <div class="message-header">
-            <p><i class="fas fa-cog"></i> Servicio Otro</p>
-        </div>
-        <div class="message-body">
-            <div class="board-item">
-                <div class="board-item-content">
-                    <div class="board-item-content">
-                        <a href="" type="button" class="button is-success is-fullwidth is-outline"><b class="ml-1">Boton
-                                1</b></a>
+</section>
+<section class="section is-main-section pb-1 pt-1">
+    <div class="tile is-ancestor">
+        <!-- Actinometrica -->
+        <div class="tile is-parent">
+            <div class="card tile is-child">
+                <div class="card-content">
+                    <div class="level is-movile">
+                        <div class="level-item">
+                            <label class="switch is-rounded"><b class="is-size-5 mr-2 pt-1 pb-1">Actinométrica:</b>
+                                <input name="actino" id="activar-actino" checked="" type="checkbox">
+                                <span class="check"></span>
+                            </label>
+                        </div>
                     </div>
-                    <div class="board-item-content mt-2">
-                        <a href="" type="button" class="button is-success is-fullwidth"><b class="ml-1">Boton 2</b></a>
-                    </div>
-                    <div class="board-item-content mt-2">
-                        <a href="" type="button" class="button is-success is-fullwidth"><b class="ml-1">Boton 3</b></a>
-                    </div>
+                    <h1 class="subtitle is-size-6 has-text-centered"><i id="icon-actino" class="fas fa-info-circle mr-2"></i><b id="msg-actino">Activar o Desactivar Servicio</b></h1>
                 </div>
             </div>
-
         </div>
-    </article>
+        <!-- SEOC -->
+        <div class="tile is-parent">
+            <div class="card tile is-child">
+                <div class="card-content">
+                    <div class="level is-movile">
+                        <div class="level-item">
+                            <label class="switch is-rounded"><b class="is-size-5 mr-2 pt-1 pb-1">SEOC:</b>
+                                <input name="seoc" id="activar-seoc" checked="" type="checkbox">
+                                <span class="check"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <h1 class="subtitle is-size-6 has-text-centered"><i id="icon-seoc" class="fas fa-info-circle mr-2"></i><b id="msg-seoc">Activar o Desactivar Servicio</b></h1>
+                </div>
+            </div>
+        </div>
+        <!-- Estación Automática -->
+        <div class="tile is-parent">
+            <div class="card tile is-child">
+                <div class="card-content">
+                    <div class="level is-movile">
+                        <div class="level-item">
+                            <label class="switch is-rounded"><b class="is-size-5 mr-2 pt-1 pb-1">Est.
+                                    Automática:</b>
+                                <input name="met" id="activar-met" checked="" type="checkbox">
+                                <span class="check"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <h1 class="subtitle is-size-6 has-text-centered"><i id="icon-met" class="fas fa-info-circle mr-2"></i><b id="msg-met">Activar o Desactivar Servicio</b></h1>
+                </div>
+            </div>
+        </div>
+        <!-- Pyra & Par -->
+        <div class="tile is-parent">
+            <div class="card tile is-child">
+                <div class="card-content">
+                    <div class="level is-movile">
+                        <div class="level-item">
+                            <label class="switch is-rounded"><b class="is-size-5 mr-2 pt-1 pb-1">Pyra & Par:</b>
+                                <input name="pyra_par" id="activar-pyra-par" checked="" type="checkbox">
+                                <span class="check"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <h1 class="subtitle is-size-6 has-text-centered"><i id="icon-pyra_par" class="fas fa-info-circle mr-2"></i><b id="msg-pyra_par">Activar o Desactivar Servicio</b></h1>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
+{% endblock %}
+
+{% block javascript %}
+
+<script type="text/javascript">
+
+function texto_check_servicios(obj){
+    let id = `#msg-${obj.name}`;
+    let id_icon = `#icon-${obj.name}`;
+    let icon = $(id_icon);
+    let msg = $(id);
+    if (obj.checked){
+        msg.text('Servicio Activado');
+        msg.css('color', '#3273dc');
+        icon.css('color', 'rgb(50, 115, 220) ');
+    }else {
+        msg.text('Servicio Desactivado');
+        msg.css('color', '#f14668');
+        icon.css('color', '#f14668 ');
+    }
+}
+
+$(function () {
+    $.ajax({
+        url: window.location.pathname,
+        type: 'POST',
+        headers:{
+                'X-CSRFToken':csrftoken,
+            },
+        data: {
+            'accion': 'check-servicios',
+        },
+        dataType: 'json',
+    }).done(function (data) {
+        if (!data.hasOwnProperty('error') && !data.hasOwnProperty('warning_file')) {
+            $('#activar-actino').prop('checked', data.servicios.actino);
+            $('#activar-seoc').prop('checked', data.servicios.seoc);
+            $('#activar-met').prop('checked', data.servicios.met);
+            $('#activar-pyra-par').prop('checked', data.servicios.pyra_par);
+            return false;
+        }else if (data.hasOwnProperty('warning_file')){
+                Swal.fire({
+                    title : 'Advertencia!',
+                    text : `${data.warning_file}`,
+                    icon: 'warning',
+                    onClose: () => {
+                        window.location.reload();
+                    }
+                });
+                return false;
+        }
+        console.log(`Error: ${data.error}`);
+    }).fail(function (data) {
+
+    }).always(function (data) {;
+    })
+
+
+    $('input').change(function () {
+        let obj = this;
+        let servicio =this.name;
+        let valor = this.checked;
+        $.ajax({
+            url: window.location.pathname,
+            type: 'POST',
+            headers:{
+                'X-CSRFToken':csrftoken,
+            },
+            data: {
+                'accion': 'activar-servicio',
+                'servicio': servicio,
+                'valor': valor
+            },
+            dataType: 'json',
+            }).done(function (data) {
+                if (!data.hasOwnProperty('error')) {
+                    Swal.fire({
+                    title : 'Notificación!',
+                    text : `Servicio Actualizado Correctamente`,
+                    icon: 'success'
+                });
+                    return false;
+                }
+                console.log(`Error: ${data.error}`);
+            }).fail(function (data) {
+
+            }).always(function (data) {
+                texto_check_servicios(obj);
+        })
+    });
+});
+
+</script>
+
 {% endblock %}

@@ -4,13 +4,17 @@
 <section class="section has-background-white">
     <div class="container mt-5">
         <h1 class="wow animate__animated animate__fadeInUp title is-1 center mb-5">INSTRUMENTOS</h1>
-        <div class="columns is-centered">
+        <div class="columns is-centered is-gapless is-multiline" >
             {% for i in instrumento %}
-            <div class="wow animate__animated animate__bounceIn column is-3" data-wow-duration="1.5s" id="img-instrumento" style="width: 300px;">
-                <figure class="image">
-                    <img id="img-card" src="{{ i.imagen.url }}" alt="">
-                </figure>
-                <h1 class="title is-5 center mt-2">{{ i.nombre }}</h1>
+            <div class="column center is-one-quarter">
+                <a href="{% url 'detail_instrumento' i.id %}">
+                    <div class="wow animate__animated animate__bounceIn column is-3" data-wow-duration="1.5s" id="img-instrumento" style="width: auto;max-width: 340px;">
+                        <figure class="image">
+                            <img id="img-card" src="{{ i.imagen.url }}" alt="">
+                        </figure>
+                        <h1 class="title is-5 center mt-2">{{ i.nombre }}</h1>
+                    </div>
+                </a>
             </div>
             {% endfor %}
         </div>

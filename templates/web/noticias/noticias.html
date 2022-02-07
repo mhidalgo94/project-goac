@@ -28,7 +28,7 @@
   </div>
   <div class=" wow animate__animated animate__fadeInUp">
     <div class="container">
-      {% for m in noticias %}
+      {% for m in noticia %}
       <div class="content is-medium">
         <h1 class="title mt-0">{{m.titulo}}</h1>
         <div class="media">
@@ -41,8 +41,7 @@
             <div class="content">
               <p class="pl-0 pt-2">
                 <a class="pl-0 pb-0 mb-0" href="{% url 'perfil_miembros' m.autor.id %}">{{ m.autor }}</a><br>
-              <b class="pl-0 pb-0 mb-0 mt-0 pt-0">{{ m.autor.ocupacion }}</b><br>
-              Publicado: {{ m.fecha_creacion }}
+                <b class="pl-0 pb-0 mb-0 mt-0 pt-0">{{ m.autor.ocupacion }}</b><br>{{ m.fecha_modificacion }}
               </p>
             </div>
           </div>
@@ -63,6 +62,40 @@
       </div>
       <hr>
       {% endfor %}
+
+      <div class="block center">
+        <nav class="pagination is-centered">
+          <ul class="pagination-list">
+            {% if page_obj.has_previous %}
+            <li>
+              <a href="?page={{ page_obj.previous_page_number }}" class="pagination-previous" >Anterior</a>
+            </li>
+            {% else %}
+              <li>
+                <a class="pagination-previous " disabled>Anterior</a>
+              </li>
+            {% endif %}
+
+            <li>
+              <a href="?page={{ page_obj.number }}" class="pagination-link is-current ">{{ page_obj.number }}</a>
+            </li>
+            de
+            <li>
+              <a class="pagination-link">{{ page_obj.paginator.num_pages }}</a>
+            </li>
+            {% if page_obj.has_next %}
+            <li>
+              <a href="?page={{ page_obj.next_page_number }}" class="pagination-next">Siguiente</a>
+            </li>
+            {% else %}
+            <li>
+              <a class="pagination-next" disabled>Siguiente</a>
+            </li>
+            {% endif %}
+          </ul>
+
+        </nav>
+      </div>
     </div>
   </div>
 </section>

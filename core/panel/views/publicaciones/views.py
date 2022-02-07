@@ -12,7 +12,6 @@ class PublReportesListView(LoginRequiredMixin,ListView):
     model = PublReportesModel
     template_name = 'panel/publicaciones/reportes/list_reportes.html'
 
-    @csrf_exempt
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
@@ -68,7 +67,7 @@ class PublReportesUpdateView(LoginRequiredMixin,UpdateView):
   
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['titulo'] = 'GOAC | Publicaciones |Actualizar de Reportes'
+        context['titulo'] = 'GOAC | Publicaciones | Actualizar de Reportes'
         context['info'] = { 'head_card': 'Publicaciones | Actualizar Reportes', 'icono': 'fas fa-edit' }
         return context
 
@@ -78,7 +77,6 @@ class PublArtArbitrajeListView(LoginRequiredMixin,ListView):
     model = PublArtArbitrajeModel
     template_name = 'panel/publicaciones/arbitraje/list_arbitrajes.html'
 
-    @csrf_exempt
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
@@ -134,7 +132,7 @@ class PublArtArbitrajeUpdateView(LoginRequiredMixin,UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'GOAC | Publicaciones | Actualizar Articulos con Arbitrajes'
-        context['info'] = { 'head_card': 'Publicaciones | Actualizar Reportes', 'icono': 'fas fa-edit' }
+        context['info'] = { 'head_card': 'Publicaciones | Actualizar Articulos con Arbitrajes', 'icono': 'fas fa-edit' }
         return context
 
 
@@ -143,7 +141,6 @@ class PublEventosModelListView(LoginRequiredMixin,ListView):
     model = PublEventosModel
     template_name = 'panel/publicaciones/eventos/list_eventos.html'
 
-    @csrf_exempt
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 

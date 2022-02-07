@@ -19,11 +19,11 @@
                 <div class="card-content">
                     <div class="level is-mobile">
                         <div class="level-item">
-                            <div class="is-widget-label">
+                            <div class="is-widget-label pl-2">
                                 <h3 class="subtitle is-spaced">Cant. Archivos</h3>
                                 <h1 class="title is-4 has-text-info">
                                     <!-- Cantidad de archivos En la carpeta -->
-                                    {{ carpeta_detalles.cant_arch}} Archivos
+                                    {{ carpeta_detalles.cant_arch}}
                                 </h1>
                             </div>
                         </div>
@@ -43,7 +43,7 @@
                 <div class="card-content">
                     <div class="level is-mobile">
                         <div class="level-item">
-                            <div class="is-widget-label">
+                            <div class="is-widget-label pl-2">
                                 <h3 class="subtitle is-spaced">
                                     Tamaño Carpeta
                                 </h3>
@@ -107,21 +107,23 @@
         </div>
     </div>
 </section>
-<hr>
-<div class="container">
-    <table class="table is-hoverable" id="dtable">
-        <thead>
-            <tr>
-                <th width="60%">Nombre Archivo</th>
-                <th width="45%">Tamaño</th>
-                <th width="5%">Obciones</th>
-            </tr>
-        </thead>
-        <tbody>
+<hr style="margin-left: 0;margin-right: 0;">
+<div class="card-content pl-4 pt-4 pr-4 pb-4">
+    <div class="table-wrapper has-mobile-cards">
+        <table class="table is-fullwidth is-striped is-hoverable is-fullwidth" id="dtable">
+            <thead>
+                <tr>
+                    <th width="50%">Nombre Archivo</th>
+                    <th width="40%">Tamaño</th>
+                    <th width="10%">Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
 
-        </tbody>
-    </table>
-    <hr>
+            </tbody>
+        </table>
+    </div>
+    <hr style="margin-left: 0;margin-right: 0;">
     <div class="field">
         <div class="field is-grouped">
             <div class="control">
@@ -164,7 +166,7 @@
                     <tr>
                         <th width="60%">Nombre Archivo</th>
                         <th width="45%">Tamaño</th>
-                        <th width="5%">Obciones</th>
+                        <th width="5%">Opciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -190,6 +192,34 @@
                 </button>
 
             </form>
+        </footer>
+    </div>
+</div>
+
+<!-- Mostar Historicos -->
+<div class="modal modal-fx-fadeInScale" id="modal-viewfile">
+    <div class="modal-background"></div>
+    <div class="modal-card" style="width: 70%;height: 80%;">
+        <header class="modal-card-head has-background-info">
+            <p class="modal-card-title has-text-white"><i class="fas fa-file mr-1"></i><b id="name-file"></b>
+            </p>
+            <button type="button" id="fileview-close" class="delete"></button>
+
+        </header>
+
+        <section class="modal-card-body ">
+            <!-- Content ... -->
+            <p id="file-lectura" class="has-background-grey-light has-text-dark"
+                style="padding: 5px;border-radius: 4px;">
+
+            </p>
+        </section>
+        <footer class="modal-card-foot">
+
+            <a href="/" id="modal-download-file" class="button is-success is-outlined ml-2">
+                <span><i class="fas fa-download"></i> Descargar</span>
+            </a>
+
         </footer>
     </div>
 </div>

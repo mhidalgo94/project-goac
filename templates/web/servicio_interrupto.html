@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es-es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="keywords" content="GOAC, lidar, atmosferica, radiativa, aerosoles, nubes, radiacion solar,">
+    <meta name="description"
+        content="GOAC - Grupo de Óptica Atmosférica de Camagüey. El estudio de los procesos de transferencia radiativa en la atmósfera para las condiciones de Cuba">
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,700;1,300&display=swap"
+        rel="stylesheet">
+    <!-- Bulma Version 0.9.0-->
+    <link rel="stylesheet" href="{% static 'css/bulma.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/hero.css' %}">
+    <!-- font awesome -->
+    <link rel="stylesheet" type="text/css" href="{% static 'lib/fontawesome/css/all.min.css' %}">
+    <script src="{% static 'lib/fontawesome/js/all.min.js' %}"></script>
+    <title>GOAC | Servicio Interrupto</title>
+</head>
+
+<body>
+    <section class="section has-background-grey" style="height: 100vh;">
+        <div class="hero has-background-grey-light" style="max-width: 500px;margin: 0 auto;border-radius: 10px;border: 1px solid darkslategrey;">
+            <div class="hero-body">
+                <div class="container" style="margin: 0 auto;">
+                    <h1 class="title mb-0 pb-0 pl-5">Servicio Interrupto</h1>
+                    <h2 class="subtitle mt-0 pt-0 pl-5">Oops! Algo salió mal.</h2>
+                </div>
+                <div class="content mt-5">
+                    <div class="columns">
+                        <div class="column is-4 has-text-centered">
+                            <i class="fas fa-exclamation-triangle has-text-warning" style="font-size: 90px;opacity: 1;"></i>
+                        </div>
+                        <div class="column is-8">
+                            <p class="subtitle mt-0 pt-0">Lo arreglaremos de inmediato. Mientras tantos puede <a href="/" class="is-primary">volver a inicio</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+### Django ###
+.vscode/
+*.log/
+*.pot
+*.pyc
+config/db.py
+config/producion.py
+
+core/**/migrations
+
+__pycache__/
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media
+media/
+staticfiles/
+db.py
+config/db.py
+settings.py
+config/settings.py
+
+# Servicios
+static/servicios/log/
+static/servicios/maplayer/
+static/servicios/actino/csv/
+static/servicios/pyra_par/
+static/servicios/met/
+static/servicios/servicios_control.txt
+
+
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+pendiente.txt

@@ -4,17 +4,12 @@
 
 
 {% block contenido %}
-
-
-
-
-    <div class="tile is-ancestor">
-        <div class="tile is-parent">
-            <div class="card tile is-child">
-                <div class="card-content mt-4 pr-4">
-                    <hr>
-                    <form action="." method="POST">
-                          {% csrf_token %}    
+<div class="tile is-ancestor">
+    <div class="tile is-parent">
+        <div class="tile is-child">
+            <div class="card-content mt-4 pr-4">
+                <form action="." method="POST">
+                    {% csrf_token %}
                     <div class="field is-horizontal">
                         <div class="field-label is-normal">
                             <label class="subtitle">Sociedad Científica:</label>
@@ -51,27 +46,27 @@
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
     </div>
-    <hr>
-    <div class="content">
-        <div class="field ml-6">
-            <div class="field is-grouped">
-                <div class="control">
-                    <button type="submit" class="button is-primary">
-                        <span><i class="fas fa-save"></i> Guardar</span>
-                    </button>
-                </div>
-                <div class="control">
-                    <a href="{% url 'list_scientifica' %}" class="button is-danger is-outlined">
-                        <span><i class="fas fa-times"></i> Cancelar</span>
-                    </a>
-                </div>
+</div>
+<hr style="margin-left: 0;margin-right: 0;">
+<div class="content">
+    <div class="field ml-6">
+        <div class="field is-grouped">
+            <div class="control">
+                <button type="submit" class="button is-primary">
+                    <span><i class="fas fa-save"></i> Guardar</span>
+                </button>
+            </div>
+            <div class="control">
+                <a href="{% url 'list_scientifica' %}" class="button is-danger is-outlined">
+                    <span><i class="fas fa-times"></i> Cancelar</span>
+                </a>
             </div>
         </div>
     </div>
+</div>
 </form>
 
 

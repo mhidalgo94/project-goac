@@ -1,0 +1,132 @@
+{% extends 'panel/erp/forms.html' %}
+{% load static %}
+
+
+{% block contenido %}
+
+<div class="tile is-ancestor">
+    <div class="tile is-parent">
+        <div class="tile is-child">
+            <div class="card-content mt-4 pr-4">
+                <form id="form-0" action="." method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="create-miembro">
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="subtitle">{{ form.estacion.label }}:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.estacion}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal"><label class="subtitle">Fecha:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.fecha}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal"><label class="subtitle">Tiempo:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.tiempo}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal"><label class="subtitle">DC:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.dc}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal"><label class="subtitle">DW:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.dw}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal"><label class="subtitle">DNT:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.dnt}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal"><label class="subtitle">Eoa:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.eoa}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal"><label class="subtitle">Eoan:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.eoan}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="margin-left: 0;margin-right: 0;">
+                    <div class="field is-horizontal">
+                        <div class="field-label">
+                            <!-- Creando Espacio -->
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="field is-grouped">
+                                    <div class="control">
+                                        <button type="submit" class="button is-primary">
+                                            <span><i class="fas fa-save"></i> Guardar</span>
+                                        </button>
+                                    </div>
+                                    <div class="control">
+                                        <a href="{% url 'list_seoc' %}" class="button is-danger is-outlined">
+                                            <span><i class="fas fa-times"></i> Cancelar</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -40,6 +40,9 @@ function updatetable(){
             data: {
                 'action': 'searchdata'
             },
+            headers:{
+                'X-CSRFToken': csrftoken,
+            },
             dataSrc: ''
         },
         columns:[
@@ -85,7 +88,6 @@ function updatetable(){
             },
         ],
         initComplete: function(settings, json,data){
-            console.log(json);
         }
     });
 }
@@ -101,10 +103,10 @@ $(function (){
     $('#dtable').on('click', 'button[rel="delete"]' , function(){
         var id = $(this).attr('id');
         var parameters = {'action':'eliminar','id': parseInt(id) }        
-        confirm(window.location.pathname, 'Advertencia','Estas seguro que deseas eliminar este investigacion?','warning' ,parameters, function(){
+        confirm(window.location.pathname, 'Advertencia','Estas seguro que deseas eliminar esta Investigación?','warning' ,parameters, function(){
             Swal.fire({
-                title : 'Notificacion!',
-                text : 'Investigacion ha sido eliminado correctamente',
+                title : 'Notificación!',
+                text : 'Investigación ha sido eliminada correctamente',
                 icon: 'success',
                 timer: 3000,
                 onClose: () => {

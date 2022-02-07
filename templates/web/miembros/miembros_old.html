@@ -1,0 +1,45 @@
+{% extends 'web/navbar-body.html' %}
+{% load static %}
+
+{% block contenido_agregados %}
+<section class="wow animate__animated animate__fadeIn content has-background-white mt-6">
+    <h1 class="wow animate__animated animate__fadeInDown title is-1 center mb-4">{{ titulo_page }}</h1>
+    <hr>
+    <div id="app" class="content columns is-centered is-two-fifths is-multiline mt-3 has-background-light">
+        {% for m in miembros %}
+        <div class="wow animate__animated animate__fadeInUp column is-3" data-wow-duration="1.5s"style="min-height: 625px;">
+            <div class="card is-shady">
+                <div class="card-image pt-1 pl-1 pr-1">
+                    <figure class="image is-square">
+                        <img class="is-rounded" src="{{ m.get_imagen }}" alt="Imagen Perfil">
+                    </figure>
+                </div>
+                <div class="card-content pb-0" style="height: 325px;max-height:325px;">
+                    <div class="media">
+                        <div class="media-content">
+                            <h1 class="title is-5 mb-2">{{ m.full_name  | capfirst}}</h1><hr class="mt-0 mb-0">
+                            <p class="subtitle is-6 mb-0 mt-2 pt-0"><label for="" class="label">Correo:</label>{{ m.correo }}</p>
+                            <p class="subtitle is-6 mb-0 mt-2 pt-0"><label for="" class="label">Ocupación:</label>{{m.ocupacion}}</p>
+                            <p class="subtitle is-6 mb-0 mt-2 pt-0"><label for="" class="label">Estado:</label>{{ m.estado }}</p>
+                            {% if m.t_trabajo %}
+                            <p class="subtitle is-6 mb-0 mt-2 pt-0" style="height: 90px;"><label for="" class="label">Fecha de Ingreso:</label>
+                                <!-- sin año y sin mes de trabajo -->
+                                {{m.t_trabajo}}
+                            </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <footer class="card-footer">
+                    <a href="{% url 'perfil_miembros' m.id %}" class="card-footer-item"><span>Perfil</span></a>
+                    <hr>
+                </footer>
+            </div>
+
+        </div>
+        {% endfor %}
+        
+    </div>
+</section>
+
+{% endblock %}

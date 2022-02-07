@@ -20,7 +20,6 @@ class InstrumentoListView(LoginRequiredMixin,ListView):
         query = self.model.objects.all()
         return query
 
-    @csrf_exempt
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_superuser is False:
             messages.error(request, 'No tienes permisos suficiente para acceder')

@@ -2588,6 +2588,7 @@ html {
   text-size-adjust: 100%;
 }
 
+
 article,
 aside,
 figure,
@@ -7189,6 +7190,12 @@ button.dropdown-item.is-active {
   display: block;
   padding: 0.5rem 0;
 }
+.menu-list li a {
+  border-radius: 0;
+  color: #a8a7a7;
+  display: block;
+  padding: 0.5rem 0;
+}
 
 .menu-list a:hover {
   background-color: #262930;
@@ -7200,6 +7207,7 @@ button.dropdown-item.is-active {
   color: white;
 }
 
+
 .menu-list li ul {
   border-left: 1px solid #dbdbdb;
   margin: 0.75em;
@@ -7207,7 +7215,7 @@ button.dropdown-item.is-active {
 }
 
 .menu-label {
-  color: #666f81;
+  color: #336f81;
   font-size: 0.75em;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -13713,6 +13721,7 @@ aside.aside {
   background: #2e323a;
 }
 
+
 aside.aside .aside-tools {
   display: flex;
   flex-direction: row;
@@ -14109,3 +14118,25 @@ footer.footer .logo img {
   background-color: #ffdd57;
   border-radius: 290486px;
 }
+.info{
+  display: none;
+  position: fixed;
+  margin-top: 40px;
+	bottom: 0;
+	right: 0;
+	z-index: 40;
+	height: 40vh;
+	padding: 0;
+	box-shadow: none;
+  background: #2e323a;
+  transform: translateY(50px);
+  transition: 0.5s ease-in-out;
+}
+.info.is-active{
+  display:block;
+  transform: translateY(0);
+  transform: 0.5s ease-in-out;
+
+}
+
+

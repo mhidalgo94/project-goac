@@ -1,15 +1,4 @@
 
-// Agregar clases para interfas
-var input = document.getElementsByTagName('input');
-
-input.fecha_inicio.classList.add('input');
-input.fecha_inicio.placeholder='Ingrese fecha de inicio del taller';
-
-input.fecha_culmina.classList.add('input');
-input.fecha_culmina.placeholder='Ingrese fecha que termina del taller';
-    
-
-
 $(function (){
     $('.select2').select2({
         placeholder: 'Selecciona Participantes',

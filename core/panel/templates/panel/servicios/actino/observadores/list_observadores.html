@@ -15,42 +15,52 @@
             Observador</a>
     </div>
 </div>
-<div class="columns is-multiline">
+<div class="columns is-multiline pb-4">
     {% for m in obv %}
     <div class="column is-one-third">
-        <article class="message is-medium is-info">
-            <div class="message-header" style="height: 40px;">
-                <p><i class="fas fa-flag"></i> {{m.estacion}}</p>
-            </div>
-            <div class="message-body">
-                <div class="container ">
-                    <div class="level">
-                        <div class="level-item">
-                            <figure class="image is-128x128 ">
-                                <img src="{{ m.get_imagen }}" class="" alt="">
-                            </figure>
+        <div class="card">
+            <div class="card-content">
+                <article class="message is-medium is-info">
+                    <div class="message-header" style="height: 40px;">
+                        <p><i class="fas fa-flag"></i> 
+                            {% if m.estacion == None %}
+                                Ingrese Estacion
+                            {% else %}
+                            {{m.estacion}}
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="message-body">
+                        <div class="container ">
+                            <div class="level">
+                                <div class="level-item">
+                                    <figure class="image is-128x128 ">
+                                        <img src="{{ m.get_imagen }}" class="" alt="">
+                                    </figure>
+                                </div>
+                            </div>
+                            <p class="text has-text-centered is-size-6 mb-2 pr-0 pl-0">{{m.nombre}}</p>
+                            <p class="text has-text-centered"><b>{{ m.id }}</b></p>
                         </div>
                     </div>
-                    <p class="text has-text-centered is-size-6 mb-2 pr-0 pl-0">{{m.nombre}}</p>
-                    <p class="text has-text-centered"><b>{{ m.id }}</b></p>
-                </div>
-            </div>
-            <div class="message-footer has-background-grey-light pb-1">
-                <div class="level mt-0">
-                    <div class="level-item pt-1">
-                        <button rel="edit" value="{{m.id}}" obv="{{m.nombre}}" est="{{m.estacion}}"
-                            class="button is-small is-warning mr-1 pl-4"><i class="fas fa-edit mr-1"></i>
-                            Editar</button>
-                        <form action="." method="POST">
-                            <input type="hidden" name="id" value="{{m.id}}">
-                            <input type="hidden" name="action" value="delete">
-                            <button style="color: rgba(0,0,0,0.7);" class="button is-small is-danger pl-4"><i
-                                    class="fas fa-trash mr-1"></i> Eliminar</button>
-                        </form>
+                    <div class="message-footer has-background-grey-light pb-1">
+                        <div class="level mt-0">
+                            <div class="level-item pt-1">
+                                <button rel="edit" value="{{m.id}}" obv="{{m.nombre}}" est="{{m.estacion}}"
+                                    class="button is-small is-warning mr-1 pl-4"><i class="fas fa-edit mr-1"></i>
+                                    Editar</button>
+                                <form action="." method="POST">
+                                    <input type="hidden" name="id" value="{{m.id}}">
+                                    <input type="hidden" name="action" value="delete">
+                                    <button style="color: rgba(0,0,0,0.7);" class="button is-small is-danger pl-4"><i
+                                            class="fas fa-trash mr-1"></i> Eliminar</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </article>
             </div>
-        </article>
+        </div>
     </div>
     {% endfor %}
 </div>
@@ -58,7 +68,7 @@
 
 {% block javascript %}
 
-<!-- Modal para crear Sociedad Cientifica -->
+<!-- Modal para Observador -->
 <div class="modal modal-fx-fadeInScale" id="modal-observador" style="overflow: hidden;">
     <div class="modal-background"></div>
     <div class="modal-content is-medium">
@@ -66,12 +76,13 @@
             <input type="hidden" id="action" name="action" value="add-observador">
             <header class="modal-card-head has-background-info">
                 <h2 class="modal-card-title has-text-white">
-                    <i class="fas fa-plus mr-1"></i><b class="titulo">Agregar Miembro</b>
+                    <i class="fas fa-plus mr-1"></i><b class="titulo">Agregar Observador</b>
                 </h2>
                 <button type="button" id="modal-close" class="modal-close"></button>
             </header>
             <section class="modal-card-body has-background-white-ter has-text-black">
-                <p class="label is-size-7 has-text-grey">Para que tenga coincidencia la imagen debes poner el código que le corresponde con el archivo csv del actino</p>
+                <p class="label is-size-7 has-text-grey">Para que tenga coincidencia la imagen debes poner el código que
+                    le corresponde con el archivo csv del actino</p>
                 <!-- Nombre ... -->
                 <p class="subtitle has-text-grey mb-5 mr-1">Código: {{ form.id }}</i></p>
                 <!-- Estacion -->

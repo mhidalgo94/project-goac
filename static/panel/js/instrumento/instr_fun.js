@@ -37,6 +37,9 @@ function updatetable(){
         ajax: {
             url : window.location.pathname,
             type: 'POST',
+            headers:{
+                'X-CSRFToken':csrftoken,
+            },
             data: {
                 'action': 'searchdata'
             },
@@ -86,7 +89,7 @@ $(function (){
     $('#dtable').on('click', 'button[rel="delete"]' , function(){
         var id = $(this).attr('id');
         var parameters = {'action':'eliminar','id': parseInt(id) }        
-        confirm(window.location.pathname, 'Advertencia','Estas seguro que deseas eliminar este instrumento?','error' ,parameters, function(){
+        confirm(window.location.pathname, 'Advertencia','Estas seguro que deseas eliminar este instrumento?','warning' ,parameters, function(){
             Swal.fire({
                 title : 'Notificación!',
                 text : 'Instrumento ha sido eliminado correctamente',

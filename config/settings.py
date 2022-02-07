@@ -51,19 +51,30 @@ MIS_APP = [
     'core.servicios.actino',
     # Servicios Pyra y Par
     'core.servicios.pyra_par',
+    # Servicios SEOC
+    'core.servicios.seoc',
+    # Servicios Met
+    'core.servicios.met'
 ]
 APP_TERCEROS = [
-    # GeoDjango
-    # 'django.contrib.gis',
     # ckeditor post
     'ckeditor',
     'ckeditor_uploader',
+    # API REST
+    'rest_framework',
+    # Limpiar Archivos Media Viejos
+    'django_cleanup.apps.CleanupConfig',
+    # Doc API swagger
+    'drf_yasg',
 ]
 
 
 INSTALLED_APPS = BASE_APP + MIS_APP + APP_TERCEROS
 
 CKEDITOR_UPLOAD_PATH = 'uploads/'
+KEDITOR_ALLOW_NONIMAGE_FILES = False
+CKEDITOR_IMAGE_BACKEND = "pillow" 
+CKEDITOR_REQUIRE_STAFF=False
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -102,6 +113,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = SQLITE
 
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 10240
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -134,7 +146,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
@@ -144,16 +156,11 @@ USE_TZ = True
 DEBUG = True
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, '/static')
-STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static'),]
 
-
-if DEBUG:
-    STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'static')
-    ]
-else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
 
 
 # Media Files
@@ -176,13 +183,34 @@ CKEDITOR_CONFIGS = {
         'height': 500,
     }
 }
+
+
+# Control Servicios
+SERVICE_CONTROL_PATH = os.path.join(BASE_DIR,'static/servicios')
+SERVICE_CONTROL_FILE = 'servicios_control.txt'
+
 # Datos Actino
 ACTINO_ROOT = os.path.join(BASE_DIR, 'static/servicios/actino/csv')
 ACTINO_ESTACIONES = ["D","F", "J", "T"]
 ACTINO_HISTORICOS_ROOT = os.path.join(BASE_DIR,'static/servicios/actino/actino_historicos')
 
-# Archivo Error Servicios
-LOG_ERROR_ACTINO = os.path.join(BASE_DIR,'static/servicios/log')
+# Carpeta de LOG
+FOLDER_LOG_ROOT = os.path.join(BASE_DIR,'static/servicios/log')
+
+# Archivo Error Servicios Actino
+LOG_ERROR_ACTINO = os.path.join(FOLDER_LOG_ROOT,'actino_log.txt')
+
+# Archivo Error Servicio SEOC
+LOG_ERROR_SEOC = os.path.join(FOLDER_LOG_ROOT, 'seoc_log.txt')
+
+# Archivo Error MEt
+LOG_ERROR_MET = os.path.join(FOLDER_LOG_ROOT, 'met_log.txt')
+
+# Configuracion Rest Framework
+REST_FRAMEWORK = {
+    'NON_FIELD_ERRORS_KEY':'errors'
+}
+
 
 # Envio de correo
 # EMAIL_HOST = 'smtp.googlemail.com'

@@ -29,16 +29,84 @@
           <label for="" class="subtitle ml-1">{{ info.head_card}}</label>
         </p>
       </header>
-      <div class="card-content pr-2 pt-2 pl-2 pb-2">
+      <div class="card-content pr-2 pt-2 pl-2 pb-2 mt-4">
         {% block contenido %}
 
         {% endblock %}
       </div>
     </div>
+    <!-- Este es el Contenido Boton Info al lado Logout -->
+    <!-- <aside id="aside_info" class="info is-placed-right">
+      <div class="aside-container jb-has-perfect-scrollbar ps ps--active-y">
+        <div>
+          <article class="media">
+            <div class="media-content">
+              <div class="content"><p>Voluptatibus autem amet aliquam ea odit recusandae...</p></div>
+              <nav class="level is-mobile">
+                <div class="level-left">
+                  <div class="level-item">
+                    <span class="tag is-small is-danger">
+                      <span class="icon is-small"><i class="mdi mdi-information"></i></span>
+                    </span>
+                  </div>
+                  <div class="level-item"><small>2 months ago</small></div>
+                </div>
+              </nav>
+            </div>
+          </article>
+          <article class="media">
+            <div class="media-content">
+              <div class="content"><p>Impedit ducimus eaque voluptas sed non sapiente...</p></div>
+              <nav class="level is-mobile">
+                <div class="level-left">
+                  <div class="level-item">
+                    <span class="tag is-small is-success">
+                      <span class="icon is-small"><i class="mdi mdi-information"></i></span>
+                    </span>
+                  </div>
+                  <div class="level-item"><small>2 months ago</small></div>
+                </div>
+              </nav>
+            </div>
+          </article>
+          <article class="media">
+            <div class="media-content">
+              <div class="content"><p>Ad quisquam et quam debitis rerum rerum...</p></div>
+              <nav class="level is-mobile">
+                <div class="level-left">
+                  <div class="level-item">
+                    <span class="tag is-small is-warning">
+                      <span class="icon is-small"><i class="mdi mdi-information"></i></span>
+                    </span>
+                  </div>
+                  <div class="level-item"><small>2 months ago</small></div>
+                </div>
+              </nav>
+            </div>
+          </article>
+          
+        </div>
+      <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 586px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 181px;"></div></div></div>
+    </aside> -->
   </section>
+
+  
   
 </div>
-
+<!-- Para mostrar INfo -->
+<!-- <script type="text/javascript">
+  let btn_info = document.getElementById('btn-info');
+  let aside_info = document.getElementById('aside_info')
+    btn_info.addEventListener('click',function(){
+      let check_class = aside_info.classList.contains('is-active');
+      console.log(check_class);
+      if (check_class == false){
+        aside_info.classList.add('is-active');
+      }else{
+        aside_info.classList.remove('is-active');
+      }
+    });
+</script> -->
 
 <script>
   {% if form.errors %}

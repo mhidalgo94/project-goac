@@ -37,6 +37,9 @@ function updatetable(){
         ajax: {
             url : window.location.pathname,
             type: 'POST',
+            headers:{
+                'X-CSRFToken':csrftoken,
+            },
             data: {
                 'action': 'searchdata'
             },
@@ -60,14 +63,6 @@ function updatetable(){
                     return btn
                 }
             },
-            // {
-            //     targets: [-2],
-            //     class : 'is-center',
-            //     orderable: false,
-            //     render: function(data,type,row){
-            //         return '<img src="'+row.imagen+'" class="image" style="width: 48px; height: 48px;">'
-            //     }
-            // },
             {
                 targets: [-2],
                 class: 'is-center',
@@ -83,8 +78,7 @@ function updatetable(){
                 render: function (data, type, row) {
                     let html='';
                     $.each(row.miembro, function (key,value) {
-                        // html += '<div><img src="'+value.imagen+'" class="image" style="width: 48px; height: 48px;"></div>'
-                       html += '<span class="tag has-background-white"><img src="'+value.imagen+'" class="image" style="width: 48px; height: 48px;"></span>'; 
+                       html += '<figure class="tag has-background-white"><img src="'+value.imagen+'" class="image mt-2" style="width: 48px; height: 48px;"></figure>'; 
                     });
                     return html;
 

@@ -14,7 +14,6 @@ class NoticiasListView(LoginRequiredMixin,ListView):
     template_name = 'panel/noticias/list_noticias.html'
 
 
-    @csrf_exempt
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 

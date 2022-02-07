@@ -3,10 +3,14 @@
 <div class="transparent navbar-menu" style="background: transparent">
     
     <div class="navbar-end">
+        <a href="{% url 'portada' %}" class="navbar-item">
+            Inicio
+        </a>
+        {% if noticias %}
         <a href="{% url 'noticias' %}" class="navbar-item">
             Noticias
         </a>
-
+        {% endif %}
         <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link ">
                  Publicaciones
@@ -16,7 +20,7 @@
                     Reportes
                 </a>
                 <a class="navbar-item" href="{% url 'art_arbitrajes' %}">
-                    Articulos
+                    Artículos
                 </a>
                 <a class="navbar-item" href="{% url 'eventos' %}">
                     Eventos
@@ -27,27 +31,47 @@
         {% if nav_inv %}
         <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link">
-                Investigaciones
+                Proyectos de Investigación
             </a>
             <div class="navbar-dropdown">
                 {% for i in nav_inv %}
-                <a href="{% url 'det_investigaciones' i.nombre %}" class="navbar-item">
+                <a href="{% url 'list_investigaciones' i.nombre %}" class="navbar-item">
                     {{ i.nombre }}
                 </a>
                 {% endfor %}
             </div>
         </div>
         {% endif %}
-        <a href="{% url 'todos_talleres' %}" class="navbar-item">
-            Talleres
-        </a>
+        <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+                WLMLA
+            </a>
+            <div class="navbar-dropdown">
+                <a href="#" class="navbar-item">
+                    Génesis 
+                </a>
+                <a href="{% url 'todos_talleres' %}" class="navbar-item">
+                    Talleres
+                </a>
+            </div>
+        </div>
+        
         <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link ">
                  Servicios
             </a>
             <div class="navbar-dropdown">
                 <a class="navbar-item " href="{% url 'servicio_actino' %}">
-                    Actinométrica
+                    SDRS
+                </a>
+                <a class="navbar-item " href="{% url 'servicio_seoc' %}">
+                    SEOC
+                </a>
+                <a class="navbar-item " href="{% url 'servicio_met' %}">
+                   Estación Automática MET
+                </a>
+                <a class="navbar-item " href="{% url 'servicios_pyra_par' %}">
+                    Estación Automática RS
                 </a>
             </div>
         </div>

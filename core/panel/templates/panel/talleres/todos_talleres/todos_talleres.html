@@ -6,74 +6,127 @@
 {% endblock %}
 {% block contenido %}
 
-	{% if object_list %}
-	<form action="." method="POST">
-        {% csrf_token %}
-        <div class="container">
-            <div class="level mb-2 mr-2">
-				<div class="level-left">
-					<!-- dando espacio iquierdo -->
-					<p class="control">
-						<a href="{% url 'create_talleres' %}" class="button is-success has-text-white is-small ml-1"><i class="fas fa-plus mr-1"></i> Crear Nuevo Taller</a>
-					</p>
-				</div>
-				<div class="level-right">
-					<p class="control pr-0" style="width: 250px;">
-						<input type="text" name="buscar" class="input is-small is-primary" placeholder="Escriba la busqueda">
-					</p>
-					<p class="control pl-0">
-						<button class="button is-primary is-small ml-0"><i class="fas fa-search"></i></button>
-					</p>
-				</div>
-            </div>
-        </div>
-    </form>
-		{% for taller in object_list %}
+{% if object_list %}
+<form action="." method="POST">
+	{% csrf_token %}
+	<div class="container">
+		<div class="level mb-2 mr-2">
+			<div class="level-left">
+				<!-- dando espacio iquierdo -->
+				<p class="control">
+					<a href="{% url 'create_talleres' %}" class="button is-success has-text-white is-small ml-1"><i
+							class="fas fa-plus mr-1"></i> Crear Nuevo Taller</a>
+				</p>
+			</div>
+			<div class="level-right">
+				<p class="control pr-0" style="width: 250px;">
+					<input type="text" name="buscar" class="input is-small is-primary"
+						placeholder="Escriba la busqueda">
+				</p>
+				<p class="control pl-0">
+					<button class="button is-primary is-small ml-0"><i class="fas fa-search"></i></button>
+				</p>
+
+				{% if busqueda %}
+				<p class="control">
+					<a href="{% url 'list_talleres' %}" class="button is-info has-text-white is-small ml-1"><i
+							class="fas fa-reply mr-1"></i></a>
+				</p>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</form>
+{% if busqueda %}
+<div class="container pt-2">
+	<p>Su búsqueda: <span>{{busqueda}}</span></p>
+{% endif %}
+
+<div class="container">
+
+	{% for taller in object_list %}
+	<div class="container mt-4">
 		<a href="{% url 'edit_talleres' taller.id %}" class="is-shady">
 			{% if taller.verificar_tiempo %}
 			<article class="message is-info">
-			{% else %}
-			<article class="message is-dark-passive">
-			{% endif %}
-				<div class="message-header">
-					<p>{{ taller.titulo }}</p>
-					{% if taller.verificar_tiempo %}
+				{% else %}
+				<article class="message is-dark-passive">
+					{% endif %}
+					<div class="message-header">
+						<p>{{ taller.titulo }}</p>
+						{% if taller.verificar_tiempo %}
 						<p>
-						<span>{{ taller.fecha_inicio }} hasta </span>
-						<span>{{ taller.fecha_culmina }}</span>
-					</p>
+							<span>{{ taller.fecha_inicio }} hasta </span>
+							<span>{{ taller.fecha_culmina }}</span>
+						</p>
 						{% else %}
 						<p>
-						<span>{{ taller.fecha_inicio }} hasta </span>
-						<span>{{ taller.fecha_culmina }}</span>
-					</p>
-					{% endif %}
-				</div>
-				<div class="message-body">
-					{{ taller.descripcion }}
-				</div>
-			</article>
-			<hr>
+							<span>{{ taller.fecha_inicio }} hasta </span>
+							<span>{{ taller.fecha_culmina }}</span>
+						</p>
+						{% endif %}
+					</div>
+					<div class="message-body">
+						{{ taller.descripcion }}
+					</div>
+				</article>
 		</a>
+	</div>
 
-		{% endfor %}
-	{% else %}
-	<article class="hero">
-		<div class="hero-body">
-			<div class="level mb-2 mr-2">
-			<h1 class="title">No existen talleres</h1>
+	{% endfor %}
 
-				<div class="level-left">
-					<!-- dando espacio iquierdo -->
-					<p class="control">
-						<a href="{% url 'create_talleres' %}" class="button is-success has-text-white is-small ml-1"><i class="fas fa-plus mr-1"></i> Crear Nuevo Taller</a>
-					</p>
+</div>
+<!-- <hr class="ml-0 mr-0"> -->
+{% else %}
+<article class="hero">
+	<div class="hero-body pt-2">
+		{% if busqueda %}
+		<form action="." method="POST">
+			{% csrf_token %}
+			<div class="container">
+				<div class="level mb-2 mr-2">
+					<div class="level-left">
+						<!-- dando espacio iquierdo -->
+						<p class="control">
+							<a href="{% url 'create_talleres' %}"
+								class="button is-success has-text-white is-small ml-1"><i class="fas fa-plus mr-1"></i>
+								Crear Nuevo Taller</a>
+						</p>
+					</div>
+					<div class="level-right">
+						<p class="control pr-0" style="width: 250px;">
+							<input type="text" name="buscar" class="input is-small is-primary"
+								placeholder="Escriba la busqueda">
+						</p>
+						<p class="control pl-0">
+							<button class="button is-primary is-small ml-0"><i class="fas fa-search"></i></button>
+						</p>
+						<p class="control">
+							<a href="{% url 'list_talleres' %}" class="button is-info has-text-white is-small ml-1"><i
+									class="fas fa-reply mr-1"></i></a>
+						</p>
+					</div>
 				</div>
-            </div>
-				
+			</div>
+		</form>
+		<div class="container pt-2">
+			<p>Su búsqueda: <span>{{busqueda}}</span></p>
+		<h1 class="title">No se encontraron talleres</h1>
 		</div>
-	</article>
-	{% endif  %}
+
+		{% else %}
+		<div class="level mb-2 mr-2">
+			<h1 class="title">No existen talleres</h1>
+			<p class="control">
+				<a href="{% url 'create_talleres' %}" class="button is-success has-text-white is-small ml-1"><i
+						class="fas fa-plus mr-1"></i> Crear Nuevo Taller</a>
+			</p>
+		</div>
+		{% endif %}
+
+	</div>
+</article>
+{% endif %}
 
 {% endblock %}
 

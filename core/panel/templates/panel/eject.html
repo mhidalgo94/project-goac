@@ -1,0 +1,72 @@
+{% extends 'panel/erp/forms.html' %}
+{% load static %}
+
+{% block contenido %}
+<div class="blog pt-0 mt-0">
+    <div class="content">
+        <div class="blog has-background-light pl-1 pt-1" id="resp-contenido" style="max-height: 400px;overflow: auto;">
+        </div>
+    </div>
+    <div class="container">
+            <div class="field">
+                <div class="field-body">
+                    <input name="command" type="text" class="input  is-small control mr-1">
+                    <button type="submit" class="button is-dark is-small control mr-1"> <i class="fas fa-play"></i></button>
+                    <button class="button is-warning is-small control" id="clear"> <i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+
+    let command = document.querySelector('input[name="command"]');
+    command.focus();
+    let elem = document.getElementById('resp-contenido');
+    const clear = document.getElementById('clear');
+    clear.addEventListener('click', ()=>{   
+        while(elem.firstChild){
+            elem.removeChild(elem.firstChild);
+        }
+        command.focus();
+
+    })
+
+    let crearElemento = (datos)=>{        
+        for (let i=0; i < datos.length; i++){
+            const p = document.createElement('p');
+            p.textContent = datos[i];
+            elem.appendChild(p);
+        }
+    }
+
+    const btnsubmit = document.querySelector('button[type="submit"]');
+    btnsubmit.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        $.ajax({
+            url: window.location.pathname,
+            type: 'POST',
+            headers: {
+                "X-CSRFToken": csrftoken,
+            },
+            data: {
+                'command': command.value
+            },
+            dataType: 'json',
+        }).done(function (data) {
+            crearElemento(data.output);
+        }).fail(function (error) {
+            alert(error);
+            console.log(error);
+        }).always(function (json) {
+            command.focus();
+        });
+    });
+
+</script>
+{% endblock %}

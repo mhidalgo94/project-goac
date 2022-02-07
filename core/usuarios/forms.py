@@ -46,7 +46,7 @@ class UsuariosForm(ModelForm):
 					'placeholder': 'Correo electrónico',
 					'autocomplete': 'off'
 				}),
-			'is_superuser': forms.CheckboxInput(),
+			'is_staff': forms.CheckboxInput(),
 			
 		}
 

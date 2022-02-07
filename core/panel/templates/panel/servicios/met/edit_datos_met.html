@@ -1,0 +1,152 @@
+{% extends 'panel/erp/forms.html' %}
+{% load static %}
+
+
+{% block contenido %}
+
+<div class="tile is-ancestor">
+    <div class="tile is-parent">
+        <div class="tile is-child">
+            <div class="card-content mt-4 pr-4">
+                <form id="form-0" action="." method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal"><label class="subtitle">Fecha:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.fecha}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal"><label class="subtitle">TA:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.ta}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal"><label class="subtitle">HR:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.hr}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal"><label class="subtitle">VV:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.vv}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal"><label class="subtitle">DV:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.dv}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal"><label class="subtitle">RI:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.ri}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal"><label class="subtitle">HI:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.hi}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal"><label class="subtitle">RC:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.rc}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal"><label class="subtitle">HC:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.hc}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal"><label class="subtitle">PR:</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    {{ form.pr}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="margin-left: 0;margin-right: 0;">
+                    <div class="field is-horizontal">
+                        <div class="field-label">
+                            <!-- Creando Espacio -->
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="field is-grouped">
+                                    <div class="control">
+                                        <button type="submit" class="button is-primary">
+                                            <span><i class="fas fa-save"></i> Guardar</span>
+                                        </button>
+                                    </div>
+                                    <div class="control">
+                                        <a href="{% url 'list_met' %}" class="button is-danger is-outlined">
+                                            <span><i class="fas fa-times"></i> Cancelar</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

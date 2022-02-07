@@ -24,6 +24,9 @@ $(function () {
                 $.ajax({
                     url: window.location.pathname,
                     type: 'POST',
+                    headers:{
+                        'X-CSRFToken':csrftoken,
+                    },
                     data: parameters,
                     dataType: 'json',
                     processData: false,
@@ -66,6 +69,9 @@ $(function () {
                 $.ajax({
                     url: window.location.pathname,
                     type: 'POST',
+                    headers:{
+                        'X-CSRFToken':csrftoken,
+                    },
                     data: parameters,
                     dataType: 'json',
                     processData: false,

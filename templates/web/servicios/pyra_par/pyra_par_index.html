@@ -1,0 +1,165 @@
+{% extends 'web/navbar-body.html' %}
+{% load static %}
+
+{% block head %}
+<!-- HigthChart 8.1 -->
+<script src="{% static 'lib/highcharts-8.1/highcharts.js' %}"></script>
+<script src="{% static 'lib/highcharts-8.1/modules/exporting.js' %}"></script>
+<script src="{% static 'lib/highcharts-8.1/modules/export-data.js' %}"></script>
+<script src="{% static 'lib/highcharts-8.1/modules/accessibility.js' %}"></script>
+
+<!-- Bulma Calendar -->
+<link rel="stylesheet" href="{% static 'lib/bulma-calendar/css/bulma-calendar.min.css' %}" />
+<script src="{% static 'lib/bulma-calendar/js/bulma-calendar.min.js' %}"></script>
+
+
+<script type="text/javascript">
+    // Esta es la fecha del dia llamadas por los graficos diario y mensuales
+    let date = new Date();
+    var fecha_hoy = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+</script>
+
+
+{% endblock %}
+
+{% block contenido_agregados %}
+<section class="wow animate__animated animate__fadeInUp section has-background-white" style="min-height: 80rem;">
+    <h1 class="title is-1 center mb-4 has-text-center">{{ titulo_page }}</h1>
+    <!-- Select Pestaña -->
+    <div class="tabs is-centered is-boxed">
+        <ul>
+            <li class="pr-1" id="mediciones">
+                <a>
+                    <span class="icon is-small"><i class="fas fa-flag"></i></span>
+                    <span><b>Mediciones</b></span>
+                </a>
+            </li>
+            <li class="pr-1" id="info">
+                <a>
+                    <span class="icon is-small"><i class="fas fa-info"></i></span>
+                    <span><b>Información</b></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Mediciones -->
+
+    <section id="section-mediciones" class="section pl-0 pr-0 pt-2 mt-4">
+        <section class="section is-main-section pb-2 mb-2 pt-0 pl-0 pr-0 ">
+            
+            <div class="container is-centered" >
+                <div class="tile mb-2">
+                    <!-- Piranometro Maximo -->
+                    <div class="tile is-6 is-vertical is-parent">
+                        <div class="card tile is-child">
+                            <div class="card-content">
+                                <div class="level is-mobile">
+                                    <div class="level-item">
+                                        <div class="is-widget-label">
+                                            <h3 class="subtitle is-spaced">
+                                                Irradiancia Global (W/m²)
+                                            </h3>
+                                            <h1 id="ultipira" class="title"></h1>
+                                            <p id="ultidatepira" class="pt-0 pl-0"></p>
+
+                                        </div>
+                                    </div>
+                                    <div class="level-item has-widget-icon">
+                                        <div class="is-widget-icon" style="font-size: 54px;"><span
+                                                class="icon has-text-success is-large">
+                                                <i class="fas fa-clock"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tile is-6 is-vertical is-parent">
+                        <div class="card tile is-child">
+                            <div class="card-content">
+                                <div class="level is-mobile">
+                                    <div class="level-item">
+                                        <div class="is-widget-label">
+                                            <h3 class="subtitle is-spaced">
+                                                PAR (micromole / m²s)
+                                            </h3>
+                                            <h1 id="ultipar" class="title"> </h1>
+                                            <p id="ultidatepar" class="pt-0 pl-0"></p>
+                                        </div>
+                                    </div>
+                                    <div class="level-item has-widget-icon">
+                                        <div class="is-widget-icon" style="font-size: 54px;"><span
+                                                class="icon has-text-success">
+                                                <i class="fas fa-clock"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <div class="container" style="margin: 0 auto;width: 60%;">
+            <div class="columns is-centered">
+                <div class="column">
+                    <div class="blog has-background-light" style="padding:8px;border-radius:5px;">
+                        <h5 id="fecha" class="is-5 has-text-centered mb-0"></h5>
+                    </div>
+                </div>
+                {% if request.user.is_authenticated %}
+                <div class="column">
+                    <div class="content center">
+                        <div class="field has-addons center ml-5 mt-1" style="width:240px;">
+                            <div class="control">
+                                <input type="date" class="input is-small mr-0" style="width: 120px;" placeholder="Buscar por fecha"
+                                    id="input-fecha">
+                            </div>
+                            <div class="control ">
+                                <a class="button is-info is-small ml-0" type="text" id="buscar"><i class="fas fa-search"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        var calendario = bulmaCalendar.attach("#input-fecha", {
+                            startDate: new Date(),
+                            dateFormat: 'YYYY-MM-DD',
+                            showClearButton: false,
+                        });
+                    </script>
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+        <div class="content" style="margin: 0 auto;">
+            <figure class="highcharts-figure">
+                <div id="pyra-par"></div>
+                <p class="highcharts-description">
+                    Descripcion del contenido que se mostrara en la tabla
+                </p>
+
+            </figure>
+        </div>
+    </section>
+
+
+    <!-- Informacion servicio -->
+    <section id="section-info" class="section">
+        <div class="content" style="margin: 0 auto;">
+            <h1 class="title is-2 center">Aki va la info</h1>
+
+        </div>
+    </section>
+
+</section>
+
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/servicios/pyra_par/func_basic.js' %}"></script>
+
+{% endblock %}
