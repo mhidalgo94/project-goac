@@ -43,10 +43,29 @@
             
           </div>
         </div>
-        <a id="btn-info" class="navbar-item has-divider is-desktop-icon-only">
+        <div id="btn-info" class="navbar-item has-divider is-desktop-icon-only" style="margin: 0;padding:0;">
           <span class="icon"><i class="fas fa-question-circle"></i></span>
           <span>Información</span>
-        </a>
+          <div class="container" id="tooltip">
+            <div class="content" id="tooltipinfo">
+              <h6 id="text-t">Desarrollado por:</h6>
+              <p id="text-p">Mario Sergio Hidalgo Rodriguez</p>
+              <h6>Correo:</h6>
+              <p>marito.hidalgo94@gmail.com</p>
+              <p id="span">2021-2022</p>
+            </div>
+          </div>
+          <script type="text/javascript">
+              let btn = document.querySelector("#btn-info");
+              let tooltip = document.querySelector("#tooltip");
+              btn.onmouseover = function(){
+                tooltip.style.display  = "block"
+              }
+              btn.onmouseout = function(){
+                tooltip.style.display  = "None"
+              }
+          </script>
+        </div>
         <a href="{% url 'logout' %}" title="Log out" class="navbar-item is-desktop-icon-only">
           <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
           <span>Salir</span>
