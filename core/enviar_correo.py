@@ -3,7 +3,7 @@ import socks
 
 
 #'PROXY_TYPE_SOCKS4' puedes replazarlo por HTTP o PROXY_TYPE_SOCKS5
-socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS4, '10.1.107.19', 3128, 'mario.hidalgo', 'hr9420*') # usuario y pass del proxy
+socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS4, '10.1.107.19', 3128, 'email', 'password') # usuario y pass del proxy
 socks.wrapmodule(smtplib)
 
 smtpserver = 'smtp.gmail.com'
